@@ -1,0 +1,88 @@
+site_name: RKD as Rocketdoo
+site_url: https://rkd-docs.readthedocs.io/en/latest
+theme:
+  name: material
+  language: en
+  favicon: assets/favicon.svg
+  features:
+    - content.code.copy        # Habilita el botón de copiar
+    - content.code.select      # Permite seleccionar código
+    - content.code.annotate 
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Change to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Change to light mode
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+
+site_description: "Rocketdoo version 2 is a powerful tool for Odoo development, designed to streamline the process and enhance productivity."
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: es
+          name: Español
+          build: true
+          nav_translations:
+            Home: Inicio
+            Get Started: Comenzar
+            Windoows and WSL2: Windows y WSL2
+            Instructions: Instrucciones
+            Steps: Pasos
+            Launch Rocketdoo: Lanzar Rocketdoo
+            Rocketdoo Structure: Estructura de Rocketdoo
+            Private Repositories: Repositorios Privados
+            Public Repositories: Repositorios Públicos
+            Recommended extensions: Extensiones recomendadas
+            Command Line: Linea de Comandos
+            Use Cases: Casos de Uso
+            Common Mistakes: Errores Comunes
+            Debugging in Odoo: Depurando en Odoo
+            How to collaborate in this project?: ¿Cómo colaborar en este proyecto?
+            HelpDesk: Mesa de Ayuda
+        
+nav:
+  - Home: index.md
+  - Get Started: get-started.md
+  - Windows and WSL2: windows.md
+  - Instructions: instructions.md
+  - Steps: steps.md
+  - Launch Rocketdoo: launch.md
+  - Rocketdoo Structure: structure.md
+  - Private Repositories: private.md
+  - Public Repositories: public.md
+  - Recommended extensions: recommend-extensions.md
+  - Command Line: command.md
+  - Use Cases: use-cases.md
+  - Common Mistakes: common-mistakes.md
+  - Debugging in Odoo: debugging-odoo.md
+  - How to collaborate in this project?: collaborate.md
+  - HelpDesk: helpdesk.md
