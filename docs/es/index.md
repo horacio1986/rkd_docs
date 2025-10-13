@@ -1,4 +1,6 @@
-# Bienvenido a ROCKETDOO
+# Bienvenido a RKD como ROCKETDOO
+
+> Ahora la version 2 de ROCKETDOO con us alias RKD
 
 ![rocketdoo-welcome](../img/banner.png)
 
@@ -31,7 +33,7 @@ Rocketdoo utiliza las siguientes herramientas para cumplir su función:
 * Git y GitHub (o cualquier gestor de control de versiones).
 * Llave SSH para gestión de repositorios privados.
 * Gitman.
-* Python y su gestor de paquetes `pip`.
+* Python y su gestor de paquetes `pip` o `pipx`.
 * Uso de terminal CLI.
 * Visual Studio Code.
 * Extensiones necesarias para Visual Studio Code (más adelante listaremos las recomendadas).
