@@ -1,114 +1,78 @@
 # Línea de Comandos
 
-Aquí tienes los comandos más comunes que puedes usar en **ROCKETDOO**.
+Aquí tienes los comandos más comunes que puedes usar en **RKD** **ROCKETDOO**.
 
-* Iniciar el framework:
-
-~~~
-rocketdoo
-~~~
-
-* Levantar el entorno una vez finalizado el lanzador:
+* Version de Rocketdoo:
 
 ~~~
-docker compose up
+rocketdoo --version
 ~~~
 
-* Levantar el entorno en modo desacoplado (sin mostrar los logs en la terminal):
+* Ayuda y comandos disponibles:
 
 ~~~
-docker compose up -d
+rocketdoo --help
 ~~~
 
-* Conceder permisos para usar Docker sin necesidad de *sudo*:
+* Crear el arbol de directorios y archivos:
 
 ~~~
-sudo groupadd docker
+rocketdoo scaffold
 ~~~
 
-~~~
-sudo usermod -aG docker $USER
-~~~
-
-Después de esto, deberías poder ejecutar Docker sin *sudo*.  
-Si no funciona de inmediato, prueba con:
+* Iniciar el asistente:
 
 ~~~
-sudo newgrp docker
-sudo usermod -aG docker $USER
+rocketdoo init
 ~~~
 
-* Pausar todos los contenedores:
+
+* Lanzar el despliegue de Odoo:
 
 ~~~
-docker compose pause
+rocketdoo up -d 
 ~~~
 
-* Reanudar todos los contenedores:
+* Conocer el estado de tus contenedores:
 
 ~~~
-docker compose unpause
+rocketdoo status
 ~~~
 
 * Detener todos los contenedores:
 
 ~~~
-docker compose stop
+rocketdoo stop
 ~~~
 
-* Pausar o detener un contenedor específico:
+* Pausar o detener un contenedor:
 
 ~~~
-docker container pause <nombre-del-contenedor> 
-docker container stop <nombre-del-contenedor>
+rocketdoo stop
 ~~~
 
 * Reiniciar los contenedores:
 
 ~~~
-docker compose restart
+rocketdoo restart
 ~~~
 
 * Eliminar los contenedores:
 
 ~~~
-docker compose down
+rocketdoo down
 ~~~
 
 * Eliminar contenedores y sus volúmenes asociados:
 
 ~~~
-docker compose down -v
+rocketdoo down -v
 ~~~
 
 * Forzar la reconstrucción del entorno:
 
 ~~~
-docker compose up --build
-~~~
-
-* Ver el estado de los contenedores:
-
-~~~
-docker compose ps
-~~~
-
-* Listar las imágenes Docker disponibles:
-
-~~~
-docker image ls
-~~~
-
-* Eliminar una imagen Docker:
-
-~~~
-docker rmi <nombre-de-la-imagen>
-~~~
-
-* Limpiar tu sistema eliminando imágenes y datos Docker que ya no uses:
-
-~~~
-docker system prune
+rocketdoo build
 ~~~
 
 * Actualizar masivamente los paquetes de módulos cargados como repositorios públicos con Gitman:  

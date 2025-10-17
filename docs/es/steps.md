@@ -2,91 +2,110 @@
 
 ### Paso 1:
 
-Lo primero que debemos hacer es ir al repositorio de **ROCKETDOO** <a href="https://github.com/HDM-soft/rocketdoo" target="_blank">aquí</a>
-
-Es imprescindible entender que este repositorio está construido como una **Plantilla**, por lo tanto, debe usarse como plantilla y NO debe clonarse ni bifurcarse directamente.
+Verifica tener instalado Docker y Docker Compose, ya que es una herramienta tan importante como la misma **Rocketdoo**
 
 ### Paso 2:
 
-Usa la plantilla para crear tu propio repositorio de desarrollo haciendo clic en el botón *use this template* y luego en *create new repository*.
-Esto te llevará a tu cuenta de GitHub para que puedas comenzar a crear tu repositorio de desarrollo.
+Instalar **Rocketdoo**
 
-![rocketdoo-docs-img](../img/rocketdoo-docs-paso2.png)
+~~~~
+pipx install rocketdoo
+~~~~
 
 ### Paso 3:
 
-En tu cuenta, deberás nombrar tu proyecto de desarrollo y, si lo deseas, agregar una descripción.  
-Es importante que **NO selecciones** *include all branches*, ya que solo necesitas la rama *main* para desarrollar.  
-Una vez listo, decides si el desarrollo será público o privado y haces clic en el botón *create repository*.
-
-![rocketdoo-docs-img](../img/rocketdoo-docs-paso3.png)
-
-### Paso 4:
-
-Una vez creado el repositorio, puedes clonarlo copiando el enlace por *URL* o por *SSH*.
-
-![rocketdoo-img-4](../img/rocketdoo-docs-paso4.png)
-
-![rocketdoo-img-4/1](../img/rocketdoo-docs-paso4-1.png)
-
-### Paso 5:
-
-Ingresa al repositorio creado y clonado desde nuestra plantilla **ROCKETDOO** con el siguiente comando:
-
-~~~
-cd my-dev-on-odoo
-~~~
-
-Una vez dentro del repositorio, listamos todos los archivos con el comando:
-
-~~~
-ls
-~~~
-
-![rocketdoo-img-5](../img/rocketdoo-docs-paso5.png)
-
-### Paso 6:
-
-En este paso ya deberías tener instalada la librería **ROCKETDOO**.  
-Si no la tienes, puedes instalarla con el siguiente comando:
-
-~~~
-sudo pip install rocketdoo
-~~~
-
-Asegúrate de que **ROCKETDOO** esté instalado correctamente.  
-***(Si la terminal genera un error al intentar instalar ROCKETDOO u otra librería, veremos cómo resolverlo en la sección de "Errores comunes")***
-
-### Paso 7:
-
-Instala los requerimientos del archivo ***requirements.txt***:
+Instala los requerimientos del archivo ***requirements.txt*** si es que no se instalaron por defecto:
 
 ~~~
 sudo pip install -r requirements.txt
 ~~~
 
+### Paso 4:
+
+Verifica la version instalada para estar seguro de que sea la version 2; ya la antigua version seguira disponible.
+
+~~~~
+rocketdoo --version
+~~~~
+
+
+![rocketdoo-docs-img](../img/rkd-versionado.png)
+
+### Paso 5:
+
+Ahora ya puedes crear un directorio a gusto para comenzar. Sin embargo es recomendable que tu directorio haga referencia a
+un desarrollo destinado a Odoo, creo que es lo mas logico, no ? 
+
+
+### Paso 6:
+
+Una vez creado tu directorio de trabajo, mantener el mismo vacio y una vez dentro de el, puedes ejecutar tu primer comando:
+
+~~~~
+rkd scaffold
+~~~~
+Este comando creara dentro de tu directorio de trabajo todos los archivos y carpetas necesarias para poder construir tu 
+ambiente de desarrollo en Odoo y depurar codigo con VSCode.
+
+
+
+![rocketdoo-img-5](../img/rkd-scaffold.png)
+
+### Paso 7:
+
+Ejecuta el comando para dar inicio al asistente de **Rocketdoo**, el mismo te guiara paso a paso, sobre todo lo 
+necesario para configurar tu ambiente de desarrollo. 
+Sigue los pasos y responde todas y cada una de sus preguntas.
+
+~~~
+rkd init
+~~~
+
+![rocketdoo-img-5](../img/rkd-init.png)
+
+
 ### Paso 8:
 
-Ahora debes ingresar a la subcarpeta **rocketdoo**, es decir, quedarás ubicado en ***my-dev-on-odoo/rocketdoo***
+Una vez finalizado el asistente podrias verificar como se construyo tu ambiente con el comando:
 
-~~~
-cd rocketdoo
-~~~
+~~~~
+rkd info
+~~~~
 
-![rocketdoo-img-8](../img/rocketdoo-docs-paso8.png)
+![rocketdoo-img-5](../img/rkd-info.png)
 
 ### Paso 9:
 
-En este paso puedes abrir Visual Studio Code con el comando:
+Con el siguiente comando ya podras desplegar tu ambiente de desarrollo
 
-~~~
-code .
-~~~
+~~~~
+rkd up -d
+~~~~
 
-Y esto abrirá tu área de trabajo, es decir, el entorno de desarrollo.
+### Paso 10:
 
-![rocketdoo-img-9](../img/rocketdoo-docs-paso9.png)
+Una vez finalizado el despliegue exitosamente puedes acceder con tu navegador de preferencia con la url:
+http://localchost:{puerto-odoo}
 
+
+## NOTAS 
+
+> Rocketdoo puede determinar si los puertos elegidos para Odoo como para la depuracion de codigo con Visual Studio Code, estan 
+ocupados. De esta manera si los puertos elegidos se encuentran ocupados, el sistema te ofrecere dos puertos alternativos
+o bien la opcion para que determines nuevos puertos a gusto.
+
+> Si comentiste un error durante el asistente, puedes cancelar con la combinacion de teclas **CTRL + C** y volver a iniciar
+sin mayores problemas.
+
+
+## Conoce los comandos disponibles
+
+Con el siguiente comando podras ver la ayuda: 
+
+~~~~
+rkd --help
+~~~~
+
+![rocketdoo-img-5](../img/rkd-help.png)
 ---
 
-¡¡¡PERO NO TE EMOCIONES AÚN!! ¡TODAVÍA NO VAMOS A TRABAJAR EN VS CODE! En la siguiente página comenzaremos con el [Lanzamiento de Rocketdoo](launch.md). >>>>

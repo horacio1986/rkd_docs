@@ -5,21 +5,27 @@ Before launching your development environment, let’s go over the tools you’l
 ## Required Tools
 
 1. Operating System:  
-    - Linux (recommended distributions: Ubuntu or Debian)  
-    - Windows 10/11 (we’ll cover how to use Rocketdoo with Windows later)  
-2. CLI Terminal  
-3. Python installed (using virtual environments is highly recommended)  
-4. GIT installed in your terminal  
-5. A GitHub account  
-6. An SSH key generated on your machine and added to your GitHub account  
-7. Docker and Docker Compose installed  
-8. GITMAN (installed by default in the container)  
-9. Visual Studio Code  
-10. Required Visual Studio Code extensions:  
+    - Linux, recommended distributions: “Ubuntu” or “Debian”.  
+    - Windows 10/11 with WSL2 installed (later we will explain how to use Rocketdoo with Windows).  
+2. CLI terminal of your choice. For a better experience, we recommend the Warp terminal, available  
+   for Windows and Linux systems.  
+3. Python installed (it is recommended to use virtual environments for better security). In addition, `pip` and/or `pipx`.  
+4. Have GIT installed in the terminal.  
+5. A GITHUB account.  
+6. Generate an SSH key on your machine and configure it in your GITHUB account.  
+7. Install Docker and Docker Compose.  
+8. GITMAN (It will be installed by default when you start your development environment).  
+9. Install Visual Studio Code.  
+10. Required extensions for Visual Studio Code:  
     - Dev Container  
     - Docker  
+    - Python  
+    - Pylance  
+    - XML Tools  
+    - Odoo IDE  
+    - Odoo Snippets  
+    - WSL (If you are developing on Windows)  
 
-These are the essential extensions. We’ll recommend a few more useful ones later.
 
 ## Notes
 

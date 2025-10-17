@@ -1,13 +1,45 @@
-# Bienvenido a RKD como ROCKETDOO
+# ¡Bienvenido a RKD como ROCKETDOO!
 
-> Ahora la version 2 de ROCKETDOO con us alias RKD
+> Ahora la version 2 de ROCKETDOO con su alias RKD
 
-![rocketdoo-welcome](../img/banner.png)
+![rocketdoo-welcome](../img/rkd-version2.png)
 
 Rocketdoo es un framework desarrollado en Python que tiene como objetivo proporcionar un entorno de desarrollo rápido y eficiente.
 
 Con Rocketdoo podrás desplegar, en simples pasos, uno o varios entornos para desarrollar en Odoo, en todas sus ediciones y versiones.  
 Te permitirá crear nuevos módulos o funcionalidades tanto para la edición Enterprise como para la edición Community.
+
+## Novedades en la version 2 de ROCKETDOO
+
+La nueva version de **ROCKETDOO** ahora nos permite instalar el framework y poder comenzar a usar la herramienta sin la necesidad
+de tener que crear un repositorio desde el antiguo template de la version 1.3.1
+Ya que a partir de esta version no es mas un repositorio como tal, nos va a quitar el peso de tener que usar submodulos de ***Git***,
+algo que quizas para muchos haya significado una complejidad extra. 
+
+A partir de esta version podras clonar de manera mas natural tus modulos a desarrollar y desarrollados, simplemente en la carpeta ***addons/***
+destinada para tal ocasion.
+
+Ademas en la nueva version como bien lo indica el titulo, **ROCKETDOO** cuenta con su propio alias para mayor agilidad, **RKD** se suma 
+a la herramienta para sustituir el comando ***rocketdoo*** y simplificar el tipeo con ***rkd*** cumpliendo con las mismas funciones; Pero
+sin dejar de lado el comando original, ya que se pueden usar ambos segun necesidad.
+
+**RKD** como **ROCKETDOO** tambien nos trae ahora sus propios comandos. Una vez instalada la herramienta puedes verificar los comandos
+disponibles y su uso ejecutando 
+~~~~
+rkd --help
+~~~~
+o su comando original
+
+~~~~
+rocketdoo --help
+~~~~
+
+Una buena noticia para quienes no dominen a la perfeccion docker y docker compose, **Rocketdoo** tambien nos trae los comandos mas importantes 
+para poder ejecutar y dar inicio al despliegue, reemplazando los comandos mas naturales de docker y docker compose como lo son el comando para
+levantar una intancia como, ***docker compose up -d*** ahora lo podes hacer con el comando simple, ***rkd up -d***, y asi con los comandos que 
+permiten frenar, borrar y obtener log de nuestros contenedores.
+
+> ¡Ahora si! Rocketdoo es mas potente y facil de usar...
 
 ## Descripción General
 
