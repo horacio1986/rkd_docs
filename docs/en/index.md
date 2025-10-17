@@ -1,41 +1,89 @@
-# Welcome to ROCKETDOO
+# Welcome to RKD as ROCKETDOO!
 
-![rocketdoo-welcome](../img/banner.png)
+> Now the version 2 of ROCKETDOO with its alias RKD
+
+![rocketdoo-welcome](../img/rkd-version2.png)
 
 Rocketdoo is a Python-based framework designed to provide a fast and efficient development environment.
 
-With Rocketdoo, you can easily deploy one or multiple environments for developing in Odoo, across all editions and versions.  
-It allows you to create new modules or functionalities for both the Enterprise and Community editions.
+With Rocketdoo, you can deploy one or several environments for Odoo development in just a few simple steps.
+It allows you to create new modules or features for both the Enterprise and Community editions.
+
+## What's New in ROCKETDOO Version 2
+
+The new version of **ROCKETDOO** now allows you to install the framework and start using the tool without needing
+to create a repository from the old version 1.3.1 template.
+Starting from this version, Rocketdoo is no longer a repository itself — which means you no longer need to rely on **Git** submodules,
+something that for many developers was an unnecessary complexity.
+
+From now on, you can naturally clone your custom and existing modules directly into the addons/ folder,
+which is specifically designed for that purpose.
+
+Additionally, as the title suggests, the new version of **ROCKETDOO** introduces its own alias for faster interaction — **RKD**.
+This alias replaces the rocketdoo command, allowing you to simply type rkd while maintaining full compatibility;
+you can use either command depending on your preference.
+
+**RKD**, just like **ROCKETDOO**, now provides its own command set. Once the tool is installed, you can check the available commands
+and their usage by running:
+~~~~
+rkd --help
+~~~~
+or the original command:
+
+~~~~
+rocketdoo --help
+~~~~
+
+Good news for those who are not fully comfortable with Docker or Docker Compose: **Rocketdoo** also includes the most important commands
+to deploy and manage containers, replacing standard Docker and Docker Compose commands.
+For example, instead of running ***docker compose up -d***, you can simply use ***rkd up -d*** and similarly for commands
+to stop, remove, or get logs from your containers.
+
+> Now Rocketdoo is more powerful and easier to use than ever before...
+
 
 ## Overview
 
-This tool was built for developers who are either new to Odoo or experienced professionals looking to quickly set up their environments and focus solely on creating new modules and features.
+This tool was designed for developers who are just getting started with Odoo, as well as for experienced developers
+who want to quickly deploy environments and focus solely on building new modules and features.
 
-It’s important to note that Rocketdoo is just one tool among many for Odoo development. It doesn’t claim to be the only or the best option — rather, it aims to be a helpful solution that addresses common development needs, while streamlining and automating the developer’s workflow.
+It’s important to note that Rocketdoo is just one of many tools available in the Odoo development ecosystem.
+It does not aim to be the only or the best option — rather, it’s a practical solution that adds value, covers common development needs,
+and optimizes and automates the developer’s workflow.
 
-We recognize that Odoo, as an ERP system, is vast and complex. Depending on the client, their needs, and the localization required, there are often additional requirements beyond the code itself — such as Python libraries, language-specific dependencies, third-party modules, or external repositories needed to ensure a successful deployment.
+We know that the Odoo ERP system is broad, powerful, and complex. Depending on the client, the business requirements,
+or the localization being implemented, it’s necessary to consider a series of dependencies that go beyond pure development.
+These may include required Python libraries, specific dependencies for certain features, third-party modules,
+or external repositories needed to ensure a successful implementation.
 
-Managing all these dependencies and configurations can often be a real headache for developers.
+All these requirements and configurations often become a real burden for developers.
 
-That’s why Rocketdoo was created: to provide an intuitive and automated environment that simplifies the setup process for individual developers or entire teams. It reduces the overhead of launching a development environment and lets you focus on what matters — building new modules and features.
+That’s why Rocketdoo was created — to provide an automated and intuitive environment that serves both individual developers
+and development teams. Rocketdoo simplifies the process of setting up a development environment
+and lets you focus on what really matters: building new modules and features.
 
 ## Description
 
-To better understand what Rocketdoo is and how to use it effectively, let’s go over the essential tools and how they are used.
+To better understand what Rocketdoo is and how to use it properly, let’s go through a brief description
+of the required tools and their purpose.
 
-First, it’s important to note that Rocketdoo was designed for Linux-based operating systems, such as Ubuntu or Debian. We believe Linux is the most suitable platform for working with this framework for several reasons.
+First, it’s important to mention that Rocketdoo was designed and developed to create development environments
+on Linux-based operating systems, such as Ubuntu or Debian. We consider Linux to be the most suitable system
+for working with this framework for the following reasons.
 
-Rocketdoo relies on the following tools to function properly:
+Rocketdoo relies on the following tools to perform its functions:
 
-* Docker and Docker Compose  
-* Git and GitHub (or any version control system)  
-* SSH key for managing private repositories  
-* Gitman  
-* Python and its package manager `pip`  
-* A CLI terminal  
-* Visual Studio Code  
-* Essential Visual Studio Code extensions (we’ll list recommended ones later)
+* Docker y Docker Compose.
+* Git y GitHub (or any version control manager).
+* Llave SSH for managing private repositories.
+* Gitman.
+* Python and its packages manager `pip` or `pipx`.
+* Command Line Interface (CLI) usage.
+* Visual Studio Code.
+* Required Visual Studio Code extensions (listed later)
 
-This set of tools — especially Docker and Docker Compose — is why we recommend using Rocketdoo on a Linux-based system.
+This list of required tools — especially Docker and Docker Compose — is one of the main reasons
+why we recommend using Rocketdoo on a Linux operating system.
 
-However, we understand that many developers prefer Windows. In that case, we strongly recommend using the **Windows Subsystem for Linux version 2 (WSL2)**.
+However, we understand that many developers prefer using Windows. In that case,
+we strongly recommend using the Windows Subsystem for Linux version 2: **WSL2**.

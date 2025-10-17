@@ -29,11 +29,17 @@ sudo apt install git -y
     - Docker
     - Dev Container
 
-Y lo más importante es instalar la librería ROCKETDOO:
+Y lo más importante es instalar el framework **ROCKETDOO**:
 
 ~~~
 sudo pip install rocketdoo
 ~~~
+o
+~~~
+sudo pipx install rocketdoo
+~~~
+
+> Recomendamos usar ***pipx*** si quieres que se instale en tu maquina en modo global sin romper dependencias de Python.
 
 <a href="https://pypi.org/project/rocketdoo/" target=" blank">Official Rocketdoo PyPi</a>
 

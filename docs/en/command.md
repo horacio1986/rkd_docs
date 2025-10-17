@@ -1,118 +1,81 @@
-# Command Line
+# Command Line Interface
 
-Here are the most common commands you can use in **ROCKETDOO**.
+Here are the most common commands you can use in **RKD** **ROCKETDOO**.
 
-* Start the framework:
-
-~~~
-rocketdoo
-~~~
-
-* Start the environment after the launcher finishes:
+* Display Rocketdoo version:
 
 ~~~
-docker compose up
+rocketdoo --version
 ~~~
 
-* Start the environment in detached mode (without showing logs in the terminal):
+* Display help and available commands:
 
 ~~~
-docker compose up -d
+rocketdoo --help
 ~~~
 
-* Grant Docker permissions without using *sudo*:
+* Generate the directory and file structure:
 
 ~~~
-sudo groupadd docker
+rocketdoo scaffold
 ~~~
 
-~~~
-sudo usermod -aG docker $USER
-~~~
-
-After this, you should be able to run Docker commands without *sudo*.  
-If it doesn't work immediately, try:
+* Launch the initialization wizard:
 
 ~~~
-sudo newgrp docker
-sudo usermod -aG docker $USER
+rocketdoo init
 ~~~
 
-* Pause all containers:
+* Deploy Odoo:
 
 ~~~
-docker compose pause
-~~~
-
-* Unpause all containers:
-
-~~~
-docker compose unpause
-~~~
-
-* Stop all containers:
-
-~~~
-docker compose stop
-~~~
-
-* Pause or stop a specific container:
-
-~~~
-docker container pause <container-name> 
-docker container stop <container-name>
-~~~
-
-* Restart containers:
-
-~~~
-docker compose restart
-~~~
-
-* Remove containers:
-
-~~~
-docker compose down
-~~~
-
-* Remove containers and their associated volumes:
-
-~~~
-docker compose down -v
-~~~
-
-* Force a rebuild of the environment:
-
-~~~
-docker compose up --build
+rocketdoo up -d 
 ~~~
 
 * Check the status of your containers:
 
 ~~~
-docker compose ps
+rocketdoo status
 ~~~
 
-* List all Docker images:
+* Stop all containers:
 
 ~~~
-docker image ls
+rocketdoo stop
 ~~~
 
-* Remove a Docker image:
+* Pause or stop a container:
 
 ~~~
-docker rmi <image-name>
+rocketdoo stop
 ~~~
 
-* Clean your system by removing unused Docker images and data:
+* Restart the containers:
 
 ~~~
-docker system prune
+rocketdoo restart
 ~~~
 
-* Update all module packages loaded as public repositories using Gitman:  
-(This command must be run inside the container.)
+* Remove containers:
+
+~~~
+rocketdoo down
+~~~
+
+* Remove containers and their associated volumes:
+
+~~~
+rocketdoo down -v
+~~~
+
+* Force environment rebuild:
+
+~~~
+rocketdoo build
+~~~
+
+* Bulk update module packages loaded as public repositories using Gitman:  
+(This command must be executed inside the container.)
 
 ~~~
 gitman update

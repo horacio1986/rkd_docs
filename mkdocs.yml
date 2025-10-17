@@ -57,7 +57,6 @@ plugins:
             Windoows and WSL2: Windows y WSL2
             Instructions: Instrucciones
             Steps: Pasos
-            Launch Rocketdoo: Lanzar Rocketdoo
             Rocketdoo Structure: Estructura de Rocketdoo
             Private Repositories: Repositorios Privados
             Public Repositories: Repositorios Públicos
@@ -75,7 +74,6 @@ nav:
   - Windows and WSL2: windows.md
   - Instructions: instructions.md
   - Steps: steps.md
-  - Launch Rocketdoo: launch.md
   - Rocketdoo Structure: structure.md
   - Private Repositories: private.md
   - Public Repositories: public.md
