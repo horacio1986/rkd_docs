@@ -54,9 +54,9 @@ plugins:
           nav_translations:
             Home: Inicio
             Get Started: Comenzar
-            Windoows and WSL2: Windows y WSL2
             Instructions: Instrucciones
             Steps: Pasos
+            Windoows and WSL2: Windows y WSL2
             Rocketdoo Structure: Estructura de Rocketdoo
             Private Repositories: Repositorios Privados
             Public Repositories: Repositorios Públicos
@@ -71,9 +71,9 @@ plugins:
 nav:
   - Home: index.md
   - Get Started: get-started.md
-  - Windows and WSL2: windows.md
   - Instructions: instructions.md
   - Steps: steps.md
+  - Windows and WSL2: windows.md
   - Rocketdoo Structure: structure.md
   - Private Repositories: private.md
   - Public Repositories: public.md
