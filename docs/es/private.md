@@ -3,6 +3,8 @@
 Si durante el lanzamiento de **Rocketdoo** decides usar un repositorio privado y se lo indicas al lanzador,  
 deberás seguir las siguientes pautas.
 
+---
+
 ## ¿Por qué usar un Repositorio Privado?
 
 Esta funcionalidad está pensada para desarrollos que tú o tu empresa destinen a un cliente en particular o con fines comerciales.
@@ -18,20 +20,11 @@ serás tú quien elija cuál de ellas utilizar.
 
 Rocketdoo enumerará todas las claves SSH encontradas para que puedas seleccionar la correspondiente según el número asignado.
 
+---
+
 ## ¿Mis claves SSH son seguras?
 
-Las claves SSH son una herramienta cifrada que nos permite conectarnos de forma remota a nuestros repositorios,  
-y por lo tanto, brindan seguridad al trabajar con repositorios privados.
-
-Frente a esta realidad, es importante que el desarrollador sepa que sus claves están seguras dentro de nuestro entorno de desarrollo automatizado.  
-*Rocketdoo* se encarga únicamente de mapear tu clave SSH dentro del contenedor de desarrollo de Odoo (contenedor web).
-
-Este contenedor, como sabemos, es local por defecto y **efímero**,  
-lo que significa que toda la información que contiene es temporal y puede ser eliminada si se desea.
-
-Además, esta información no se encuentra bajo seguimiento de Git, por lo tanto al hacer *commit* y *push*,  
-la clave no se enviará al repositorio remoto.
-
-Finalmente, si decides usar un repositorio privado, al terminar el lanzador del entorno de *Rocketdoo*,  
-verás que se ha creado una carpeta `*.ssh/*` dentro de tu directorio de desarrollo,  
-donde se almacenará la clave seleccionada.
+En esta nueva version de Rocketdoo, ya no es necesario considerar ocultar las llaves privadas ssh; dado que
+rkd version 2, al no ser un repositorio como tal, no necesitamos preocuparnos por esto.
+Dado que puedes usar tus repositorios privados con normalidad, ya que no corren riesgos de estar expuestas en repositorio.
+Sin embargo en la version 1, esto estaba contemplada la proteccion de las mismas

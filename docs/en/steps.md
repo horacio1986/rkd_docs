@@ -2,19 +2,25 @@
 
 ### Step 1:
 
-Verify you have Docker and Docker Compose installed, since it is a tool as important as **Rocketdoo** itself
+Verify that you have Docker and Docker Compose installed, as it is a tool as important as **Rocketdoo** itself.
 
 ### Step 2:
 
 Install **Rocketdoo**
 
 ~~~~
-pipx install rocketdoo
+pipx install rocketdoo==2.0.0b1
 ~~~~
+
+>> IMPORTANT TO KNOW THAT FOR NOW A BETA VERSION IS RELEASED (Absolutely functional)
+>> AFTER A CONSIDERABLE PERIOD OF TESTING, THE FIRST STABLE VERSION OF THE FRAMEWORK WILL BE RELEASED
+
+![rocketdoo-docs-img](../img/rkd-beta.png)
+
 
 ### Step 3:
 
-Install the requirements from the file ***requirements.txt*** if they were not installed by default:
+Install the requirements from the ***requirements.txt*** file if they were not installed by default:
 
 ~~~
 sudo pip install -r requirements.txt
@@ -22,7 +28,7 @@ sudo pip install -r requirements.txt
 
 ### Step 4:
 
-Check the installed version to make sure it is version 2; the old version will remain available.
+Verify the installed version to ensure it is version 2; the old version will still be available.
 
 ~~~~
 rocketdoo --version
@@ -33,19 +39,19 @@ rocketdoo --version
 
 ### Step 5:
 
-Now you can create any directory you like to get started. However, it is recommended that your directory reference
-a development intended for Odoo — I think that makes the most sense, right?
+Now you can create a directory of your choice to get started. However, it is recommended that your directory reference
+a development intended for Odoo, which makes the most sense, right?
 
 
 ### Step 6:
 
-Once your working directory is created, keep it empty and, once inside it, you can run your first command:
+Once you have created your working directory, keep it empty and once inside it, you can execute your first command:
 
 ~~~~
 rkd scaffold
 ~~~~
-This command will create inside your working directory all the files and folders necessary to build your 
-Odoo development environment and to debug code with VSCode.
+This command will create all the necessary files and folders within your working directory to build your 
+Odoo development environment and debug code with VSCode.
 
 
 
@@ -53,9 +59,9 @@ Odoo development environment and to debug code with VSCode.
 
 ### Step 7:
 
-Run the command to start the **Rocketdoo** wizard; it will guide you step by step through everything 
-needed to configure your development environment.  
-Follow the steps and answer every single question.
+Execute the command to start the **Rocketdoo** initialization wizard, which will guide you step by step through everything 
+necessary to configure your development environment. 
+Follow the steps and answer each and every one of its questions.
 
 ~~~
 rkd init
@@ -66,7 +72,7 @@ rkd init
 
 ### Step 8:
 
-Once the wizard has finished you can verify how your environment was built with the command:
+Once the wizard is complete, you can verify how your environment was built with the command:
 
 ~~~~
 rkd info
@@ -76,7 +82,7 @@ rkd info
 
 ### Step 9:
 
-With the following command you will be able to deploy your development environment
+With the following command you can now deploy your development environment:
 
 ~~~~
 rkd up -d
@@ -84,23 +90,23 @@ rkd up -d
 
 ### Step 10:
 
-Once the deployment finishes successfully you can access it with your preferred browser at the URL:
-http://localchost:{puerto-odoo}
+Once the deployment has completed successfully, you can access it with your preferred browser using the URL:
+http://localchost:{odoo-port}
 
 
 ## NOTES 
 
-> Rocketdoo can detect if the ports chosen for Odoo or for code debugging with Visual Studio Code are  
-> already in use. If the selected ports are in use, the system will offer two alternative ports  
-> or the option for you to choose new ports as you wish.
+> Rocketdoo can determine if the ports chosen for Odoo and for debugging code with Visual Studio Code are 
+occupied. In this way, if the chosen ports are occupied, the system will offer you two alternative ports
+or the option for you to determine new ports of your choice.
 
-> If you made a mistake during the wizard, you can cancel with the key combination **CTRL + C** and start again  
-> without major issues.
+> If you made an error during the wizard, you can cancel with the key combination **CTRL + C** and restart
+without any issues.
 
 
-## Learn the available commands
+## Learn Available Commands
 
-With the following command you can see the help:
+With the following command you can see the help: 
 
 ~~~~
 rkd --help
@@ -108,4 +114,3 @@ rkd --help
 
 ![rocketdoo-img-5](../img/rkd-help.png)
 ---
-

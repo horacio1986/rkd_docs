@@ -45,4 +45,27 @@ sudo pipx install rocketdoo
 
 ---
 
+## ¿Porque usar PIPX en lugar de PIP?
+
+Es muy probable que si intenas instalar la herramienta **ROCKETDOO** con el comando tradicional **pip**, el mismo te devuelva
+un error, con algunas sugerencias de instalacion. 
+Esto se debe a los ultimos cambios realizados por Python **PEP 668**
+
+![rocketdoo-img-structure](../img/rkd-pep668.png)
+
+## PEP 668
+
+PEP 668 es una propuesta de mejora de Python (Python Enhancement Proposal) que marca los entornos base de Python como «administrados externamente» para prevenir conflictos de paquetes. Esto significa que el administrador del sistema operativo (como un distribuidor de Linux) gestiona los paquetes del sistema Python, mientras que el usuario debe usar entornos virtuales para sus proyectos individuales, en lugar de instalar o actualizar paquetes con pip directamente en el sistema. 
+
+### En resumen:
+- ¿Qué hace? Evita que los desarrolladores de Python instalen o actualicen paquetes directamente en el entorno del sistema operativo.
+- ¿Por qué? Para evitar corromper o sobrescribir paquetes que son gestionados por el sistema, lo que podría romper la instalación del sistema. 
+- ¿Cómo se soluciona? Para proyectos se debe usar un entorno virtual (como venv), y para aplicaciones independientes se puede usar pipx. 
+- ¿Cuándo se implementó? En distribuciones de Linux, lo que genera un mensaje de error si se intenta usar pip para modificar el entorno de sistema.
+
+Por esta razon, sugerimos que para poder tener instalado **ROCKETDOO** de manera global en tu computadora, para poder ejecutar un ambiente en cualquier
+directorio creado para desarrollar, y no tengas ningun problema, usar **PIPX**
+
+---
+
 ¡¡¡AHORA PODEMOS COMENZAR!!! >>>>>
