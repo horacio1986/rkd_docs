@@ -2,7 +2,7 @@
 
 En esta sección veremos con mayor claridad cómo está conformada la estructura de Rocketdoo, y de esta manera podremos entender mejor cómo funciona internamente, o al menos comprender la importancia y el uso de algunas carpetas y archivos de Rocketdoo.
 
-![rocketdoo-img-structure](../img/rocketdoo-docs-structure.png)
+![rocketdoo-img-structure](../img/rkd-structure.png)
 
 Como se puede ver en la imagen, hay una larga lista de carpetas y archivos que componen toda la estructura de Rocketdoo.  
 Sin embargo, nos centraremos en las carpetas y archivos más relevantes para un desarrollador.
@@ -60,12 +60,33 @@ De todos modos, no te preocupes, ya que normalmente no será necesario modificar
 
 ---
 
+## Launch.json
+
+Dentro del directorio oculta ***.vscode/*** se encuentra el archivo ***launch.json***, el mismo permite configurar las opciones de depuracion de codigo
+una vez dentro del contenedor de desarrollo.
+Este archivo nos muestra dos tipos de depuracion mas una extra que combina ambas. Estas dos configuraciones principales nos permite optar por depurar el
+codigo para Python backend o la segunda opcion para depurar el POS (Punto de Ventas), para los desarrollos en JavaScript.
+Y la tercera opcion es un mix de ambas opciones al mismo tiempo.
+Ademas, tenemos algunos parametros que nos permitiran definir que y como reiniciar nuestros contenedores para reflejar rapidamente los cambios que el
+desarrollador este realizando. En estos parametros podemos descomentar las lineas:
+
+//"-u",
+//"your-module",
+//"--dev=all",
+
+y definir el nombre de nuestro modulo en desarrollo para poder actualizar los cambios al instante.
+
+![rocketdoo-img-shell2](../img/rkd-debug.png)
+![rocketdoo-img-shell2](../img/rkd-debug2.png)
+
+---
+
 ## Enterprise
 
-Como habrás visto, al lanzar **ROCKETDOO**, casi al final del proceso se te pregunta si deseas trabajar con la versión Community o Enterprise de Odoo.
+Como habrás visto, al lanzar **ROCKETDOO**, te pregunta si deseas trabajar con la versión Community o Enterprise de Odoo.
 
 ¡Muy bien! Si tu respuesta es `"ce"` (Community Edition), no necesitas hacer nada adicional.
 
-Pero si tu respuesta es `"ee"` (Enterprise Edition), es muy importante que **antes** de lanzar Rocketdoo tengas la carpeta **Enterprise** en tu directorio de trabajo, al mismo nivel que la carpeta **addons**.
+Pero si tu respuesta es `"ee"` (Enterprise Edition), es muy importante que **antes** de lanzar Rocketdoo con el comando ***rocketdoo up -d*** o ***rkd up -d*** tengas la carpeta **Enterprise** en tu directorio de trabajo, al mismo nivel que la carpeta **addons**.
 
 De esta manera, el sistema podrá mapear correctamente los módulos de Enterprise y hacer la configuración necesaria en el entorno para ejecutar esta edición de Odoo.

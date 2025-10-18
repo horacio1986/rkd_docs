@@ -62,10 +62,10 @@ plugins:
             Public Repositories: Repositorios Públicos
             Recommended extensions: Extensiones recomendadas
             Command Line: Linea de Comandos
-            Use Cases: Casos de Uso
-            Common Mistakes: Errores Comunes
-            Debugging in Odoo: Depurando en Odoo
-            How to collaborate in this project?: ¿Cómo colaborar en este proyecto?
+            # Use Cases: Casos de Uso
+            # Common Mistakes: Errores Comunes
+            # Debugging in Odoo: Depurando en Odoo
+            # How to collaborate in this project?: ¿Cómo colaborar en este proyecto?
             HelpDesk: Mesa de Ayuda
         
 nav:
@@ -79,8 +79,8 @@ nav:
   - Public Repositories: public.md
   - Recommended extensions: recommend-extensions.md
   - Command Line: command.md
-  - Use Cases: use-cases.md
-  - Common Mistakes: common-mistakes.md
-  - Debugging in Odoo: debugging-odoo.md
-  - How to collaborate in this project?: collaborate.md
+  # - Use Cases: use-cases.md
+  # - Common Mistakes: common-mistakes.md
+  # - Debugging in Odoo: debugging-odoo.md
+  # - How to collaborate in this project?: collaborate.md
   - HelpDesk: helpdesk.md
