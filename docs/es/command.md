@@ -75,6 +75,21 @@ rocketdoo down -v
 rocketdoo build
 ~~~
 
+* Hacer un nuevo build de la misma imagen
+
+~~~
+rocketdoo build --rebuild
+~~~
+
+* Eliminar archivos del tipo Identifier cuando son copiads desde windows a WSL2
+
+~~~
+rocketdoo del -i
+~~~
+
+> TAMBIEN PUEDE COMBINAR UN COMANDO CON **--help** PARA CONOCER LOS FLAGS Y OPCIONES
+> POR EJEMPLO ***rocketdoo build --help*** TE INDICAR LAS OPCIONES DISPONIBLES COMO: ***rkd build --rebuild*** 
+
 * Actualizar masivamente los paquetes de módulos cargados como repositorios públicos con Gitman:  
 (Este comando debe ejecutarse dentro del contenedor.)
 
