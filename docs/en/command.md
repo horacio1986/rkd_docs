@@ -74,6 +74,21 @@ rocketdoo down -v
 rocketdoo build
 ~~~
 
+* Build a new version of the same image
+
+~~~
+rocketdoo build --rebuild
+~~~
+
+* Delete Identifier type files when copied from Windows to WSL2
+
+~~~
+rocketdoo del -i
+~~~
+
+> YOU CAN ALSO COMBINE A COMMAND WITH **--help** TO LEARN ABOUT FLAGS AND OPTIONS
+> FOR EXAMPLE ***rocketdoo build --help*** WILL SHOW YOU AVAILABLE OPTIONS LIKE: ***rkd build --rebuild***
+
 * Bulk update module packages loaded as public repositories using Gitman:  
 (This command must be executed inside the container.)
 
