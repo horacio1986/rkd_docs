@@ -9,13 +9,11 @@ Verify that you have Docker and Docker Compose installed, as it is a tool as imp
 Install **Rocketdoo**
 
 ~~~~
-pipx install rocketdoo==2.0.2b6
+pipx install rocketdoo
 ~~~~
 
->> IMPORTANT TO KNOW THAT FOR NOW A BETA VERSION IS RELEASED (Absolutely functional)
->> AFTER A CONSIDERABLE PERIOD OF TESTING, THE FIRST STABLE VERSION OF THE FRAMEWORK WILL BE RELEASED
 
-<!-- ![rocketdoo-docs-img](../img/rkd-beta6.png) -->
+![rocketdoo-docs-img](../img/rkd-version2.1.0.png.png)
 
 
 ### Step 3:
