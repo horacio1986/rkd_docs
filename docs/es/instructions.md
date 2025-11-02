@@ -31,7 +31,6 @@ sudo apt install git -y
 
 Y lo más importante es instalar el framework **ROCKETDOO**:
 
-> Ver version beta actual en la pagina [Pasos](steps.md#paso-2)
 
 ~~~
 sudo pip install rocketdoo
