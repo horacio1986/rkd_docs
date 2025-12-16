@@ -62,6 +62,7 @@ plugins:
             Public Repositories: Repositorios Públicos
             Recommended extensions: Extensiones recomendadas
             Command Line: Linea de Comandos
+            Deployment: Despliegue
             # Use Cases: Casos de Uso
             # Common Mistakes: Errores Comunes
             # Debugging in Odoo: Depurando en Odoo
@@ -79,6 +80,7 @@ nav:
   - Public Repositories: public.md
   - Recommended extensions: recommend-extensions.md
   - Command Line: command.md
+  - Deployment: deployment.md
   # - Use Cases: use-cases.md
   # - Common Mistakes: common-mistakes.md
   # - Debugging in Odoo: debugging-odoo.md

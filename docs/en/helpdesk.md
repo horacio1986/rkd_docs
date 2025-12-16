@@ -6,6 +6,8 @@ To create a user account and submit a support ticket, please visit the link belo
 
 <a href="https://odoo.hdmsoft.com.ar/mesa-de-ayuda" target="_blank">Help Desk</a>
 
+* You may also submit a support ticket or inquiry via email at: rocketdoo@hdmsoft.com.ar
+
 ---------------------------
 
 ![rocketdoo-img-help](../img/rocketdoo-docs-help.png)
