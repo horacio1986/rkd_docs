@@ -26,14 +26,14 @@ sudo pip install -r requirements.txt
 
 ### Paso 4:
 
-Verifica la version instalada para estar seguro de que sea la version 2; ya la antigua version seguira disponible.
+Verifica la version instalada para estar seguro de que sea la version 2; ya que la antigua version seguira disponible.
 
 ~~~~
 rocketdoo --version
 ~~~~
 
 
-![rocketdoo-docs-img](../img/rkd-versionado.png)
+> VERSION ACTUAL "2.2.0"
 
 ### Paso 5:
 

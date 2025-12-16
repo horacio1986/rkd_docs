@@ -6,6 +6,8 @@ Para crear un usuario y generar un ticket de soporte, visita el siguiente enlace
 
 <a href="https://odoo.hdmsoft.com.ar/mesa-de-ayuda" target="_blank">Help Desk</a>
 
+* Tambien puedes enviar tu ticket o consulta al mail : rocketdoo@hdmsoft.com.ar
+
 ---------------------------
 
 ![rocketdoo-img-help](../img/rocketdoo-docs-help.png)

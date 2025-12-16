@@ -32,8 +32,7 @@ Verify the installed version to ensure it is version 2; the old version will sti
 rocketdoo --version
 ~~~~
 
-
-![rocketdoo-docs-img](../img/rkd-versionado.png)
+> VERSION "2.2.0"
 
 ### Step 5:
 

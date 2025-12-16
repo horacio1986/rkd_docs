@@ -39,6 +39,13 @@ to deploy and manage containers, replacing standard Docker and Docker Compose co
 For example, instead of running ***docker compose up -d***, you can simply use ***rkd up -d*** and similarly for commands
 to stop, remove, or get logs from your containers.
 
+## Deployments from RKD ROCKETDOO
+
+With the release of version 2.2.0, developers can deploy their module(s) from **Rocketdoo** to an Odoo SH environment using the *develop* or *staging* branches, as well as to a VPS or a Dockerized instance.
+
+On the following page, you can find detailed information about deployments using **rkd**. >>> [Deployment](deployment.md)
+
+
 > Now Rocketdoo is more powerful and easier to use than ever before...
 
 

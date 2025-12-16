@@ -39,6 +39,12 @@ para poder ejecutar y dar inicio al despliegue, reemplazando los comandos mas na
 levantar una intancia como, ***docker compose up -d*** ahora lo podes hacer con el comando simple, ***rkd up -d***, y asi con los comandos que 
 permiten frenar, borrar y obtener log de nuestros contenedores.
 
+## Despliegues desde RKD ROCKETDOO
+
+Recientemente en la nueva liberacion de la version 2.2.0; los desarrolladores podran realizar un despliegue de su/s modulos desde **Rocketdoo**
+hacia un ambiente Odoo SH en las branchs develop o staging, como tambien, en un VPS o en una instancia dockerizada.
+En la siguiente pagina podran conocer los detalles sobre los despligues con **rkd**. >>> [Despliegue](despliegue.md)
+
 > ¡Ahora si! Rocketdoo es mas potente y facil de usar...
 
 ## Descripción General
@@ -70,6 +76,6 @@ Rocketdoo utiliza las siguientes herramientas para cumplir su función:
 * Visual Studio Code.
 * Extensiones necesarias para Visual Studio Code (más adelante listaremos las recomendadas).
 
-Esta lista de herramientas necesarias —especialmente Docker y Docker Compose— es una de las razones por las cuales recomendamos usar Rocketdoo en un sistema operativo Linux.
+Esta lista de herramientas necesarias especialmente Docker y Docker Compose— es una de las razones por las cuales recomendamos usar Rocketdoo en un sistema operativo Linux.
 
 No obstante, entendemos que muchos programadores prefieren utilizar Windows. En ese caso, recomendamos usar exclusivamente el Subsistema de Linux para Windows en su versión 2: **WSL2**.
