@@ -170,7 +170,8 @@ It is then important to have sufficient information about the target server, suc
 
 1. The public IP address of the server.
 2. The SSH connection port enabled on the server.
-3. The SSH key that will be used to access the server.
+3. The SSH key that will be used to access the server. If you do not use an SSH key,
+    the system will indicate that it will request the password at the time of deployment.
 4. Define the SSH key by its name, or provide the server password.
 5. The Odoo installation path on the server.
 6. The path for development or third-party modules.
