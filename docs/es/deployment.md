@@ -190,7 +190,8 @@ Luego es importante contar con la suficiente informacion del servidor destino, t
 
 1. La IP publica del servidor.
 2. Puerto de conexion SSH habilitado en el servidor.
-3. La llave SSH de conexion que usaremos para acceder al servidor.
+3. La llave SSH de conexion que usaremos para acceder al servidor. En el caso de no usar llave ssh
+    el sistema indica que al momento del despliegue solicitara la contraseña.
 4. Definir la llave SSH por su nombre, o escribir la contraseña del servidor.
 5. La ruta de instalacion de Odoo en el servidor.
 6. La ruta para los modulos en desarrollo o de terceros.
