@@ -2,7 +2,7 @@
 
 > Now the version 2 of ROCKETDOO with its alias RKD
 
-![rocketdoo-welcome](../img/rkd-version2.png)
+![rocketdoo-welcome](../img/rkd-v2.2.png)
 
 Rocketdoo is a Python-based framework designed to provide a fast and efficient development environment.
 
