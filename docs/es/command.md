@@ -81,6 +81,18 @@ rocketdoo build
 rocketdoo build --rebuild
 ~~~
 
+* Empaqueta todo tu proyecto Odoo completo para compartir con otros desarrolladores.
+
+~~~
+rocketdoo pack
+~~~
+
+* Desempaqueta el proyecto compartido en un directorio previamente creado para desarrollar con ROCKETDOO.
+
+~~~
+rocketdoo unpack
+~~~
+
 * Eliminar archivos del tipo Identifier cuando son copiads desde windows a WSL2
 
 ~~~
