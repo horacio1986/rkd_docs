@@ -80,6 +80,18 @@ rocketdoo build
 rocketdoo build --rebuild
 ~~~
 
+* Package your entire environment to share with anothers developers
+
+~~~
+rocketdoo pack
+~~~
+
+* Unpackage the .zip project into your created folder to continue with shared development on rocketdoo.
+
+~~~
+rocketdoo unpack
+~~~
+
 * Delete Identifier type files when copied from Windows to WSL2
 
 ~~~

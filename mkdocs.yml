@@ -56,7 +56,7 @@ plugins:
             Get Started: Comenzar
             Instructions: Instrucciones
             Steps: Pasos
-            Windoows and WSL2: Windows y WSL2
+            Windows and WSL2: Windows y WSL2
             Rocketdoo Structure: Estructura de Rocketdoo
             Private Repositories: Repositorios Privados
             Public Repositories: Repositorios Públicos
@@ -66,7 +66,7 @@ plugins:
             # Use Cases: Casos de Uso
             # Common Mistakes: Errores Comunes
             # Debugging in Odoo: Depurando en Odoo
-            # How to collaborate in this project?: ¿Cómo colaborar en este proyecto?
+            How to collaborate in this project?: ¿Cómo colaborar en este proyecto?
             HelpDesk: Mesa de Ayuda
         
 nav:
@@ -84,5 +84,5 @@ nav:
   # - Use Cases: use-cases.md
   # - Common Mistakes: common-mistakes.md
   # - Debugging in Odoo: debugging-odoo.md
-  # - How to collaborate in this project?: collaborate.md
+  - How to collaborate in this project?: collaborate.md
   - HelpDesk: helpdesk.md
