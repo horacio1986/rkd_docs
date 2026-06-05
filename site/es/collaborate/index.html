@@ -1,0 +1,1640 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Rocketdoo version 3 is a powerful tool for Odoo development with GUI, Mailpit, Traefik, and VPS instance deployment.">
+      
+      
+      
+        <link rel="canonical" href="https://rkd-docs.readthedocs.io/en/latest/es/collaborate/">
+      
+      
+        <link rel="prev" href="../gui/">
+      
+      
+        <link rel="next" href="../helpdesk/">
+      
+      
+        
+          <link rel="alternate" href="../../collaborate/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>¿Cómo colaborar en este proyecto? - RKD as Rocketdoo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guia-de-contribucion-a-rocketdoo" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="RKD as Rocketdoo" class="md-header__button md-logo" aria-label="RKD as Rocketdoo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RKD as Rocketdoo
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ¿Cómo colaborar en este proyecto?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Change to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Change to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Change to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Change to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../collaborate/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="RKD as Rocketdoo" class="md-nav__button md-logo" aria-label="RKD as Rocketdoo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RKD as Rocketdoo
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comenzar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instrucciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pasos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows y WSL2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estructura de Rocketdoo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../private/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repositorios Privados
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repositorios Públicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recommend-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensiones recomendadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linea de Comandos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Despliegue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaz Gráfica (GUI)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Cómo colaborar en este proyecto?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ¿Cómo colaborar en este proyecto?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de contenidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurar-el-entorno-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar el entorno de desarrollo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurar el entorno de desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos previos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-hacer-fork-del-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Hacer fork del repositorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-clonar-tu-fork-localmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Clonar tu fork localmente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agregar-el-repositorio-original-como-remote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Agregar el repositorio original como remote
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalar-rocketdoo-en-modo-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalar Rocketdoo en modo desarrollo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalar Rocketdoo en modo desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-entorno-virtual-exclusivo-para-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear un entorno virtual exclusivo para desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalar-la-rama-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalar la rama de desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probar-los-comandos-en-un-directorio-vacio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probar los comandos en un directorio vacío
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probar-tu-rama-sin-afectar-la-version-productiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probar tu rama sin afectar la versión productiva
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probar tu rama sin afectar la versión productiva">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-a-con-pipx-recomendado-para-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción A — Con pipx (recomendado para CLI) ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-b-con-pip-dentro-de-un-venv-para-probar-imports-o-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción B — Con pip dentro de un venv (para probar imports o scripts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repo-privado-autenticacion-con-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo privado: autenticación con token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flujo-de-trabajo-paso-a-paso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flujo de trabajo paso a paso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flujo de trabajo paso a paso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sincronizate-con-la-ultima-version-de-devv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sincronizate con la última versión de dev/v2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-crear-tu-rama-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Crear tu rama de trabajo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-desarrollar-y-testear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Desarrollar y testear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-hacer-commits-descriptivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Hacer commits descriptivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-subir-tu-rama-al-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Subir tu rama al fork
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-abrir-el-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Abrir el Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convenciones-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenciones de código
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-abrir-un-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo abrir un Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reportar-bugs-o-sugerir-mejoras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reportar bugs o sugerir mejoras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dudas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Dudas?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../helpdesk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesa de Ayuda
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tabla-de-contenidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabla de contenidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de branches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurar-el-entorno-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar el entorno de desarrollo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurar el entorno de desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos previos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-hacer-fork-del-repositorio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Hacer fork del repositorio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-clonar-tu-fork-localmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Clonar tu fork localmente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-agregar-el-repositorio-original-como-remote" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Agregar el repositorio original como remote
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalar-rocketdoo-en-modo-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalar Rocketdoo en modo desarrollo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalar Rocketdoo en modo desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-entorno-virtual-exclusivo-para-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear un entorno virtual exclusivo para desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#instalar-la-rama-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalar la rama de desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probar-los-comandos-en-un-directorio-vacio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probar los comandos en un directorio vacío
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probar-tu-rama-sin-afectar-la-version-productiva" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probar tu rama sin afectar la versión productiva
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probar tu rama sin afectar la versión productiva">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-a-con-pipx-recomendado-para-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción A — Con pipx (recomendado para CLI) ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-b-con-pip-dentro-de-un-venv-para-probar-imports-o-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opción B — Con pip dentro de un venv (para probar imports o scripts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repo-privado-autenticacion-con-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repo privado: autenticación con token
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flujo-de-trabajo-paso-a-paso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flujo de trabajo paso a paso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flujo de trabajo paso a paso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sincronizate-con-la-ultima-version-de-devv2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Sincronizate con la última versión de dev/v2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-crear-tu-rama-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Crear tu rama de trabajo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-desarrollar-y-testear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Desarrollar y testear
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-hacer-commits-descriptivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Hacer commits descriptivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-subir-tu-rama-al-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Subir tu rama al fork
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-abrir-el-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Abrir el Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#convenciones-de-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convenciones de código
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-abrir-un-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo abrir un Pull Request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reportar-bugs-o-sugerir-mejoras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reportar bugs o sugerir mejoras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dudas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Dudas?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="guia-de-contribucion-a-rocketdoo">🚀 Guía de Contribución a Rocketdoo</h1>
+<p>¡Gracias por tu interés en contribuir a <strong>Rocketdoo</strong>! Esta guía te explica todo lo que necesitás saber para sumarte al proyecto de manera ordenada y efectiva.</p>
+<hr />
+<h2 id="tabla-de-contenidos">Tabla de contenidos</h2>
+<ul>
+<li><a href="#estructura-de-branches">Estructura de branches</a></li>
+<li><a href="#configurar-el-entorno-de-desarrollo">Configurar el entorno de desarrollo</a></li>
+<li><a href="#instalar-rocketdoo-en-modo-desarrollo">Instalar Rocketdoo en modo desarrollo</a></li>
+<li><a href="#probar-tu-rama-sin-afectar-la-version-productiva">Probar tu rama sin afectar la versión productiva</a></li>
+<li><a href="#flujo-de-trabajo-paso-a-paso">Flujo de trabajo paso a paso</a></li>
+<li><a href="#convenciones-de-codigo">Convenciones de código</a></li>
+<li><a href="#como-abrir-un-pull-request">Cómo abrir un Pull Request</a></li>
+<li><a href="#reportar-bugs-o-sugerir-mejoras">Reportar bugs o sugerir mejoras</a></li>
+</ul>
+<hr />
+<h2 id="estructura-de-branches">Estructura de branches</h2>
+<p>Rocketdoo utiliza el siguiente modelo de ramas:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>main              ← versión estable, publicada en PyPI
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  └── dev/v2      ← desarrollo activo de la próxima versión
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        └── feature/nombre-de-la-feature   ← tu contribución
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        └── fix/nombre-del-bug
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        └── chore/tarea-de-mantenimiento
+</span></code></pre></div>
+<blockquote>
+<p><strong>Regla de oro:</strong> nunca trabajar directamente sobre <code>main</code> ni <code>dev/v2</code>. Siempre crear una rama nueva desde <code>dev/v2</code>.</p>
+</blockquote>
+<hr />
+<h2 id="configurar-el-entorno-de-desarrollo">Configurar el entorno de desarrollo</h2>
+<h3 id="requisitos-previos">Requisitos previos</h3>
+<ul>
+<li>Python 3.8 o superior</li>
+<li>Git</li>
+<li><code>pip</code> actualizado (<code>pip install --upgrade pip</code>)</li>
+</ul>
+<h3 id="1-hacer-fork-del-repositorio">1. Hacer fork del repositorio</h3>
+<p>Desde GitHub, hacé clic en <strong>Fork</strong> en la esquina superior derecha del repositorio de Rocketdoo.</p>
+<h3 id="2-clonar-tu-fork-localmente">2. Clonar tu fork localmente</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/TU_USUARIO/rocketdoo.git
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>rocketdoo
+</span></code></pre></div>
+<h3 id="3-agregar-el-repositorio-original-como-remote">3. Agregar el repositorio original como remote</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/OWNER/rocketdoo.git
+</span></code></pre></div>
+<p>Esto te permite sincronizarte con los cambios del repo original cuando sea necesario:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>merge<span class="w"> </span>upstream/dev/v2
+</span></code></pre></div>
+<hr />
+<h2 id="instalar-rocketdoo-en-modo-desarrollo">Instalar Rocketdoo en modo desarrollo</h2>
+<p>Para poder modificar el código y ver los cambios reflejados de inmediato, instalá el paquete en <strong>modo editable</strong> dentro de un entorno virtual dedicado.</p>
+<h3 id="crear-un-entorno-virtual-exclusivo-para-desarrollo">Crear un entorno virtual exclusivo para desarrollo</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Desde la raíz del repo clonado</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv-dev
+</span></code></pre></div>
+<p>Activarlo:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Linux / macOS</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">source</span><span class="w"> </span>venv-dev/bin/activate
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Windows</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>.<span class="se">\v</span>env-dev<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span></code></pre></div>
+<h3 id="instalar-la-rama-de-desarrollo">Instalar la rama de desarrollo</h3>
+<p>Una vez activado el <code>venv-dev</code>, instalá la rama específica directamente desde GitHub:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/OWNER/rocketdoo.git@feature/mi-feature
+</span></code></pre></div>
+<h3 id="probar-los-comandos-en-un-directorio-vacio">Probar los comandos en un directorio vacío</h3>
+<p>Rocketdoo requiere comenzar desde un <strong>directorio vacío</strong>, ya que el primer comando (<code>rkd scaffold</code>) es el que genera toda la estructura del proyecto. Por eso el entorno de prueba debe ser una carpeta nueva y limpia:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Crear carpeta de prueba vacía</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>mkdir<span class="w"> </span>mi-prueba<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mi-prueba
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Ejecutar el primer comando de Rocketdoo</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>rkd<span class="w"> </span>scaffold
+</span></code></pre></div>
+<p>A partir de ahí podés continuar probando el resto de los comandos sobre la estructura generada por <code>scaffold</code>.</p>
+<hr />
+<h2 id="probar-tu-rama-sin-afectar-la-version-productiva">Probar tu rama sin afectar la versión productiva</h2>
+<p>El método recomendado es instalar la rama directamente desde GitHub en una <strong>carpeta de prueba vacía</strong>, sin necesidad de clonar el repo completo. Así podés ejecutar todos los comandos de Rocketdoo en un entorno limpio y aislado.</p>
+<h3 id="opcion-a-con-pipx-recomendado-para-cli">Opción A — Con <code>pipx</code> (recomendado para CLI) ✅</h3>
+<p><code>pipx</code> es ideal porque instala Rocketdoo en un entorno aislado y expone los comandos globalmente. Usando <code>--suffix</code> podés tener la versión productiva y la de prueba <strong>al mismo tiempo</strong>, sin conflictos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Instalar la rama de prueba con un sufijo para distinguirla</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pipx<span class="w"> </span>install<span class="w"> </span>git+https://github.com/OWNER/rocketdoo.git@feature/mi-feature<span class="w"> </span>--suffix<span class="o">=</span>-test
+</span></code></pre></div>
+<p>Esto te da dos comandos disponibles en paralelo:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>rocketdoo<span class="w">        </span><span class="c1"># ← versión productiva instalada desde PyPI (intacta)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>rocketdoo-test<span class="w">   </span><span class="c1"># ← versión de tu rama de prueba</span>
+</span></code></pre></div>
+<p>Para actualizar cuando pusheás nuevos cambios a la rama:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pipx<span class="w"> </span>reinstall<span class="w"> </span>rocketdoo-test
+</span></code></pre></div>
+<p>Para desinstalar cuando terminaste de probar:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pipx<span class="w"> </span>uninstall<span class="w"> </span>rocketdoo-test
+</span></code></pre></div>
+<hr />
+<h3 id="opcion-b-con-pip-dentro-de-un-venv-para-probar-imports-o-scripts">Opción B — Con <code>pip</code> dentro de un <code>venv</code> (para probar imports o scripts)</h3>
+<p>Si necesitás probar integraciones de Python además de los comandos CLI:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Crear carpeta de prueba vacía</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>mkdir<span class="w"> </span>test-rocketdoo<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>test-rocketdoo
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Crear y activar un venv exclusivo</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv-test
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="nb">source</span><span class="w"> </span>venv-test/bin/activate<span class="w">   </span><span class="c1"># Linux / macOS</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># .\venv-test\Scripts\activate  # Windows</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Instalar la rama específica</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/OWNER/rocketdoo.git@feature/mi-feature
+</span></code></pre></div>
+<p>Para actualizar cuando pusheás cambios:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>git+https://github.com/OWNER/rocketdoo.git@feature/mi-feature
+</span></code></pre></div>
+<hr />
+<h3 id="repo-privado-autenticacion-con-token">Repo privado: autenticación con token</h3>
+<p>Si el repositorio es privado, necesitás un token de acceso personal de GitHub:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>pip<span class="w"> </span>install<span class="w"> </span>git+https://TU_TOKEN@github.com/OWNER/rocketdoo.git@feature/mi-feature
+</span></code></pre></div>
+<hr />
+<h3 id="resumen">Resumen</h3>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Cuándo usarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pipx install git+... --suffix=-test</code></td>
+<td><strong>Recomendado.</strong> Probar comandos CLI sin tocar la versión productiva</td>
+</tr>
+<tr>
+<td><code>pip install git+...</code> dentro de venv</td>
+<td>Probar imports de Python o integraciones en scripts</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="flujo-de-trabajo-paso-a-paso">Flujo de trabajo paso a paso</h2>
+<h3 id="1-sincronizate-con-la-ultima-version-de-devv2">1. Sincronizate con la última versión de <code>dev/v2</code></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev/v2
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>dev/v2
+</span></code></pre></div>
+<h3 id="2-crear-tu-rama-de-trabajo">2. Crear tu rama de trabajo</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/nombre-descriptivo
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># Ejemplos:</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># git checkout -b feature/soporte-multi-modelo</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># git checkout -b fix/error-en-parser</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># git checkout -b chore/actualizar-dependencias</span>
+</span></code></pre></div>
+<h3 id="3-desarrollar-y-testear">3. Desarrollar y testear</h3>
+<p>Hacé tus cambios, ejecutá los tests y asegurate de que todo funcione:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Ejecutar tests (ajustar según el runner del proyecto)</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>pytest
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># o</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/
+</span></code></pre></div>
+<h3 id="4-hacer-commits-descriptivos">4. Hacer commits descriptivos</h3>
+<p>Usamos el estilo <a href="https://www.conventionalcommits.org/">Conventional Commits</a>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: agregar soporte para modelos locales via Ollama&quot;</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix: corregir error de encoding en respuestas largas&quot;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: actualizar README con nuevo ejemplo de uso&quot;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: actualizar versión de httpx a 0.27&quot;</span>
+</span></code></pre></div>
+<p><strong>Tipos de commit:</strong>
+| Tipo | Cuándo usarlo |
+|------|--------------|
+| <code>feat</code> | Nueva funcionalidad |
+| <code>fix</code> | Corrección de un bug |
+| <code>docs</code> | Cambios en documentación |
+| <code>chore</code> | Tareas de mantenimiento (deps, CI, etc.) |
+| <code>refactor</code> | Refactorización sin cambio de comportamiento |
+| <code>test</code> | Agregar o corregir tests |
+| <code>style</code> | Cambios de formato (sin lógica) |</p>
+<h3 id="5-subir-tu-rama-al-fork">5. Subir tu rama al fork</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/nombre-descriptivo
+</span></code></pre></div>
+<h3 id="6-abrir-el-pull-request">6. Abrir el Pull Request</h3>
+<p>Abrí el PR desde tu fork hacia <code>dev/v2</code> del repositorio original (no hacia <code>main</code>).</p>
+<hr />
+<h2 id="convenciones-de-codigo">Convenciones de código</h2>
+<ul>
+<li>Seguimos <a href="https://pep8.org/">PEP 8</a> para estilo de código Python.</li>
+<li>Usamos <strong>type hints</strong> donde sea posible.</li>
+<li>Todo código nuevo debe incluir <strong>docstrings</strong> básicos.</li>
+<li>Si agregás una feature, incluí al menos un <strong>test</strong> que la cubra.</li>
+<li>Evitá introducir dependencias nuevas sin justificación y discusión previa en el issue correspondiente.</li>
+</ul>
+<hr />
+<h2 id="como-abrir-un-pull-request">Cómo abrir un Pull Request</h2>
+<p>Al abrir el PR, por favor incluí:</p>
+<ol>
+<li><strong>Descripción clara</strong> de qué cambia y por qué.</li>
+<li><strong>Issue relacionado</strong> si existe (ej: <code>Closes #42</code>).</li>
+<li><strong>Cómo probar</strong> los cambios: comandos, casos de prueba, etc.</li>
+<li>Si aplica, <strong>capturas de pantalla</strong> o ejemplos de output.</li>
+</ol>
+<p>El PR debe apuntar a <code>dev/v2</code>, no a <code>main</code>. Los mantenedores revisarán el código, pueden solicitar cambios, y cuando esté aprobado lo mergearán.</p>
+<hr />
+<h2 id="reportar-bugs-o-sugerir-mejoras">Reportar bugs o sugerir mejoras</h2>
+<p>Antes de abrir un issue, buscá si ya existe uno similar. Si no, abrí uno nuevo con:</p>
+<ul>
+<li><strong>Descripción del problema</strong> o la mejora propuesta.</li>
+<li><strong>Versión de Rocketdoo</strong> (<code>pip show rocketdoo</code>).</li>
+<li><strong>Versión de Python</strong> (<code>python --version</code>).</li>
+<li><strong>Sistema operativo</strong>.</li>
+<li><strong>Pasos para reproducir</strong> el bug (si aplica).</li>
+<li><strong>Comportamiento esperado vs. comportamiento actual</strong>.</li>
+</ul>
+<hr />
+<h2 id="dudas">¿Dudas?</h2>
+<p>Abrí una <a href="https://github.com/OWNER/rocketdoo/discussions">Discussion en GitHub</a> o contactá a los mantenedores del proyecto. ¡Toda contribución, por pequeña que sea, es bienvenida!</p>
+<hr />
+<p><em>Este documento es parte de la documentación oficial de Rocketdoo.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

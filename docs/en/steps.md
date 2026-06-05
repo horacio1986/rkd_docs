@@ -13,7 +13,7 @@ pipx install rocketdoo
 ~~~~
 
 
-![rocketdoo-docs-img](../img/rkd-version2.1.0.png.png)
+![rocketdoo-docs-img](../img/rkd-version2.1.0.png)
 
 
 ### Step 3:
