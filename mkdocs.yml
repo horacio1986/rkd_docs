@@ -34,7 +34,7 @@ markdown_extensions:
   - pymdownx.superfences
   - admonition
 
-site_description: "Rocketdoo version 2 is a powerful tool for Odoo development, designed to streamline the process and enhance productivity."
+site_description: "Rocketdoo version 3 is a powerful tool for Odoo development with GUI, Mailpit, Traefik, and VPS instance deployment."
 
 plugins:
   - search
@@ -68,7 +68,8 @@ plugins:
             # Debugging in Odoo: Depurando en Odoo
             How to collaborate in this project?: ¿Cómo colaborar en este proyecto?
             HelpDesk: Mesa de Ayuda
-        
+            Graphical Interface (GUI): Interfaz Gráfica (GUI)
+
 nav:
   - Home: index.md
   - Get Started: get-started.md
@@ -81,6 +82,7 @@ nav:
   - Recommended extensions: recommend-extensions.md
   - Command Line: command.md
   - Deployment: deployment.md
+  - Graphical Interface (GUI): gui.md
   # - Use Cases: use-cases.md
   # - Common Mistakes: common-mistakes.md
   # - Debugging in Odoo: debugging-odoo.md
