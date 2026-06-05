@@ -9,10 +9,10 @@
 - [Estructura de branches](#estructura-de-branches)
 - [Configurar el entorno de desarrollo](#configurar-el-entorno-de-desarrollo)
 - [Instalar Rocketdoo en modo desarrollo](#instalar-rocketdoo-en-modo-desarrollo)
-- [Probar tu rama sin afectar la versión productiva](#probar-tu-rama-sin-afectar-la-versión-productiva)
+- [Probar tu rama sin afectar la versión productiva](#probar-tu-rama-sin-afectar-la-version-productiva)
 - [Flujo de trabajo paso a paso](#flujo-de-trabajo-paso-a-paso)
-- [Convenciones de código](#convenciones-de-código)
-- [Cómo abrir un Pull Request](#cómo-abrir-un-pull-request)
+- [Convenciones de código](#convenciones-de-codigo)
+- [Cómo abrir un Pull Request](#como-abrir-un-pull-request)
 - [Reportar bugs o sugerir mejoras](#reportar-bugs-o-sugerir-mejoras)
 
 ---

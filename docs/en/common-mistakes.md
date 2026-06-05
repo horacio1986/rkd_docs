@@ -51,7 +51,7 @@ rocketdoo
 
 If done correctly, you should see the **ROCKETDOO** welcome screen as below:
 
-![rocketdoo-img-main](../img/rocketdoo-main.png)
+![rocketdoo-img-main](../img/rkd-v3.png)
 
 ---
 
