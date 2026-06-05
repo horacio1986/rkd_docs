@@ -1,52 +1,90 @@
 # Welcome to RKD as ROCKETDOO!
 
-> Now the version 2 of ROCKETDOO with its alias RKD
+> Version 3 of ROCKETDOO — now with a Graphical User Interface, Mailpit integration, Traefik reverse proxy, and full VPS instance deployment.
 
-![rocketdoo-welcome](../img/rkd-v2.3.png)
+![rocketdoo-welcome](../img/rkd-v3.png)
 
 Rocketdoo is a Python-based framework designed to provide a fast and efficient development environment.
 
 With Rocketdoo, you can deploy one or several environments for Odoo development in just a few simple steps.
 It allows you to create new modules or features for both the Enterprise and Community editions.
 
-## What's New in ROCKETDOO Version 2
+## What's New in ROCKETDOO Version 3
 
-The new version of **ROCKETDOO** now allows you to install the framework and start using the tool without needing
-to create a repository from the old version 1.3.1 template.
-Starting from this version, Rocketdoo is no longer a repository itself — which means you no longer need to rely on **Git** submodules,
-something that for many developers was an unnecessary complexity.
+Version 3 is the most complete release of **ROCKETDOO** to date. It keeps everything from version 2 and adds four major new capabilities:
 
-From now on, you can naturally clone your custom and existing modules directly into the addons/ folder,
-which is specifically designed for that purpose.
+### 🖥️ Graphical User Interface (GUI)
 
-Additionally, as the title suggests, the new version of **ROCKETDOO** introduces its own alias for faster interaction — **RKD**.
-This alias replaces the rocketdoo command, allowing you to simply type rkd while maintaining full compatibility;
-you can use either command depending on your preference.
-
-**RKD**, just like **ROCKETDOO**, now provides its own command set. Once the tool is installed, you can check the available commands
-and their usage by running:
-~~~~
-rkd --help
-~~~~
-or the original command:
+**Rocketdoo v3** ships with its own web-based GUI, launched directly from the terminal with a single command:
 
 ~~~~
-rocketdoo --help
+rkd gui
 ~~~~
 
-Good news for those who are not fully comfortable with Docker or Docker Compose: **Rocketdoo** also includes the most important commands
-to deploy and manage containers, replacing standard Docker and Docker Compose commands.
-For example, instead of running ***docker compose up -d***, you can simply use ***rkd up -d*** and similarly for commands
-to stop, remove, or get logs from your containers.
+The GUI opens in your browser at `http://localhost:8070` and provides:
 
-## Deployments from RKD ROCKETDOO
+- **Dashboard** — project overview with container status, Odoo version, PostgreSQL version, and quick access links.
+- **Container controls** — start, stop, restart, build, pull, and remove containers without typing Docker commands.
+- **Live log viewer** — real-time streaming logs from any container.
+- **Mail (Mailpit)** — enable/disable the email testing service directly from the interface.
+- **Modules** — list and manage Odoo add-on modules.
+- **Deploy** — run deployment operations from the GUI.
+- **Instance** — manage VPS deployment targets.
+- **Pack / Unpack** — share or restore full development environments.
+- **Gitman** — manage third-party repository dependencies.
+- **Traefik** — configure the reverse proxy integration.
+- **Dark and light mode** — toggle the theme to match your preference.
 
-With the release of version 2.2.0, developers can deploy their module(s) from **Rocketdoo** to an Odoo SH environment using the *develop* or *staging* branches, as well as to a VPS or a Dockerized instance.
+>>> [Learn more about the GUI](gui.md)
+
+### 📧 Mailpit Email Testing (`rkd mail`)
+
+The new `mail` command integrates [Mailpit](https://github.com/axllent/mailpit) — a local SMTP server and web UI that captures all outgoing emails from Odoo instead of sending them.
+
+~~~~
+rkd mail on       # Enable Mailpit and configure Odoo SMTP
+rkd mail off      # Disable Mailpit and restore defaults
+rkd mail status   # Show current status
+rkd mail open     # Open the Mailpit web UI in the browser
+~~~~
+
+### 🌐 Traefik Reverse Proxy (`rkd traefik`)
+
+The `traefik` command makes it easy to expose your local Odoo instance using a custom domain, either for local development or full production with HTTPS and Let's Encrypt.
+
+~~~~
+rkd traefik on      # Interactive setup: domain, mode (local/production)
+rkd traefik off     # Remove Traefik integration from the project
+rkd traefik status  # Show current Traefik configuration
+rkd traefik guide   # Step-by-step guide for local domain setup
+~~~~
+
+### 🚀 Full VPS Instance Deployment (`rkd instance`)
+
+The `instance` command allows you to deploy a complete Odoo instance to a VPS — either as a Dockerized build or as a native installation — using a simple interactive wizard.
+
+~~~~
+rkd instance init                # Configure stage/prod environments interactively
+rkd instance deploy --env stage  # Deploy to staging
+rkd instance deploy --env prod   # Deploy to production
+rkd instance status              # Show configured deployment targets
+~~~~
+
+---
+
+## From Version 2 — Still Available
+
+All features from **ROCKETDOO v2** are fully preserved:
+
+- `rkd scaffold` / `rkd init` — project scaffolding and configuration wizard.
+- `rkd up`, `rkd down`, `rkd restart`, `rkd stop`, `rkd build`, `rkd status`, `rkd logs` — Docker container management.
+- `rkd pack` / `rkd unpack` — share and restore full environments.
+- `rkd del -i` — clean up `.Identifier` files created by WSL2.
+- `rkd deploy` — module deployment to Odoo SH, VPS, or Dockerized instances.
 
 On the following page, you can find detailed information about deployments using **rkd**. >>> [Deployment](deployment.md)
 
-
-> Now Rocketdoo is more powerful and easier to use than ever before...
+> Rocketdoo v3 is more powerful and easier to use than ever before...
 
 
 ## Overview
