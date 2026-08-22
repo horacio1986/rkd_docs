@@ -4,6 +4,8 @@
 
 ![rocketdoo-welcome](../img/rkd-v3.png)
 
+**Rocketdoo is a development and delivery platform for Odoo teams that standardizes, automates, and abstracts the lifecycle of Odoo environments, from local development all the way to deployment.**
+
 Rocketdoo is a Python-based framework designed to provide a fast and efficient development environment.
 
 With Rocketdoo, you can deploy one or several environments for Odoo development in just a few simple steps.
