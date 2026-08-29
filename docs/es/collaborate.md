@@ -147,7 +147,7 @@ O desde la web con el botón **New issue**.
 <qué pasa; pegar el traceback o la salida relevante en un bloque de código>
 
 ## Entorno
-- rocketdoo: `rkd --version` → 3.1.4
+- rocketdoo: `rkd --version` → 3.2.0
 - Python: 3.12.3
 - SO: Ubuntu 24.04 (WSL2)
 - Docker: 27.x / Compose v2.x
@@ -229,6 +229,22 @@ source venv-dev/bin/activate
 .\venv-dev\Scripts\activate
 ```
 
+### 5. Instalar el paquete y las dependencias de desarrollo
+
+Instalá Rocketdoo en modo editable junto con las herramientas que usa el CI — `pytest`,
+`pytest-cov`, `ruff` y `httpx`:
+
+```bash
+pip install -e . -r requirements-dev.txt
+```
+
+El modo editable hace que tus cambios en el código tomen efecto sin reinstalar. Verificá que la
+suite esté en verde **antes** de tocar nada, así sabés que cualquier falla posterior es tuya:
+
+```bash
+pytest
+```
+
 ---
 
 ## Paso 3 — Crear la rama de trabajo
@@ -280,7 +296,7 @@ Un commit por cambio lógico, con prefijos en mayúscula (los que usa el histori
 | `FIX:` | Corrección de un bug |
 | `FEAT:` | Nueva funcionalidad o comando |
 | `UPD:` | Actualización general (CI, config, docs junto al código) |
-| `UPG:` | **Exclusivo del bump de versión** (`UPG: version 3.1.5`) — reservado a mantenedores |
+| `UPG:` | **Exclusivo del bump de versión** (`UPG: version 3.2.0`) — reservado a mantenedores |
 | `REF:` | Refactor sin cambio de comportamiento |
 | `DOC:` | Documentación |
 | `TEST:` | Agregar o corregir tests |
@@ -313,15 +329,42 @@ rkd init
 
 ### 5.2 Pre-flight del gate de CI
 
-El workflow de integración continua **falla** si `flake8` encuentra errores de sintaxis o nombres indefinidos. Corré el mismo chequeo antes de pushear:
+La integración continua corre en cada pull request y **no hay ningún `continue-on-error`**: un job en
+rojo significa que el cambio no se mergea. El único check requerido es `ci-ok`, que agrupa a todos
+los demás:
+
+| Job | Qué ejecuta |
+|-----|-------------|
+| `Lint (ruff)` | `ruff check .` y `ruff format --check .` |
+| `Tests (py3.10 … py3.13)` | la suite `pytest` completa, con cobertura, en las cuatro versiones de Python soportadas |
+| `E2E with Docker` | los tests marcados `docker` — en el CI no se pueden saltear en silencio |
+| `Build distributions` | `python -m build`, `twine check`, y la comprobación de que el wheel realmente incluye `templates/` y la GUI |
+| `Golden path …` | `rkd scaffold && rkd init --profile …` para `odoo15-ce`, `odoo18-ce` y `odoo19-ee`, y después `docker compose config` sobre el resultado |
+| `Docker build (odoo:…)` | un `docker build` real contra las cinco imágenes de Odoo soportadas — solo en PRs hacia `test/v3` o `main` |
+
+Corré lo mismo en local antes de pushear:
 
 ```bash
 source venv-dev/bin/activate
-flake8 rocketdoo --count --select=E9,F63,F7,F82 --show-source --statistics
-python -c "import rocketdoo, rocketdoo.cli"
+pip install -e . -r requirements-dev.txt
+
+ruff check .
+ruff format --check .
+pytest                      # la suite completa
+pytest -m "not docker"      # si no tenés un daemon de Docker disponible
 ```
 
-Si ese comando devuelve errores, el PR va a quedar en rojo.
+Los tests marcados `docker` se saltean solos cuando no hay daemon local, pero en el CI sí corren, así
+que un cambio que solo funciona en tu máquina igual queda expuesto.
+
+Si tu cambio toca una plantilla Jinja, los tests de snapshot van a fallar a propósito. Leé primero el
+diff; si el render nuevo es el que buscabas, regenerá la referencia y commiteala:
+
+```bash
+UPDATE_SNAPSHOTS=1 pytest tests/test_templates.py
+```
+
+Si algo de esto devuelve errores, el PR va a quedar en rojo.
 
 ### 5.3 Probar una rama sin afectar tu instalación productiva
 
@@ -416,8 +459,9 @@ Resultado esperado: <...>
 
 ## Verificado
 - [ ] La reproducción de #123 ya no ocurre
-- [ ] `flake8 rocketdoo --select=E9,F63,F7,F82` limpio
-- [ ] `python -c "import rocketdoo, rocketdoo.cli"` OK
+- [ ] `ruff check .` y `ruff format --check .` limpios
+- [ ] `pytest` en verde
+- [ ] El comportamiento nuevo está cubierto por al menos un test
 - [ ] Ciclo local con pipx OK
 - [ ] No se modificó la versión en `pyproject.toml`
 - [ ] No se agregaron artefactos de build al repo
@@ -436,7 +480,7 @@ Qué mira quien revisa:
 - El cambio resuelve lo que describe la issue, y nada más.
 - No hay cambios de versión en `pyproject.toml`, `README.md` ni `LICENSE`.
 - No se colaron artefactos de build (`dist/`, `build/`, `*.egg-info`).
-- El gate de `flake8` pasa y el código respeta PEP 8.
+- El check `ci-ok` está en verde: `ruff` limpio, la suite `pytest` completa pasando, y un test que cubre el comportamiento nuevo.
 - El comportamiento nuevo está documentado si cambia el uso de un comando.
 - Hay una forma concreta de reproducir y verificar el arreglo.
 
@@ -496,9 +540,9 @@ Versionado semántico:
 
 | Cambio | Incremento | Ejemplo |
 |--------|-----------|---------|
-| Bug fix, ajuste interno, documentación | patch | 3.1.4 → 3.1.5 |
-| Comando u opción nueva, feature compatible | minor | 3.1.5 → 3.2.0 |
-| Ruptura de compatibilidad (CLI, formato de config, layout generado) | major | 3.2.0 → 4.0.0 |
+| Bug fix, ajuste interno, documentación | patch | 3.2.0 → 3.2.1 |
+| Comando u opción nueva, feature compatible | minor | 3.2.1 → 3.3.0 |
+| Ruptura de compatibilidad (CLI, formato de config, layout generado) | major | 3.3.0 → 4.0.0 |
 
 > Nunca se ejecuta `twine upload` a mano contra PyPI producción: las versiones de PyPI son inmutables, y una subida manual hace que el CI falle después con `400 File already exists`. Para ensayar la publicación se usa TestPyPI.
 
@@ -532,7 +576,9 @@ El PR va directo a `main`. Como se saltea `test/v3`, la validación local es **o
 
 | Síntoma | Causa | Solución |
 |---------|-------|----------|
-| El PR quedó en rojo en el job `test` | `flake8 --select=E9,F63,F7,F82` encontró un error de sintaxis o un nombre indefinido | Corré el chequeo local del [Paso 5.2](#paso-5-probar-antes-de-abrir-el-pr) y corregí el error real |
+| El PR quedó en rojo en `ci-ok` | Falló alguno de los jobs que agrupa | Abrí `ci-ok` para ver cuál, y reproducilo en local con el [Paso 5.2](#paso-5-probar-antes-de-abrir-el-pr) |
+| El PR quedó en rojo en `Lint (ruff)` | Lint o formato | `ruff check --fix .` y `ruff format .` |
+| Un test de snapshot falla después de editar una plantilla | El render ya no coincide con la referencia | Revisá el diff; si el render nuevo es el correcto, `UPDATE_SNAPSHOTS=1 pytest tests/test_templates.py` y commiteá el snapshot |
 | La issue no se cerró al mergear el PR | El PR mergeó a `dev/v3`, no a la rama por defecto | Es lo esperado: se cierra en el PR de release a `main` |
 | `rkd --version` muestra `dev` | Paquete instalado sin metadata (checkout editable) | Reinstalar con `pipx install ... --force` |
 | Conflicto en `pyproject.toml` al rebasear | Tu rama tocó la versión | Descartá ese cambio: el bump no va en las ramas de trabajo |
