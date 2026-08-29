@@ -39,11 +39,97 @@ rkd scaffold
 rkd init
 ~~~
 
+* Or create the environment straight from a supported profile, with no questions asked:
+
+~~~
+rkd init --profile odoo18-ce
+~~~
+
 * Display detailed information about the current project:
 
 ~~~
 rkd info
 ~~~
+
+---
+
+## Golden Paths (`rkd profiles`)
+
+> **New in 3.2.** A *golden path* is a named, supported combination of Odoo version, edition and
+> PostgreSQL version. Rocketdoo ships ten of them, and they are the source of truth for both the
+> `rkd init` wizard and `rkd init --profile`.
+
+* List the whole matrix:
+
+~~~
+rkd profiles list
+~~~
+
+~~~
+                           Rocketdoo golden paths
+╭───────────┬──────┬─────────┬────┬───────┬──────────────────┬─────────────╮
+│ Profile   │ Odoo │ Edition │ PG │ Needs │ Base             │ Support     │
+├───────────┼──────┼─────────┼────┼───────┼──────────────────┼─────────────┤
+│ odoo15-ce │ 15.0 │ CE      │ 14 │   12+ │ bullseye · py3.9 │ golden      │
+│ odoo15-ee │ 15.0 │ EE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
+│ odoo16-ce │ 16.0 │ CE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
+│ odoo16-ee │ 16.0 │ EE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
+│ odoo17-ce │ 17.0 │ CE      │ 15 │   12+ │ jammy · py3.10   │ best effort │
+│ odoo17-ee │ 17.0 │ EE      │ 15 │   12+ │ jammy · py3.10   │ best effort │
+│ odoo18-ce │ 18.0 │ CE      │ 16 │   12+ │ noble · py3.12   │ golden      │
+│ odoo18-ee │ 18.0 │ EE      │ 16 │   12+ │ noble · py3.12   │ best effort │
+│ odoo19-ce │ 19.0 │ CE      │ 16 │   13+ │ noble · py3.12   │ best effort │
+│ odoo19-ee │ 19.0 │ EE      │ 16 │   13+ │ noble · py3.12   │ golden      │
+╰───────────┴──────┴─────────┴────┴───────┴──────────────────┴─────────────╯
+~~~
+
+* Show the details of a single profile:
+
+~~~
+rkd profiles show odoo18-ce
+~~~
+
+* Create that environment end to end, without the wizard:
+
+~~~
+mkdir my-project && cd my-project
+rkd scaffold
+rkd init --profile odoo18-ce
+rkd up -d
+~~~
+
+### Support levels
+
+| Level | What it means |
+|---|---|
+| **golden** | CI renders **and builds** this combination on every release PR. These are the ones to choose. |
+| **best effort** | Within Odoo's stated requirements and offered by the wizard, but not built by CI. Reports are welcome, but there is no guarantee. |
+
+The golden combinations today are `odoo15-ce`, `odoo18-ce` and `odoo19-ee`: between them they cover
+the three different base images the `odoo:` images use, and both editions.
+
+### Compatibility matrix
+
+Per-image data was read from the published `odoo:` images; the PostgreSQL minimums come from Odoo's
+own installation documentation.
+
+| Odoo | Base | Python | pip | Minimum PostgreSQL | Recommended |
+|---|---|---|---|---|---|
+| 15.0 | debian-bullseye | 3.9 | 20.3.4 | 12 | 14 |
+| 16.0 | debian-bullseye | 3.9 | 20.3.4 | 12 | 14 |
+| 17.0 | ubuntu-jammy | 3.10 | 22.0.2 | 12 | 15 |
+| 18.0 | ubuntu-noble | 3.12 | 24.0 | 12 | 16 |
+| 19.0 | ubuntu-noble | 3.12 | 24.0 | **13** | 16 |
+
+Odoo 19 raised the PostgreSQL minimum from 12 to 13. Rocketdoo now validates the pairing when the
+profile is loaded: a `db_version` below the minimum for that Odoo version is an error, not a warning,
+so the wizard can no longer produce an environment that will not start.
+
+> **Odoo 19 and AI:** Odoo 19's AI features need the `pgvector` extension, which ships for
+> PostgreSQL 15 and above. `rkd profiles show odoo19-*` warns you when the profile uses a lower version.
+
+> **Enterprise:** any `*-ee` profile expects an `./enterprise` directory with the Odoo Enterprise
+> add-ons (subscription required) next to `addons/` before you run `rkd up -d`.
 
 ---
 

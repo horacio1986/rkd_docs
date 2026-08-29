@@ -832,6 +832,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5-instalar-el-paquete-y-las-dependencias-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Instalar el paquete y las dependencias de desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1342,6 +1353,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#5-instalar-el-paquete-y-las-dependencias-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Instalar el paquete y las dependencias de desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1735,7 +1757,7 @@
 </span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>&lt;qué pasa; pegar el traceback o la salida relevante en un bloque de código&gt;
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="gu">## Entorno</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">-</span><span class="w"> </span>rocketdoo: <span class="sb">`rkd --version`</span> → 3.1.4
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="k">-</span><span class="w"> </span>rocketdoo: <span class="sb">`rkd --version`</span> → 3.2.0
 </span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="k">-</span><span class="w"> </span>Python: 3.12.3
 </span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="k">-</span><span class="w"> </span>SO: Ubuntu 24.04 (WSL2)
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="k">-</span><span class="w"> </span>Docker: 27.x / Compose v2.x
@@ -1795,22 +1817,31 @@
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># Windows</span>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>.<span class="se">\v</span>env-dev<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
 </span></code></pre></div>
+<h3 id="5-instalar-el-paquete-y-las-dependencias-de-desarrollo">5. Instalar el paquete y las dependencias de desarrollo</h3>
+<p>Instalá Rocketdoo en modo editable junto con las herramientas que usa el CI — <code>pytest</code>,
+<code>pytest-cov</code>, <code>ruff</code> y <code>httpx</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt
+</span></code></pre></div>
+<p>El modo editable hace que tus cambios en el código tomen efecto sin reinstalar. Verificá que la
+suite esté en verde <strong>antes</strong> de tocar nada, así sabés que cualquier falla posterior es tuya:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>pytest
+</span></code></pre></div>
 <hr />
 <h2 id="paso-3-crear-la-rama-de-trabajo">Paso 3 — Crear la rama de trabajo</h2>
 <p>Siempre desde <code>dev/v3</code> actualizado, nunca desde <code>main</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev/v3
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>git<span class="w"> </span>pull<span class="w"> </span>--ff-only<span class="w"> </span>upstream<span class="w"> </span>dev/v3
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev/v3
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>git<span class="w"> </span>pull<span class="w"> </span>--ff-only<span class="w"> </span>upstream<span class="w"> </span>dev/v3
 </span></code></pre></div>
 <p><strong>Nomenclatura:</strong> <code>&lt;tipo&gt;/&lt;numero-de-issue&gt;-&lt;slug-corto&gt;</code></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fix/123-unpack-filestore
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Ejemplos:</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># git checkout -b feat/124-soporte-multi-modelo</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># git checkout -b mig/125-odoo-18</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># git checkout -b chore/126-actualizar-dependencias</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fix/123-unpack-filestore
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># Ejemplos:</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># git checkout -b feat/124-soporte-multi-modelo</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># git checkout -b mig/125-odoo-18</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># git checkout -b chore/126-actualizar-dependencias</span>
 </span></code></pre></div>
 <p>Si usás GitHub CLI, este comando crea la rama <strong>ya vinculada a la issue</strong> en GitHub:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>gh<span class="w"> </span>issue<span class="w"> </span>develop<span class="w"> </span><span class="m">123</span><span class="w"> </span>--base<span class="w"> </span>dev/v3<span class="w"> </span>--name<span class="w"> </span>fix/123-unpack-filestore<span class="w"> </span>--checkout
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>gh<span class="w"> </span>issue<span class="w"> </span>develop<span class="w"> </span><span class="m">123</span><span class="w"> </span>--base<span class="w"> </span>dev/v3<span class="w"> </span>--name<span class="w"> </span>fix/123-unpack-filestore<span class="w"> </span>--checkout
 </span></code></pre></div>
 <h3 id="tipos-de-rama">Tipos de rama</h3>
 <table>
@@ -1884,7 +1915,7 @@
 </tr>
 <tr>
 <td><code>UPG:</code></td>
-<td><strong>Exclusivo del bump de versión</strong> (<code>UPG: version 3.1.5</code>) — reservado a mantenedores</td>
+<td><strong>Exclusivo del bump de versión</strong> (<code>UPG: version 3.2.0</code>) — reservado a mantenedores</td>
 </tr>
 <tr>
 <td><code>REF:</code></td>
@@ -1905,58 +1936,105 @@
 </tbody>
 </table>
 <p>En el <strong>cuerpo</strong> del commit se referencia la issue:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;FIX: espera el montaje del volumen antes de restaurar el filestore</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="s2">Refs #123&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;FIX: espera el montaje del volumen antes de restaurar el filestore</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="s2">Refs #123&quot;</span>
 </span></code></pre></div>
 <p>Usá <code>Refs #123</code> en los commits intermedios. <code>Closes #123</code> se reserva para el PR de release hacia <code>main</code>, porque GitHub sólo cierra issues automáticamente cuando el PR se mergea a la rama por defecto.</p>
 <hr />
 <h2 id="paso-5-probar-antes-de-abrir-el-pr">Paso 5 — Probar antes de abrir el PR</h2>
 <h3 id="51-instalar-tu-codigo-local-y-ejecutar-el-ciclo-minimo">5.1 Instalar tu código local y ejecutar el ciclo mínimo</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>pipx<span class="w"> </span>install<span class="w"> </span>/ruta/a/tu/clon/rocketdoo<span class="w"> </span>--force
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/rkd-test<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/rkd-test
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>rkd<span class="w"> </span>scaffold
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>rkd<span class="w"> </span>init
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># ... y el comando que toca tu cambio</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>pipx<span class="w"> </span>install<span class="w"> </span>/ruta/a/tu/clon/rocketdoo<span class="w"> </span>--force
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/rkd-test<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/rkd-test
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>rkd<span class="w"> </span>scaffold
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>rkd<span class="w"> </span>init
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1"># ... y el comando que toca tu cambio</span>
 </span></code></pre></div>
 <h3 id="52-pre-flight-del-gate-de-ci">5.2 Pre-flight del gate de CI</h3>
-<p>El workflow de integración continua <strong>falla</strong> si <code>flake8</code> encuentra errores de sintaxis o nombres indefinidos. Corré el mismo chequeo antes de pushear:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">source</span><span class="w"> </span>venv-dev/bin/activate
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>flake8<span class="w"> </span>rocketdoo<span class="w"> </span>--count<span class="w"> </span>--select<span class="o">=</span>E9,F63,F7,F82<span class="w"> </span>--show-source<span class="w"> </span>--statistics
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import rocketdoo, rocketdoo.cli&quot;</span>
+<p>La integración continua corre en cada pull request y <strong>no hay ningún <code>continue-on-error</code></strong>: un job en
+rojo significa que el cambio no se mergea. El único check requerido es <code>ci-ok</code>, que agrupa a todos
+los demás:</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Qué ejecuta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Lint (ruff)</code></td>
+<td><code>ruff check .</code> y <code>ruff format --check .</code></td>
+</tr>
+<tr>
+<td><code>Tests (py3.10 … py3.13)</code></td>
+<td>la suite <code>pytest</code> completa, con cobertura, en las cuatro versiones de Python soportadas</td>
+</tr>
+<tr>
+<td><code>E2E with Docker</code></td>
+<td>los tests marcados <code>docker</code> — en el CI no se pueden saltear en silencio</td>
+</tr>
+<tr>
+<td><code>Build distributions</code></td>
+<td><code>python -m build</code>, <code>twine check</code>, y la comprobación de que el wheel realmente incluye <code>templates/</code> y la GUI</td>
+</tr>
+<tr>
+<td><code>Golden path …</code></td>
+<td><code>rkd scaffold &amp;&amp; rkd init --profile …</code> para <code>odoo15-ce</code>, <code>odoo18-ce</code> y <code>odoo19-ee</code>, y después <code>docker compose config</code> sobre el resultado</td>
+</tr>
+<tr>
+<td><code>Docker build (odoo:…)</code></td>
+<td>un <code>docker build</code> real contra las cinco imágenes de Odoo soportadas — solo en PRs hacia <code>test/v3</code> o <code>main</code></td>
+</tr>
+</tbody>
+</table>
+<p>Corré lo mismo en local antes de pushear:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">source</span><span class="w"> </span>venv-dev/bin/activate
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>ruff<span class="w"> </span>check<span class="w"> </span>.
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>ruff<span class="w"> </span>format<span class="w"> </span>--check<span class="w"> </span>.
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>pytest<span class="w">                      </span><span class="c1"># la suite completa</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;not docker&quot;</span><span class="w">      </span><span class="c1"># si no tenés un daemon de Docker disponible</span>
 </span></code></pre></div>
-<p>Si ese comando devuelve errores, el PR va a quedar en rojo.</p>
+<p>Los tests marcados <code>docker</code> se saltean solos cuando no hay daemon local, pero en el CI sí corren, así
+que un cambio que solo funciona en tu máquina igual queda expuesto.</p>
+<p>Si tu cambio toca una plantilla Jinja, los tests de snapshot van a fallar a propósito. Leé primero el
+diff; si el render nuevo es el que buscabas, regenerá la referencia y commiteala:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nv">UPDATE_SNAPSHOTS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>pytest<span class="w"> </span>tests/test_templates.py
+</span></code></pre></div>
+<p>Si algo de esto devuelve errores, el PR va a quedar en rojo.</p>
 <h3 id="53-probar-una-rama-sin-afectar-tu-instalacion-productiva">5.3 Probar una rama sin afectar tu instalación productiva</h3>
 <p>Para revisar la rama de otra persona (o la tuya ya pusheada) sin desinstalar tu Rocketdoo de trabajo:</p>
 <h4 id="opcion-a-con-pipx-recomendado-para-la-cli">Opción A — Con <code>pipx</code> (recomendado para la CLI) ✅</h4>
 <p><code>pipx</code> instala en un entorno aislado y expone los comandos globalmente. Con <code>--suffix</code> conviven la versión productiva y la de prueba:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>pipx<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span><span class="w"> </span>--suffix<span class="o">=</span>-test
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>pipx<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span><span class="w"> </span>--suffix<span class="o">=</span>-test
 </span></code></pre></div>
 <p>Esto te deja dos comandos en paralelo:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>rkd<span class="w">             </span><span class="c1"># ← versión productiva instalada desde PyPI (intacta)</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>rkd-test<span class="w">        </span><span class="c1"># ← versión de la rama de prueba</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>rkd<span class="w">             </span><span class="c1"># ← versión productiva instalada desde PyPI (intacta)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>rkd-test<span class="w">        </span><span class="c1"># ← versión de la rama de prueba</span>
 </span></code></pre></div>
 <blockquote>
 <p>El sufijo se aplica a <strong>todos</strong> los comandos del paquete, así que también quedan disponibles <code>rocketdoo</code> y <code>rocketdoo-test</code>. Para <code>pipx</code> el paquete instalado se llama <code>rocketdoo-test</code>.</p>
 </blockquote>
 <p>Para actualizar cuando se pushean nuevos cambios a la rama, y para limpiar al terminar:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>pipx<span class="w"> </span>reinstall<span class="w"> </span>rocketdoo-test
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>pipx<span class="w"> </span>uninstall<span class="w"> </span>rocketdoo-test
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>pipx<span class="w"> </span>reinstall<span class="w"> </span>rocketdoo-test
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>pipx<span class="w"> </span>uninstall<span class="w"> </span>rocketdoo-test
 </span></code></pre></div>
 <h4 id="opcion-b-con-pip-dentro-de-un-venv-para-imports-o-scripts">Opción B — Con <code>pip</code> dentro de un <code>venv</code> (para imports o scripts)</h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>mkdir<span class="w"> </span>test-rocketdoo<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>test-rocketdoo
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv-test
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nb">source</span><span class="w"> </span>venv-test/bin/activate<span class="w">   </span><span class="c1"># Linux / macOS</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># .\venv-test\Scripts\activate  # Windows</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="c1"># actualizar tras nuevos commits</span>
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>mkdir<span class="w"> </span>test-rocketdoo<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>test-rocketdoo
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv-test
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="nb">source</span><span class="w"> </span>venv-test/bin/activate<span class="w">   </span><span class="c1"># Linux / macOS</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># .\venv-test\Scripts\activate  # Windows</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="c1"># actualizar tras nuevos commits</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span>
 </span></code></pre></div>
 <h4 id="repo-privado-autenticacion-con-token">Repo privado: autenticación con token</h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://TU_TOKEN@github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://TU_TOKEN@github.com/HDM-soft/rocketdoo.git@fix/123-unpack-filestore&quot;</span>
 </span></code></pre></div>
 <table>
 <thead>
@@ -1982,42 +2060,43 @@
 </table>
 <hr />
 <h2 id="paso-6-abrir-el-pull-request-hacia-devv3">Paso 6 — Abrir el Pull Request hacia <code>dev/v3</code></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>fix/123-unpack-filestore
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--repo<span class="w"> </span>HDM-soft/rocketdoo<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span>--base<span class="w"> </span>dev/v3<span class="w"> </span>--head<span class="w"> </span>TU_USUARIO:fix/123-unpack-filestore<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;FIX: espera el montaje del volumen antes de restaurar el filestore&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span>--body-file<span class="w"> </span>/tmp/pr.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>fix/123-unpack-filestore
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--repo<span class="w"> </span>HDM-soft/rocketdoo<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">  </span>--base<span class="w"> </span>dev/v3<span class="w"> </span>--head<span class="w"> </span>TU_USUARIO:fix/123-unpack-filestore<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;FIX: espera el montaje del volumen antes de restaurar el filestore&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">  </span>--body-file<span class="w"> </span>/tmp/pr.md
 </span></code></pre></div>
 <p>O desde la web con el botón <strong>Compare &amp; pull request</strong>, verificando que el destino sea <code>dev/v3</code>.</p>
 <blockquote>
 <p><strong>El PR apunta a <code>dev/v3</code>, nunca a <code>main</code> ni a <code>test/v3</code>.</strong> Un PR contra <code>main</code> dispara el workflow de publicación en PyPI y va a ser cerrado sin merge.</p>
 </blockquote>
 <h3 id="plantilla-de-pr">Plantilla de PR</h3>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="gu">## Qué cambia</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>&lt;resumen en 2-4 líneas&gt;
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>Refs <span class="ni">#123</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="gu">## Por qué</span>
-</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>&lt;causa raíz del bug, o necesidad de la mejora&gt;
-</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="gu">## Cómo probarlo</span>
-</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="sb">```bash</span>
-</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>pipx<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/TU_USUARIO/rocketdoo.git@fix/123-unpack-filestore&quot;</span><span class="w"> </span>--suffix<span class="o">=</span>-test
-</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>mkdir<span class="w"> </span>/tmp/rkd-pr<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/rkd-pr
-</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>rkd-test<span class="w"> </span>scaffold<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rkd-test<span class="w"> </span>init<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rkd-test<span class="w"> </span>unpack
-</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="sb">```</span>
-</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a>
-</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a>Resultado esperado: &lt;...&gt;
-</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>
-</span><span id="__span-24-18"><a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="gu">## Verificado</span>
-</span><span id="__span-24-19"><a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="k">- [ ]</span> La reproducción de <span class="ni">#123</span> ya no ocurre
-</span><span id="__span-24-20"><a id="__codelineno-24-20" name="__codelineno-24-20" href="#__codelineno-24-20"></a><span class="k">- [ ]</span> <span class="sb">`flake8 rocketdoo --select=E9,F63,F7,F82`</span> limpio
-</span><span id="__span-24-21"><a id="__codelineno-24-21" name="__codelineno-24-21" href="#__codelineno-24-21"></a><span class="k">- [ ]</span> <span class="sb">`python -c &quot;import rocketdoo, rocketdoo.cli&quot;`</span> OK
-</span><span id="__span-24-22"><a id="__codelineno-24-22" name="__codelineno-24-22" href="#__codelineno-24-22"></a><span class="k">- [ ]</span> Ciclo local con pipx OK
-</span><span id="__span-24-23"><a id="__codelineno-24-23" name="__codelineno-24-23" href="#__codelineno-24-23"></a><span class="k">- [ ]</span> No se modificó la versión en <span class="sb">`pyproject.toml`</span>
-</span><span id="__span-24-24"><a id="__codelineno-24-24" name="__codelineno-24-24" href="#__codelineno-24-24"></a><span class="k">- [ ]</span> No se agregaron artefactos de build al repo
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="gu">## Qué cambia</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>&lt;resumen en 2-4 líneas&gt;
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>Refs <span class="ni">#123</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="gu">## Por qué</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>&lt;causa raíz del bug, o necesidad de la mejora&gt;
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="gu">## Cómo probarlo</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="sb">```bash</span>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>pipx<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/TU_USUARIO/rocketdoo.git@fix/123-unpack-filestore&quot;</span><span class="w"> </span>--suffix<span class="o">=</span>-test
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>mkdir<span class="w"> </span>/tmp/rkd-pr<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/tmp/rkd-pr
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>rkd-test<span class="w"> </span>scaffold<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rkd-test<span class="w"> </span>init<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rkd-test<span class="w"> </span>unpack
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="sb">```</span>
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>Resultado esperado: &lt;...&gt;
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="gu">## Verificado</span>
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="k">- [ ]</span> La reproducción de <span class="ni">#123</span> ya no ocurre
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a><span class="k">- [ ]</span> <span class="sb">`ruff check .`</span> y <span class="sb">`ruff format --check .`</span> limpios
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a><span class="k">- [ ]</span> <span class="sb">`pytest`</span> en verde
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a><span class="k">- [ ]</span> El comportamiento nuevo está cubierto por al menos un test
+</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a><span class="k">- [ ]</span> Ciclo local con pipx OK
+</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a><span class="k">- [ ]</span> No se modificó la versión en <span class="sb">`pyproject.toml`</span>
+</span><span id="__span-27-25"><a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a><span class="k">- [ ]</span> No se agregaron artefactos de build al repo
 </span></code></pre></div>
 <p>Usá <code>Refs #123</code>, no <code>Closes #123</code>: el cierre automático sólo ocurre al mergear a <code>main</code>.</p>
 <hr />
@@ -2028,15 +2107,15 @@
 <li>El cambio resuelve lo que describe la issue, y nada más.</li>
 <li>No hay cambios de versión en <code>pyproject.toml</code>, <code>README.md</code> ni <code>LICENSE</code>.</li>
 <li>No se colaron artefactos de build (<code>dist/</code>, <code>build/</code>, <code>*.egg-info</code>).</li>
-<li>El gate de <code>flake8</code> pasa y el código respeta PEP 8.</li>
+<li>El check <code>ci-ok</code> está en verde: <code>ruff</code> limpio, la suite <code>pytest</code> completa pasando, y un test que cubre el comportamiento nuevo.</li>
 <li>El comportamiento nuevo está documentado si cambia el uso de un comando.</li>
 <li>Hay una forma concreta de reproducir y verificar el arreglo.</li>
 </ul>
 <p>Si te piden cambios: commiteá sobre la <strong>misma rama</strong> y pusheá; el PR se actualiza solo. No abras un PR nuevo.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;FIX: aplica observaciones de la revisión</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="s2">Refs #123&quot;</span>
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>git<span class="w"> </span>push
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;FIX: aplica observaciones de la revisión</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="s2">Refs #123&quot;</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>git<span class="w"> </span>push
 </span></code></pre></div>
 <p>Cuando el PR queda aprobado, un mantenedor lo mergea a <code>dev/v3</code> (squash si la rama tiene commits de ida y vuelta) y borra la rama remota. A partir de ahí tu cambio viaja con el resto de la integración.</p>
 <hr />
@@ -2044,8 +2123,8 @@
 <p>Estos dos PRs los abren los mantenedores. Se documentan acá para que se entienda dónde termina cada cambio.</p>
 <h3 id="81-devv3-testv3-gate-de-qa">8.1 <code>dev/v3</code> → <code>test/v3</code> (gate de QA)</h3>
 <p>Antes de abrir este PR, el mantenedor aplica el bump de versión en <code>dev/v3</code>. Tras el merge, se prueba el paquete <strong>instalado desde la rama</strong>, no el repo local:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>pipx<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@test/v3&quot;</span><span class="w"> </span>--suffix<span class="o">=</span>-test
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>rocketdoo-test<span class="w"> </span>--version
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>pipx<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;git+https://github.com/HDM-soft/rocketdoo.git@test/v3&quot;</span><span class="w"> </span>--suffix<span class="o">=</span>-test
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>rocketdoo-test<span class="w"> </span>--version
 </span></code></pre></div>
 <p>Checklist de QA: <code>scaffold</code>, <code>init</code>, <code>info</code>, <code>up/status/logs/down</code>, <code>mail on|off|status</code>, <code>traefik on|off|status</code>, <code>deploy init|list-modules</code>, <code>gui</code>, <code>pack</code>/<code>unpack</code> si el cambio los toca, y <strong>la reproducción de cada issue incluida, verificando que ya no ocurre</strong>.</p>
 <p>Si algo falla en este punto, se corrige en una rama nueva desde <code>dev/v3</code> (vuelta al <a href="#paso-3-crear-la-rama-de-trabajo">Paso 3</a>), nunca sobre <code>test/v3</code>.</p>
@@ -2092,17 +2171,17 @@
 <tr>
 <td>Bug fix, ajuste interno, documentación</td>
 <td>patch</td>
-<td>3.1.4 → 3.1.5</td>
+<td>3.2.0 → 3.2.1</td>
 </tr>
 <tr>
 <td>Comando u opción nueva, feature compatible</td>
 <td>minor</td>
-<td>3.1.5 → 3.2.0</td>
+<td>3.2.1 → 3.3.0</td>
 </tr>
 <tr>
 <td>Ruptura de compatibilidad (CLI, formato de config, layout generado)</td>
 <td>major</td>
-<td>3.2.0 → 4.0.0</td>
+<td>3.3.0 → 4.0.0</td>
 </tr>
 </tbody>
 </table>
@@ -2112,8 +2191,8 @@
 <hr />
 <h2 id="hotfix-urgente">Hotfix urgente</h2>
 <p>Sólo para producción rota, cuando esperar el gate de QA no es viable. La rama se crea desde <code>main</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/130-slug<span class="w"> </span>upstream/main
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/130-slug<span class="w"> </span>upstream/main
 </span></code></pre></div>
 <p>El PR va directo a <code>main</code>. Como se saltea <code>test/v3</code>, la validación local es <strong>obligatoria</strong>: build del paquete, <code>twine check</code>, instalación del wheel con <code>pipx</code> y verificación de que el fallo quedó resuelto. Tras la publicación, back-merge obligatorio de <code>main</code> hacia <code>test/v3</code> y <code>dev/v3</code> para no perder el fix.</p>
 <hr />
@@ -2138,9 +2217,19 @@
 </thead>
 <tbody>
 <tr>
-<td>El PR quedó en rojo en el job <code>test</code></td>
-<td><code>flake8 --select=E9,F63,F7,F82</code> encontró un error de sintaxis o un nombre indefinido</td>
-<td>Corré el chequeo local del <a href="#paso-5-probar-antes-de-abrir-el-pr">Paso 5.2</a> y corregí el error real</td>
+<td>El PR quedó en rojo en <code>ci-ok</code></td>
+<td>Falló alguno de los jobs que agrupa</td>
+<td>Abrí <code>ci-ok</code> para ver cuál, y reproducilo en local con el <a href="#paso-5-probar-antes-de-abrir-el-pr">Paso 5.2</a></td>
+</tr>
+<tr>
+<td>El PR quedó en rojo en <code>Lint (ruff)</code></td>
+<td>Lint o formato</td>
+<td><code>ruff check --fix .</code> y <code>ruff format .</code></td>
+</tr>
+<tr>
+<td>Un test de snapshot falla después de editar una plantilla</td>
+<td>El render ya no coincide con la referencia</td>
+<td>Revisá el diff; si el render nuevo es el correcto, <code>UPDATE_SNAPSHOTS=1 pytest tests/test_templates.py</code> y commiteá el snapshot</td>
 </tr>
 <tr>
 <td>La issue no se cerró al mergear el PR</td>

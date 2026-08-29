@@ -152,3 +152,4 @@ Configure the Traefik reverse proxy integration for your project.
 - Log streaming uses WebSockets; keep the browser tab open while following logs.
 - The GUI does not require internet access — everything runs locally.
 - Configuration changes made via the GUI (Mailpit, Traefik) are reflected immediately in your project files (`docker-compose.yaml`, `odoo.conf`, `.rkd/traefik.yaml`).
+- **Since 3.2**, the API only accepts browser requests coming from the GUI's own origin — the host and port it was started on, so `--port` and `--host` keep working. Earlier versions accepted any origin: while `rkd gui` was running, any page you visited could list your filesystem and stop your containers. Binding to `127.0.0.1` was never protection against that, since the request comes from your own browser. Upgrade if you use the GUI.

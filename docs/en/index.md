@@ -1,6 +1,6 @@
 # Welcome to RKD as ROCKETDOO!
 
-> Version 3 of ROCKETDOO — now with a Graphical User Interface, Mailpit integration, Traefik reverse proxy, and full VPS instance deployment.
+> **Version 3.2** of ROCKETDOO — golden paths for every supported Odoo version, on top of the Graphical User Interface, Mailpit integration, Traefik reverse proxy, and full VPS instance deployment.
 
 ![rocketdoo-welcome](../img/rkd-v3.png)
 
@@ -10,6 +10,52 @@ Rocketdoo is a Python-based framework designed to provide a fast and efficient d
 
 With Rocketdoo, you can deploy one or several environments for Odoo development in just a few simple steps.
 It allows you to create new modules or features for both the Enterprise and Community editions.
+
+## What's New in 3.2
+
+Version 3.2 does not add a new subsystem: it makes the existing ones predictable.
+
+### 🧭 Golden Paths (`rkd profiles`)
+
+A *golden path* is a named, supported combination of Odoo version, edition and PostgreSQL version.
+Rocketdoo ships ten of them — Odoo 15 to 19, Community and Enterprise — and they are now the source
+of truth for both the wizard and non-interactive setup:
+
+~~~~
+rkd profiles list              # the whole matrix
+rkd profiles show odoo18-ce    # detail of one profile
+rkd init --profile odoo18-ce   # create the environment without any prompts
+~~~~
+
+Three of them (`odoo15-ce`, `odoo18-ce`, `odoo19-ee`) are built by CI on every release PR; the rest
+are best effort. Odoo↔PostgreSQL compatibility is validated now, so the wizard can no longer produce
+an unsupported pairing — Odoo 19, for instance, requires PostgreSQL 13 or above.
+
+>>> [The full matrix and support levels](command.md#golden-paths-rkd-profiles)
+
+### ✅ Test suite and a real CI gate
+
+Rocketdoo now has a `pytest` suite of over 650 tests, plus `ruff` for linting, running on every pull
+request across Python 3.10 to 3.13, with Docker end-to-end tests, a package build check and a
+render-and-build pass over the golden paths. Nothing is `continue-on-error` any more: a red job means
+the change does not merge.
+
+>>> [How to run it before opening a PR](collaborate.md)
+
+### 🔧 Fixes worth upgrading for
+
+- **Docker build failed on Odoo 18 and 19.** The generated `Dockerfile` removed the PEP 668 marker in
+  its own layer, but `apt install python3-dev` pulls in the `python3.N` package, which puts the file
+  back — so the later `pip install` died with `externally-managed-environment`. Only Ubuntu noble
+  images (`odoo:18.0`, `odoo:19.0`) ship that marker, which is why the older versions were unaffected.
+  All five images are now built in CI.
+- **`rkd pack` always failed with `UnboundLocalError`** when run with `--no-db`, or before any
+  database existed — the two normal ways to use it. Present in 3.1.8 and earlier.
+- **The GUI API accepted requests from any origin.** `rkd gui` now only accepts calls from its own
+  origin. Binding to `127.0.0.1` was never protection here: the request comes from the user's own
+  browser, so any page visited while the GUI was running could list the filesystem and stop containers.
+
+---
 
 ## What's New in ROCKETDOO Version 3
 

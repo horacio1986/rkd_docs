@@ -1026,11 +1026,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo pip install -r requirements.txt
 </span></code></pre></div>
 <h3 id="step-4">Step 4:</h3>
-<p>Verify the installed version to ensure it is version 2; the old version will still be available.</p>
+<p>Verify the installed version to ensure it is version 3; the old version will still be available.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rocketdoo --version
 </span></code></pre></div>
 <blockquote>
-<p>VERSION "2.2.0"</p>
+<p>VERSION "3.2.0"</p>
 </blockquote>
 <h3 id="step-5">Step 5:</h3>
 <p>Now you can create a directory of your choice to get started. However, it is recommended that your directory reference
@@ -1049,14 +1049,22 @@ Follow the steps and answer each and every one of its questions.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd init
 </span></code></pre></div>
 <p><img alt="rocketdoo-img-5" src="../img/rkd-init.png" /></p>
+<blockquote>
+<p><strong>Would rather not answer anything?</strong> From version 3.2 you can create the environment directly from
+a supported profile, and the wizard is skipped entirely:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd profiles list             # see the available combinations
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd init --profile odoo18-ce  # Odoo 18 Community on PostgreSQL 16
+</span></code></pre></div>
+<p>See <a href="../command/#golden-paths-rkd-profiles">Golden Paths</a>.</p>
+</blockquote>
 <h3 id="step-8">Step 8:</h3>
 <p>Once the wizard is complete, you can verify how your environment was built with the command:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd info
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd info
 </span></code></pre></div>
 <p><img alt="rocketdoo-img-5" src="../img/rkd-info.png" /></p>
 <h3 id="step-9">Step 9:</h3>
 <p>With the following command you can now deploy your development environment:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd up -d
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd up -d
 </span></code></pre></div>
 <h3 id="step-10">Step 10:</h3>
 <p>Once the deployment has completed successfully, you can access it with your preferred browser using the URL:
@@ -1071,7 +1079,7 @@ without any issues.</p>
 </blockquote>
 <h2 id="learn-available-commands">Learn Available Commands</h2>
 <p>With the following command you can see the help: </p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd --help
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd --help
 </span></code></pre></div>
 <h2 id="_1"><img alt="rocketdoo-img-5" src="../img/rkd-help.png" /></h2>
 

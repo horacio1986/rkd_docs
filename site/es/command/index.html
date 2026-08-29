@@ -591,6 +591,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#golden-paths-rkd-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Golden Paths (rkd profiles)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Golden Paths (rkd profiles)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niveles-de-soporte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Niveles de soporte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matriz-de-compatibilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matriz de compatibilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gestion-de-contenedores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -832,6 +871,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#golden-paths-rkd-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Golden Paths (rkd profiles)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Golden Paths (rkd profiles)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niveles-de-soporte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Niveles de soporte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matriz-de-compatibilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matriz de compatibilidad
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gestion-de-contenedores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -957,91 +1035,225 @@ Ejemplo: <code>rkd build --help</code></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rkd init
 </span></code></pre></div>
 <ul>
+<li>O crear el entorno directamente desde un perfil soportado, sin responder preguntas:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd init --profile odoo18-ce
+</span></code></pre></div>
+<ul>
 <li>Ver información detallada del proyecto actual:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd info
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd info
 </span></code></pre></div>
+<hr />
+<h2 id="golden-paths-rkd-profiles">Golden Paths (<code>rkd profiles</code>)</h2>
+<blockquote>
+<p><strong>Nuevo en 3.2.</strong> Un <em>golden path</em> es una combinación soportada, con nombre propio, de versión de
+Odoo, edición y versión de PostgreSQL. Rocketdoo trae diez, y son la fuente de verdad tanto para el
+asistente de <code>rkd init</code> como para <code>rkd init --profile</code>.</p>
+</blockquote>
+<ul>
+<li>Ver la matriz completa:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd profiles list
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>                           Rocketdoo golden paths
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>╭───────────┬──────┬─────────┬────┬───────┬──────────────────┬─────────────╮
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│ Profile   │ Odoo │ Edition │ PG │ Needs │ Base             │ Support     │
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>├───────────┼──────┼─────────┼────┼───────┼──────────────────┼─────────────┤
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│ odoo15-ce │ 15.0 │ CE      │ 14 │   12+ │ bullseye · py3.9 │ golden      │
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│ odoo15-ee │ 15.0 │ EE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│ odoo16-ce │ 16.0 │ CE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│ odoo16-ee │ 16.0 │ EE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│ odoo17-ce │ 17.0 │ CE      │ 15 │   12+ │ jammy · py3.10   │ best effort │
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>│ odoo17-ee │ 17.0 │ EE      │ 15 │   12+ │ jammy · py3.10   │ best effort │
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>│ odoo18-ce │ 18.0 │ CE      │ 16 │   12+ │ noble · py3.12   │ golden      │
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│ odoo18-ee │ 18.0 │ EE      │ 16 │   12+ │ noble · py3.12   │ best effort │
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│ odoo19-ce │ 19.0 │ CE      │ 16 │   13+ │ noble · py3.12   │ best effort │
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>│ odoo19-ee │ 19.0 │ EE      │ 16 │   13+ │ noble · py3.12   │ golden      │
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>╰───────────┴──────┴─────────┴────┴───────┴──────────────────┴─────────────╯
+</span></code></pre></div>
+<ul>
+<li>Ver el detalle de un perfil:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd profiles show odoo18-ce
+</span></code></pre></div>
+<ul>
+<li>Crear ese entorno de punta a punta, sin pasar por el asistente:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mkdir mi-proyecto &amp;&amp; cd mi-proyecto
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>rkd scaffold
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>rkd init --profile odoo18-ce
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>rkd up -d
+</span></code></pre></div>
+<h3 id="niveles-de-soporte">Niveles de soporte</h3>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Qué significa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>golden</strong></td>
+<td>El CI renderiza <strong>y construye</strong> esta combinación en cada PR de release. Son las que conviene elegir.</td>
+</tr>
+<tr>
+<td><strong>best effort</strong></td>
+<td>Está dentro de los requisitos que Odoo declara y el asistente la ofrece, pero el CI no la construye. Se aceptan reportes, sin garantía.</td>
+</tr>
+</tbody>
+</table>
+<p>Hoy las combinaciones golden son <code>odoo15-ce</code>, <code>odoo18-ce</code> y <code>odoo19-ee</code>: entre las tres cubren los
+tres sistemas base distintos que usan las imágenes <code>odoo:</code> y las dos ediciones.</p>
+<h3 id="matriz-de-compatibilidad">Matriz de compatibilidad</h3>
+<p>Los datos por imagen se leyeron de las imágenes <code>odoo:</code> publicadas; los mínimos de PostgreSQL salen
+de la documentación de instalación de Odoo.</p>
+<table>
+<thead>
+<tr>
+<th>Odoo</th>
+<th>Base</th>
+<th>Python</th>
+<th>pip</th>
+<th>PostgreSQL mínimo</th>
+<th>Recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15.0</td>
+<td>debian-bullseye</td>
+<td>3.9</td>
+<td>20.3.4</td>
+<td>12</td>
+<td>14</td>
+</tr>
+<tr>
+<td>16.0</td>
+<td>debian-bullseye</td>
+<td>3.9</td>
+<td>20.3.4</td>
+<td>12</td>
+<td>14</td>
+</tr>
+<tr>
+<td>17.0</td>
+<td>ubuntu-jammy</td>
+<td>3.10</td>
+<td>22.0.2</td>
+<td>12</td>
+<td>15</td>
+</tr>
+<tr>
+<td>18.0</td>
+<td>ubuntu-noble</td>
+<td>3.12</td>
+<td>24.0</td>
+<td>12</td>
+<td>16</td>
+</tr>
+<tr>
+<td>19.0</td>
+<td>ubuntu-noble</td>
+<td>3.12</td>
+<td>24.0</td>
+<td><strong>13</strong></td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+<p>Odoo 19 subió el mínimo de PostgreSQL de 12 a 13. Rocketdoo ahora valida la combinación al cargar el
+perfil: un <code>db_version</code> por debajo del mínimo de esa versión de Odoo es un error, no una advertencia,
+así que el asistente ya no puede generar un entorno que no arranque.</p>
+<blockquote>
+<p><strong>Odoo 19 y AI:</strong> las funciones de AI de Odoo 19 necesitan la extensión <code>pgvector</code>, que se
+distribuye para PostgreSQL 15 en adelante. <code>rkd profiles show odoo19-*</code> avisa cuando el perfil usa
+una versión menor.</p>
+<p><strong>Enterprise:</strong> cualquier perfil <code>*-ee</code> espera un directorio <code>./enterprise</code> con los add-ons de Odoo
+Enterprise (requiere suscripción), al mismo nivel que <code>addons/</code>, antes de correr <code>rkd up -d</code>.</p>
+</blockquote>
 <hr />
 <h2 id="gestion-de-contenedores">Gestión de Contenedores</h2>
 <ul>
 <li>Lanzar el despliegue de Odoo (iniciar contenedores en modo detached):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd up -d
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>rkd up -d
 </span></code></pre></div>
 <ul>
 <li>Conocer el estado de tus contenedores:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd status
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>rkd status
 </span></code></pre></div>
 <ul>
 <li>Detener todos los contenedores:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd stop
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>rkd stop
 </span></code></pre></div>
 <ul>
 <li>Reiniciar los contenedores:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd restart
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>rkd restart
 </span></code></pre></div>
 <ul>
 <li>Eliminar los contenedores:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>rkd down
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>rkd down
 </span></code></pre></div>
 <ul>
 <li>Eliminar contenedores y sus volúmenes asociados:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>rkd down -v
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>rkd down -v
 </span></code></pre></div>
 <ul>
 <li>Forzar la reconstrucción del entorno:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>rkd build
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>rkd build
 </span></code></pre></div>
 <ul>
 <li>Reconstruir y reiniciar contenedores en un solo paso:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>rkd build --rebuild
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>rkd build --rebuild
 </span></code></pre></div>
 <ul>
 <li>Ver los logs de los contenedores:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>rkd logs
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>rkd logs
 </span></code></pre></div>
 <ul>
 <li>Seguir los logs en tiempo real de un contenedor específico:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>rkd logs &lt;nombre_contenedor&gt; -f
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>rkd logs &lt;nombre_contenedor&gt; -f
 </span></code></pre></div>
 <hr />
 <h2 id="compartir-entornos">Compartir Entornos</h2>
 <ul>
 <li>Empaquetar todo tu proyecto Odoo completo para compartir con otros desarrolladores:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>rkd pack
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>rkd pack
 </span></code></pre></div>
 <ul>
 <li>Desempaquetar el proyecto compartido en un directorio previamente creado:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>rkd unpack
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rkd unpack
 </span></code></pre></div>
 <hr />
 <h2 id="utilidades">Utilidades</h2>
 <ul>
 <li>Eliminar archivos <code>.Identifier</code> generados por WSL2 al copiar archivos desde Windows:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>rkd del -i
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>rkd del -i
 </span></code></pre></div>
 <ul>
 <li>Previsualizar qué archivos se eliminarían (simulación, sin borrar nada):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>rkd del -i --dry-run
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>rkd del -i --dry-run
 </span></code></pre></div>
 <ul>
 <li>Actualizar masivamente los paquetes de módulos cargados como repositorios públicos con Gitman:<br />
 (Este comando debe ejecutarse dentro del contenedor.)</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>gitman update
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>gitman update
 </span></code></pre></div>
 <hr />
 <h2 id="mail-testing-de-email-con-mailpit-rkd-mail">📧 Mail — Testing de Email con Mailpit (<code>rkd mail</code>)</h2>
@@ -1049,22 +1261,22 @@ Ejemplo: <code>rkd build --help</code></p>
 <ul>
 <li>Activar Mailpit (inicia el servicio y configura el SMTP de Odoo automáticamente):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>rkd mail on
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>rkd mail on
 </span></code></pre></div>
 <ul>
 <li>Desactivar Mailpit y restaurar la configuración SMTP predeterminada:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rkd mail off
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>rkd mail off
 </span></code></pre></div>
 <ul>
 <li>Ver el estado actual de Mailpit:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>rkd mail status
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>rkd mail status
 </span></code></pre></div>
 <ul>
 <li>Abrir la interfaz web de Mailpit en el navegador:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>rkd mail open
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>rkd mail open
 </span></code></pre></div>
 <blockquote>
 <p>La interfaz web de Mailpit está disponible en <code>http://localhost:8025</code> cuando está activo.</p>
@@ -1075,28 +1287,28 @@ Ejemplo: <code>rkd build --help</code></p>
 <ul>
 <li>Activar Traefik para este proyecto (asistente interactivo — solicita dominio y modo):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>rkd traefik on
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>rkd traefik on
 </span></code></pre></div>
 <ul>
 <li>Activar con opciones específicas:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>rkd traefik on --domain miproyecto.local --mode local
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>rkd traefik on --domain miproyecto.com --mode production
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>rkd traefik on --domain miproyecto.local --mode local
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>rkd traefik on --domain miproyecto.com --mode production
 </span></code></pre></div>
 <ul>
 <li>Desactivar Traefik para este proyecto (restaura el acceso directo por puerto):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>rkd traefik off
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>rkd traefik off
 </span></code></pre></div>
 <ul>
 <li>Ver el estado de la integración con Traefik:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>rkd traefik status
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>rkd traefik status
 </span></code></pre></div>
 <ul>
 <li>Ver la guía paso a paso para configurar dominios locales (<code>/etc/hosts</code> y WSL2):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>rkd traefik guide
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>rkd traefik guide
 </span></code></pre></div>
 <blockquote>
 <p>Modos de Traefik:
@@ -1115,37 +1327,37 @@ Ejemplo: <code>rkd build --help</code></p>
 <p>Configurar los entornos stage/producción de forma interactiva (guarda en <code>.rkd/instance.yaml</code>):</p>
 </li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>rkd instance init
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>rkd instance init
 </span></code></pre></div>
 <ul>
 <li>Sobreescribir una configuración existente:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>rkd instance init --force
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>rkd instance init --force
 </span></code></pre></div>
 <ul>
 <li>Desplegar en el entorno staging:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>rkd instance deploy --env stage
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>rkd instance deploy --env stage
 </span></code></pre></div>
 <ul>
 <li>Desplegar en producción (con confirmación):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>rkd instance deploy --env prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>rkd instance deploy --env prod
 </span></code></pre></div>
 <ul>
 <li>Desplegar en producción omitiendo la confirmación:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>rkd instance deploy --env prod --yes
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>rkd instance deploy --env prod --yes
 </span></code></pre></div>
 <ul>
 <li>Previsualizar los archivos generados sin desplegar (dry run):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>rkd instance deploy --env prod --dry-run
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>rkd instance deploy --env prod --dry-run
 </span></code></pre></div>
 <ul>
 <li>Ver el estado de todos los destinos de despliegue configurados:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>rkd instance status
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>rkd instance status
 </span></code></pre></div>
 <hr />
 <h2 id="interfaz-grafica-rkd-gui">🖥️ Interfaz Gráfica (<code>rkd gui</code>)</h2>
@@ -1153,22 +1365,22 @@ Ejemplo: <code>rkd build --help</code></p>
 <ul>
 <li>Iniciar la GUI en el puerto predeterminado (8070):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>rkd gui
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>rkd gui
 </span></code></pre></div>
 <ul>
 <li>Iniciar la GUI en un puerto personalizado:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>rkd gui --port 9090
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>rkd gui --port 9090
 </span></code></pre></div>
 <ul>
 <li>Iniciar la GUI y abrir el navegador automáticamente:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>rkd gui --open
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>rkd gui --open
 </span></code></pre></div>
 <ul>
 <li>Iniciar la GUI para un proyecto en un directorio específico:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>rkd gui --cwd /ruta/al/proyecto
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>rkd gui --cwd /ruta/al/proyecto
 </span></code></pre></div>
 <blockquote>
 <p>La GUI está disponible en <code>http://localhost:8070</code> por defecto. Presioná <code>Ctrl+C</code> para detenerla.</p>

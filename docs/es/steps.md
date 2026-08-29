@@ -26,14 +26,14 @@ sudo pip install -r requirements.txt
 
 ### Paso 4:
 
-Verifica la version instalada para estar seguro de que sea la version 2; ya que la antigua version seguira disponible.
+Verifica la version instalada para estar seguro de que sea la version 3; ya que la antigua version seguira disponible.
 
 ~~~~
 rocketdoo --version
 ~~~~
 
 
-> VERSION ACTUAL "2.2.0"
+> VERSION ACTUAL "3.2.0"
 
 ### Paso 5:
 
@@ -66,6 +66,16 @@ rkd init
 ~~~
 
 ![rocketdoo-img-5](../img/rkd-init.png)
+
+> **¿Preferís no responder nada?** Desde la versión 3.2 podés crear el entorno directamente desde un
+> perfil soportado, y el asistente se saltea por completo:
+>
+> ~~~
+> rkd profiles list             # ver las combinaciones disponibles
+> rkd init --profile odoo18-ce  # Odoo 18 Community sobre PostgreSQL 16
+> ~~~
+>
+> Ver [Golden Paths](command.md#golden-paths-rkd-profiles).
 
 
 ### Paso 8:

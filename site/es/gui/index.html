@@ -1202,6 +1202,7 @@
 <li>El streaming de logs usa WebSockets; mantené la pestaña del navegador abierta mientras seguís los logs.</li>
 <li>La GUI no requiere conexión a internet — todo corre localmente.</li>
 <li>Los cambios de configuración realizados desde la GUI (Mailpit, Traefik) se reflejan inmediatamente en los archivos de tu proyecto (<code>docker-compose.yaml</code>, <code>odoo.conf</code>, <code>.rkd/traefik.yaml</code>).</li>
+<li><strong>Desde 3.2</strong>, la API solo acepta peticiones del navegador que vengan del propio origen de la GUI — el host y el puerto con los que se levantó, así que <code>--port</code> y <code>--host</code> siguen funcionando. Las versiones anteriores aceptaban cualquier origen: mientras corría <code>rkd gui</code>, cualquier página que visitaras podía listar tu filesystem y bajar tus contenedores. Bindear a <code>127.0.0.1</code> nunca protegió de eso, porque la petición la hace tu propio navegador. Si usás la GUI, actualizá.</li>
 </ul>
 
 

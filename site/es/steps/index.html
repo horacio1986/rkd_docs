@@ -1026,11 +1026,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo pip install -r requirements.txt
 </span></code></pre></div>
 <h3 id="paso-4">Paso 4:</h3>
-<p>Verifica la version instalada para estar seguro de que sea la version 2; ya que la antigua version seguira disponible.</p>
+<p>Verifica la version instalada para estar seguro de que sea la version 3; ya que la antigua version seguira disponible.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rocketdoo --version
 </span></code></pre></div>
 <blockquote>
-<p>VERSION ACTUAL "2.2.0"</p>
+<p>VERSION ACTUAL "3.2.0"</p>
 </blockquote>
 <h3 id="paso-5">Paso 5:</h3>
 <p>Ahora ya puedes crear un directorio a gusto para comenzar. Sin embargo es recomendable que tu directorio haga referencia a
@@ -1049,14 +1049,22 @@ Sigue los pasos y responde todas y cada una de sus preguntas.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd init
 </span></code></pre></div>
 <p><img alt="rocketdoo-img-5" src="../../img/rkd-init.png" /></p>
+<blockquote>
+<p><strong>¿Preferís no responder nada?</strong> Desde la versión 3.2 podés crear el entorno directamente desde un
+perfil soportado, y el asistente se saltea por completo:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd profiles list             # ver las combinaciones disponibles
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd init --profile odoo18-ce  # Odoo 18 Community sobre PostgreSQL 16
+</span></code></pre></div>
+<p>Ver <a href="../command/#golden-paths-rkd-profiles">Golden Paths</a>.</p>
+</blockquote>
 <h3 id="paso-8">Paso 8:</h3>
 <p>Una vez finalizado el asistente podrias verificar como se construyo tu ambiente con el comando:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd info
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd info
 </span></code></pre></div>
 <p><img alt="rocketdoo-img-5" src="../../img/rkd-info.png" /></p>
 <h3 id="paso-9">Paso 9:</h3>
 <p>Con el siguiente comando ya podras desplegar tu ambiente de desarrollo</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd up -d
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd up -d
 </span></code></pre></div>
 <h3 id="paso-10">Paso 10:</h3>
 <p>Una vez finalizado el despliegue exitosamente puedes acceder con tu navegador de preferencia con la url:
@@ -1071,7 +1079,7 @@ sin mayores problemas.</p>
 </blockquote>
 <h2 id="conoce-los-comandos-disponibles">Conoce los comandos disponibles</h2>
 <p>Con el siguiente comando podras ver la ayuda: </p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd --help
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd --help
 </span></code></pre></div>
 <h2 id="_1"><img alt="rocketdoo-img-5" src="../../img/rkd-help.png" /></h2>
 

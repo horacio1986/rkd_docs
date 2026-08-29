@@ -1202,6 +1202,7 @@
 <li>Log streaming uses WebSockets; keep the browser tab open while following logs.</li>
 <li>The GUI does not require internet access — everything runs locally.</li>
 <li>Configuration changes made via the GUI (Mailpit, Traefik) are reflected immediately in your project files (<code>docker-compose.yaml</code>, <code>odoo.conf</code>, <code>.rkd/traefik.yaml</code>).</li>
+<li><strong>Since 3.2</strong>, the API only accepts browser requests coming from the GUI's own origin — the host and port it was started on, so <code>--port</code> and <code>--host</code> keep working. Earlier versions accepted any origin: while <code>rkd gui</code> was running, any page you visited could list your filesystem and stop your containers. Binding to <code>127.0.0.1</code> was never protection against that, since the request comes from your own browser. Upgrade if you use the GUI.</li>
 </ul>
 
 

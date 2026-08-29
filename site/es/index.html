@@ -324,6 +324,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#novedades-en-la-version-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Novedades en la versión 3.2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Novedades en la versión 3.2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#golden-paths-rkd-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Golden Paths (rkd profiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suite-de-tests-y-un-gate-de-ci-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Suite de tests y un gate de CI real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correcciones-que-justifican-actualizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 Correcciones que justifican actualizar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#novedades-en-la-version-3-de-rocketdoo" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -803,6 +853,56 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#novedades-en-la-version-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Novedades en la versión 3.2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Novedades en la versión 3.2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#golden-paths-rkd-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧭 Golden Paths (rkd profiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suite-de-tests-y-un-gate-de-ci-real" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Suite de tests y un gate de CI real
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correcciones-que-justifican-actualizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔧 Correcciones que justifican actualizar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#novedades-en-la-version-3-de-rocketdoo" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -915,18 +1015,65 @@
 
 <h1 id="bienvenido-a-rkd-como-rocketdoo">¡Bienvenido a RKD como ROCKETDOO!</h1>
 <blockquote>
-<p>Versión 3 de ROCKETDOO — ahora con Interfaz Gráfica, integración Mailpit, reverse proxy Traefik y despliegue completo de instancias en VPS.</p>
+<p><strong>Versión 3.2</strong> de ROCKETDOO — golden paths para cada versión de Odoo soportada, además de la Interfaz Gráfica, la integración Mailpit, el reverse proxy Traefik y el despliegue completo de instancias en VPS.</p>
 </blockquote>
 <p><img alt="rocketdoo-welcome" src="../img/rkd-v3.png" /></p>
 <p><strong>Rocketdoo es una plataforma de desarrollo y entrega para equipos Odoo que estandariza, automatiza y abstrae el ciclo de vida de los entornos Odoo, desde el desarrollo local hasta el despliegue.</strong></p>
 <p>Rocketdoo es un framework desarrollado en Python que tiene como objetivo proporcionar un entorno de desarrollo rápido y eficiente.</p>
 <p>Con Rocketdoo podrás desplegar, en simples pasos, uno o varios entornos para desarrollar en Odoo, en todas sus ediciones y versiones.<br />
 Te permitirá crear nuevos módulos o funcionalidades tanto para la edición Enterprise como para la edición Community.</p>
+<h2 id="novedades-en-la-version-32">Novedades en la versión 3.2</h2>
+<p>La versión 3.2 no agrega un subsistema nuevo: hace predecibles los que ya existen.</p>
+<h3 id="golden-paths-rkd-profiles">🧭 Golden Paths (<code>rkd profiles</code>)</h3>
+<p>Un <em>golden path</em> es una combinación soportada, con nombre propio, de versión de Odoo, edición y
+versión de PostgreSQL. Rocketdoo trae diez — Odoo 15 a 19, Community y Enterprise — y ahora son la
+fuente de verdad tanto del asistente como de la configuración no interactiva:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>rkd profiles list              # la matriz completa
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>rkd profiles show odoo18-ce    # detalle de un perfil
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>rkd init --profile odoo18-ce   # crear el entorno sin responder preguntas
+</span></code></pre></div>
+<p>Tres de ellos (<code>odoo15-ce</code>, <code>odoo18-ce</code>, <code>odoo19-ee</code>) los construye el CI en cada PR de release; el
+resto es best effort. La compatibilidad Odoo↔PostgreSQL ahora se valida, así que el asistente ya no
+puede armar una combinación no soportada — Odoo 19, por ejemplo, requiere PostgreSQL 13 o superior.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a href="command/#golden-paths-rkd-profiles">La matriz completa y los niveles de soporte</a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="suite-de-tests-y-un-gate-de-ci-real">✅ Suite de tests y un gate de CI real</h3>
+<p>Rocketdoo ahora tiene una suite <code>pytest</code> de más de 650 tests, más <code>ruff</code> para lint, que corre en cada
+pull request sobre Python 3.10 a 3.13, con tests end-to-end con Docker, verificación del build del
+paquete y una pasada de render y build sobre los golden paths. Ya no queda ningún
+<code>continue-on-error</code>: un job en rojo significa que el cambio no se mergea.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a href="collaborate/">Cómo correrla antes de abrir un PR</a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="correcciones-que-justifican-actualizar">🔧 Correcciones que justifican actualizar</h3>
+<ul>
+<li><strong>El build de Docker fallaba en Odoo 18 y 19.</strong> El <code>Dockerfile</code> generado borraba el marcador PEP 668
+  en una capa propia, pero <code>apt install python3-dev</code> arrastra el paquete <code>python3.N</code>, que vuelve a
+  colocar el archivo — así que el <code>pip install</code> posterior moría con <code>externally-managed-environment</code>.
+  Solo las imágenes Ubuntu noble (<code>odoo:18.0</code>, <code>odoo:19.0</code>) traen ese marcador, y por eso las
+  versiones anteriores no se veían afectadas. Ahora el CI construye las cinco imágenes.</li>
+<li><strong><code>rkd pack</code> fallaba siempre con <code>UnboundLocalError</code></strong> al usarlo con <code>--no-db</code>, o antes de que
+  existiera alguna base de datos — las dos formas normales de usarlo. Presente en 3.1.8 y anteriores.</li>
+<li><strong>La API de la GUI aceptaba peticiones de cualquier origen.</strong> <code>rkd gui</code> ahora solo acepta llamadas
+  desde su propio origen. Bindear a <code>127.0.0.1</code> nunca protegió de esto: la petición la hace el
+  navegador del propio usuario, así que cualquier página visitada mientras corría la GUI podía listar
+  el filesystem y bajar los contenedores.</li>
+</ul>
+<hr />
 <h2 id="novedades-en-la-version-3-de-rocketdoo">Novedades en la versión 3 de ROCKETDOO</h2>
 <p>La versión 3 es la entrega más completa de <strong>ROCKETDOO</strong> hasta la fecha. Conserva todo lo de la versión 2 y agrega cuatro grandes capacidades nuevas:</p>
 <h3 id="interfaz-grafica-gui">🖥️ Interfaz Gráfica (GUI)</h3>
 <p><strong>Rocketdoo v3</strong> incluye su propia GUI web, que se lanza directamente desde la terminal con un solo comando:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>rkd gui
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rkd gui
 </span></code></pre></div>
 <p>La GUI se abre en tu navegador en <code>http://localhost:8070</code> y ofrece:</p>
 <ul>
@@ -951,24 +1098,24 @@ Te permitirá crear nuevos módulos o funcionalidades tanto para la edición Ent
 </blockquote>
 <h3 id="testing-de-email-con-mailpit-rkd-mail">📧 Testing de Email con Mailpit (<code>rkd mail</code>)</h3>
 <p>El nuevo comando <code>mail</code> integra <a href="https://github.com/axllent/mailpit">Mailpit</a> — un servidor SMTP local con interfaz web que captura todos los emails salientes de Odoo en lugar de enviarlos.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rkd mail on       # Activar Mailpit y configurar SMTP en Odoo
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>rkd mail off      # Desactivar Mailpit y restaurar los valores por defecto
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>rkd mail status   # Ver el estado actual
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>rkd mail open     # Abrir la interfaz web de Mailpit en el navegador
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rkd mail on       # Activar Mailpit y configurar SMTP en Odoo
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>rkd mail off      # Desactivar Mailpit y restaurar los valores por defecto
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>rkd mail status   # Ver el estado actual
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>rkd mail open     # Abrir la interfaz web de Mailpit en el navegador
 </span></code></pre></div>
 <h3 id="reverse-proxy-traefik-rkd-traefik">🌐 Reverse Proxy Traefik (<code>rkd traefik</code>)</h3>
 <p>El comando <code>traefik</code> facilita exponer tu instancia local de Odoo con un dominio personalizado, tanto para desarrollo local como para producción con HTTPS y Let's Encrypt.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rkd traefik on      # Configuración interactiva: dominio, modo (local/producción)
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>rkd traefik off     # Quitar la integración Traefik del proyecto
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>rkd traefik status  # Ver la configuración actual de Traefik
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>rkd traefik guide   # Guía paso a paso para configurar dominios locales
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rkd traefik on      # Configuración interactiva: dominio, modo (local/producción)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rkd traefik off     # Quitar la integración Traefik del proyecto
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>rkd traefik status  # Ver la configuración actual de Traefik
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>rkd traefik guide   # Guía paso a paso para configurar dominios locales
 </span></code></pre></div>
 <h3 id="despliegue-completo-en-vps-rkd-instance">🚀 Despliegue Completo en VPS (<code>rkd instance</code>)</h3>
 <p>El comando <code>instance</code> permite desplegar una instancia completa de Odoo en un VPS, ya sea como contenedor Docker o instalación nativa, mediante un asistente interactivo.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rkd instance init                # Configurar entornos stage/prod de forma interactiva
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rkd instance deploy --env stage  # Desplegar en staging
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>rkd instance deploy --env prod   # Desplegar en producción
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>rkd instance status              # Ver los destinos de despliegue configurados
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd instance init                # Configurar entornos stage/prod de forma interactiva
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rkd instance deploy --env stage  # Desplegar en staging
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>rkd instance deploy --env prod   # Desplegar en producción
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>rkd instance status              # Ver los destinos de despliegue configurados
 </span></code></pre></div>
 <hr />
 <h2 id="desde-la-version-2-todo-disponible">Desde la Versión 2 — Todo Disponible</h2>
