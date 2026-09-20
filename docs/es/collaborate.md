@@ -510,7 +510,7 @@ pipx install "git+https://github.com/HDM-soft/rocketdoo.git@test/v3" --suffix=-t
 rocketdoo-test --version
 ```
 
-Checklist de QA: `scaffold`, `init`, `info`, `up/status/logs/down`, `mail on|off|status`, `traefik on|off|status`, `deploy init|list-modules`, `gui`, `pack`/`unpack` si el cambio los toca, y **la reproducción de cada issue incluida, verificando que ya no ocurre**.
+Checklist de QA: `scaffold`, `init`, `info`, `up/status/logs/down`, `mail on|off|status` (con `--db` en un proyecto multi-base), `traefik on|off|status`, `deploy init|list-modules`, `ci init|prepare|modules`, `gui` (abierta en la URL con token que imprime), `pack`/`unpack` si el cambio los toca, y **la reproducción de cada issue incluida, verificando que ya no ocurre**.
 
 Si algo falla en este punto, se corrige en una rama nueva desde `dev/v3` (vuelta al [Paso 3](#paso-3-crear-la-rama-de-trabajo)), nunca sobre `test/v3`.
 

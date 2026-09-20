@@ -4,7 +4,7 @@ En esta sección destacamos algunos de los errores más frecuentes al utilizar e
 
 ***También invitamos a los usuarios de este framework a reportar cualquier incidente o error no contemplado aquí a través de nuestro Help Desk, para poder actualizar y revisar cada caso particular.***
 
-* Primero que nada, queremos enfatizar que el repositorio de **ROCKETDOO** NO SE CLONA, sino que se HACE UN FORK. La única forma de utilizarlo es creando un nuevo repositorio a partir de la plantilla.
+* Primero que nada: desde la v3, **ROCKETDOO** ya no es una plantilla de repositorio. Se instala como paquete — `pipx install rocketdoo` — y se corre `rkd scaffold` dentro de un directorio vacío. Clonar o forkear el repositorio de Rocketdoo es sólo para contribuir a Rocketdoo en sí.
 
 ## Fallo al instalar *requirements.txt*
 

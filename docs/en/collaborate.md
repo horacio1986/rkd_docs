@@ -510,7 +510,7 @@ pipx install "git+https://github.com/HDM-soft/rocketdoo.git@test/v3" --suffix=-t
 rocketdoo-test --version
 ```
 
-QA checklist: `scaffold`, `init`, `info`, `up/status/logs/down`, `mail on|off|status`, `traefik on|off|status`, `deploy init|list-modules`, `gui`, `pack`/`unpack` if the change touches them, and **the reproduction of every included issue, verifying it no longer happens**.
+QA checklist: `scaffold`, `init`, `info`, `up/status/logs/down`, `mail on|off|status` (with `--db` on a multi-database project), `traefik on|off|status`, `deploy init|list-modules`, `ci init|prepare|modules`, `gui` (opened on the tokenised URL it prints), `pack`/`unpack` if the change touches them, and **the reproduction of every included issue, verifying it no longer happens**.
 
 If something fails at this point, it's fixed on a new branch from `dev/v3` (back to [Step 3](#step-3-create-the-working-branch)), never on `test/v3` itself.
 

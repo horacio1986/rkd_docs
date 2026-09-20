@@ -33,7 +33,7 @@ rocketdoo --version
 ~~~~
 
 
-> VERSION ACTUAL "3.2.0"
+> VERSION ACTUAL "3.5.0"
 
 ### Paso 5:
 
