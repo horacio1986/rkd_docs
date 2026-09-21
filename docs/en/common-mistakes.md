@@ -4,7 +4,7 @@ In this section, we highlight some of the most frequent errors encountered when 
 
 ***We also encourage users of this framework to report any incidents or bugs not covered here via our Help Desk, so we can update and review each case accordingly.***
 
-* First and foremost, we want to emphasize that the **ROCKETDOO** repository is NOT CLONED but FORKED! The only way to use it is by creating a new repository from the template.
+* First and foremost: since v3, **ROCKETDOO** is not a repository template at all. You install it as a package — `pipx install rocketdoo` — and run `rkd scaffold` inside an empty directory. Cloning or forking the Rocketdoo repository is only for contributing to Rocketdoo itself.
 
 ## Failed to Install *requirements.txt*
 

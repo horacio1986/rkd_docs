@@ -17,11 +17,15 @@ Here are the most common commands you can use in **RKD** **ROCKETDOO**.
 rkd --version
 ~~~
 
+![rkd --version](../img/term-version.svg)
+
 * Display help and available commands:
 
 ~~~
 rkd --help
 ~~~
+
+![rkd --help](../img/term-help.svg)
 
 ---
 
@@ -51,6 +55,12 @@ rkd init --profile odoo18-ce
 rkd info
 ~~~
 
+![rkd info](../img/term-info.svg)
+
+> Since 3.5, `rkd info` also warns when a module under `addons/` sits in a subdirectory that Odoo's
+> `addons_path` does not cover. It only warns, never writes. What writes the path: `rkd up`,
+> `rkd restart`, `rkd build --rebuild`, `rkd ci prepare`, the GUI's Up and the per-module update.
+
 ---
 
 ## Golden Paths (`rkd profiles`)
@@ -65,29 +75,15 @@ rkd info
 rkd profiles list
 ~~~
 
-~~~
-                           Rocketdoo golden paths
-╭───────────┬──────┬─────────┬────┬───────┬──────────────────┬─────────────╮
-│ Profile   │ Odoo │ Edition │ PG │ Needs │ Base             │ Support     │
-├───────────┼──────┼─────────┼────┼───────┼──────────────────┼─────────────┤
-│ odoo15-ce │ 15.0 │ CE      │ 14 │   12+ │ bullseye · py3.9 │ golden      │
-│ odoo15-ee │ 15.0 │ EE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
-│ odoo16-ce │ 16.0 │ CE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
-│ odoo16-ee │ 16.0 │ EE      │ 14 │   12+ │ bullseye · py3.9 │ best effort │
-│ odoo17-ce │ 17.0 │ CE      │ 15 │   12+ │ jammy · py3.10   │ best effort │
-│ odoo17-ee │ 17.0 │ EE      │ 15 │   12+ │ jammy · py3.10   │ best effort │
-│ odoo18-ce │ 18.0 │ CE      │ 16 │   12+ │ noble · py3.12   │ golden      │
-│ odoo18-ee │ 18.0 │ EE      │ 16 │   12+ │ noble · py3.12   │ best effort │
-│ odoo19-ce │ 19.0 │ CE      │ 16 │   13+ │ noble · py3.12   │ best effort │
-│ odoo19-ee │ 19.0 │ EE      │ 16 │   13+ │ noble · py3.12   │ golden      │
-╰───────────┴──────┴─────────┴────┴───────┴──────────────────┴─────────────╯
-~~~
+![Golden paths matrix: ten profiles, Odoo 15 to 19, Community and Enterprise, with their PostgreSQL version and support level](../img/term-profiles-list.svg)
 
 * Show the details of a single profile:
 
 ~~~
 rkd profiles show odoo18-ce
 ~~~
+
+![rkd profiles show odoo18-ce](../img/term-profiles-show.svg)
 
 * Create that environment end to end, without the wizard:
 
@@ -146,6 +142,8 @@ rkd up -d
 ~~~
 rkd status
 ~~~
+
+![rkd status](../img/term-status.svg)
 
 * Stop all containers:
 
@@ -236,6 +234,106 @@ gitman update
 
 ---
 
+## ⚙️ Continuous Integration (`rkd ci`)
+
+> **New in 3.5.** `rkd ci` writes a GitHub Actions workflow **for your project** — not for
+> Rocketdoo. It lints your addons and, optionally, installs them against a real Odoo.
+
+![rkd ci --help](../img/term-ci-help.svg)
+
+* Generate `.github/workflows/rkd-ci.yml`:
+
+~~~
+rkd ci init
+~~~
+
+On a terminal this **asks you when the install job should run**, defaulting to `pull_request`.
+Answer up front, or skip the question entirely:
+
+~~~
+rkd ci init -y                              # take the default, no question
+rkd ci init --install-trigger never         # lint only
+~~~
+
+![rkd ci init -y](../img/term-ci-init.svg)
+
+| Option | Description |
+|--------|-------------|
+| `--install-trigger` | When the install job runs: `pull_request`, `push`, `manual`, `never`. Asked interactively if omitted; `pull_request` without a terminal |
+| `--force` | Overwrite a workflow that differs from the current render |
+| `-y, --yes` | Skip the install-trigger question and take the default |
+
+It never overwrites a file that differs from what it would write, without `--force`, whether the
+difference came from you editing it by hand or from a config change. What it tells you: `Created:`
+for a new file, *already up to date* when it matches, a warning naming `--force` when it differs,
+and `Overwritten:` when you pass it.
+
+* Regenerate the files a clean clone does not carry:
+
+~~~
+rkd ci prepare
+~~~
+
+![rkd ci prepare](../img/term-ci-prepare.svg)
+
+`config/odoo.conf` and `odoo_pg_pass` are gitignored — they hold credentials — so a fresh clone does
+not have them. The build copies `config/odoo.conf` into the image (`COPY ./config/odoo.conf`) and
+compose feeds `odoo_pg_pass` in as a secret at startup, so without this step a clean checkout gets
+nowhere. It also syncs the `addons_path`. It never overwrites an `odoo.conf` that already exists,
+which is what the output above is reporting.
+
+Pass `--admin-passwd` to set the master password it writes; otherwise one is generated.
+
+* List the installable modules Odoo can actually reach:
+
+~~~
+rkd ci modules
+~~~
+
+![rkd ci modules](../img/term-ci-modules.svg)
+
+Prints them comma-separated on stdout, for `MODULES=$(rkd ci modules)` inside the workflow.
+
+### What the generated workflow does
+
+| Job | When it runs | What it costs |
+|-----|--------------|---------------|
+| **Lint** | Every pull request, pushes to the default branch, and manually | Seconds |
+| **Install** | Pull requests against the default branch, by default | Several minutes |
+
+The workflow triggers on `pull_request`, on `push` **to the default branch only**, and on
+`workflow_dispatch`. Pushing a feature branch with no pull request open runs nothing. The lint job
+runs `ruff check` over `addons/` and then `rkd deploy validate -p addons`.
+
+The install job is the expensive one, which is why it is limited by default. On **private** repos
+the Free plan gives 2,000 Actions minutes a month shared across your whole account; **public** repos
+do not consume that quota. Change the trigger with `--install-trigger` if that split does not suit
+you.
+
+> Those numbers are GitHub's, not Rocketdoo's, and GitHub changes them:
+> [check the current Actions billing](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
+
+**Manifest linting.** Ruff's default rules flag `B018` on every `__manifest__.py` — by Odoo's own
+definition it is a bare dict literal — so the generated workflow passes
+`--extend-per-file-ignores "**/__manifest__.py:B018"`. Without it the lint job is red on every Odoo
+project.
+
+> `rkd ci init` signs off with *"the lint job runs ruff with its default rules"*. The generated
+> workflow does add the exception above — the message is the thing that is imprecise, not the
+> workflow.
+
+### What is outside the generated path
+
+- **Enterprise, and private repos over SSH.** The workflow is still written, without the install job
+  and with the reason as a comment: a runner has no access to your private sources.
+- **Private Gitman sources.** `rkd ci init` warns if `gitman.yaml` has `git@`/`ssh://` sources, but
+  it cannot tell a private HTTPS repo from a public one — that build fails on the runner with no
+  warning up front.
+- **Deploying to staging.** Deliberately left out for now: `rkd deploy` has no headless way to
+  generate a `deploy.yaml`, so the generated workflow only lints and installs.
+
+---
+
 ## 📧 Mail — Mailpit Email Testing (`rkd mail`)
 
 Mailpit is a local SMTP server and web UI that captures all outgoing emails from Odoo instead of actually sending them. Ideal for testing email workflows without affecting real users.
@@ -258,6 +356,8 @@ rkd mail off
 rkd mail status
 ~~~
 
+![rkd mail status](../img/term-mail-status.svg)
+
 * Open the Mailpit web interface in the browser:
 
 ~~~
@@ -265,6 +365,37 @@ rkd mail open
 ~~~
 
 > Mailpit web UI is available at `http://localhost:8025` when active.
+
+### The mail server record in Odoo
+
+> **New in 3.3.** On top of the compose and `odoo.conf` toggle, `on`/`off`/`status` now read and
+> write an `ir.mail_server` record in your database, named **`Mailpit (rkd)`**, with
+> `smtp_host = mailpit` and `sequence = 1`. Before this, enabling Mailpit configured the transport
+> but left Odoo still pointing at whatever mail server the database had.
+
+`off` only archives the record (`active = false`) — it never deletes, so a mail server of your own
+is never at risk. The record is matched by name plus `smtp_host`: if you rename it by hand, `off`
+will not find it (and says so) and `on` will create a new one.
+
+**Multi-database projects need `--db`:**
+
+~~~
+rkd mail on --db my_database
+rkd mail status --db my_database
+rkd mail off --db my_database
+~~~
+
+With exactly one database in the project it is picked automatically. With two or more and no
+`--db`, the command neither reads nor writes the record, and tells you.
+
+The `db` container has to be up for this part. If it is not, the compose and `odoo.conf` toggle
+still happens and the mail server step is reported as not done — run `rkd up -d` and retry the same
+command.
+
+> **Known limit.** `sequence = 1` does not guarantee Mailpit wins. Odoo filters mail servers by
+> `from_filter` *before* ordering by `sequence`, so another active server whose `from_filter`
+> matches the sender can beat Mailpit anyway. `rkd mail status` warns when other active servers
+> exist, but it does not read or write `from_filter`.
 
 ---
 
@@ -358,6 +489,8 @@ rkd instance deploy --env prod --dry-run
 rkd instance status
 ~~~
 
+![rkd instance status](../img/term-instance-status.svg)
+
 ---
 
 ## 🖥️ Graphical User Interface (`rkd gui`)
@@ -369,6 +502,11 @@ Launch the Rocketdoo web GUI in your browser. Provides full container management
 ~~~
 rkd gui
 ~~~
+
+> **Since 3.4, read the URL it prints.** Every run generates a session token and the GUI does not
+> load without it: `http://127.0.0.1:8070/?token=<token>`. Browsing to `http://localhost:8070` on
+> its own gets you nothing, and restarting `rkd gui` invalidates the previous token. See
+> [Graphical Interface (GUI)](gui.md#the-session-token).
 
 * Start the GUI on a custom port:
 
@@ -388,6 +526,7 @@ rkd gui --open
 rkd gui --cwd /path/to/project
 ~~~
 
-> The GUI is available at `http://localhost:8070` by default. Press `Ctrl+C` to stop it.
+> The GUI is available at `http://localhost:8070` by default — **on the tokenised URL it prints**.
+> Press `Ctrl+C` to stop it.
 
 >>> [Learn more about the GUI](gui.md)

@@ -1,6 +1,6 @@
 # Welcome to RKD as ROCKETDOO!
 
-> **Version 3.2** of ROCKETDOO — golden paths for every supported Odoo version, on top of the Graphical User Interface, Mailpit integration, Traefik reverse proxy, and full VPS instance deployment.
+> **Version 3.5** of ROCKETDOO — a rebuilt Graphical User Interface in Spanish and English, CI you can generate for your own project, and nested addons Odoo can finally reach — on top of the golden paths, Mailpit integration, Traefik reverse proxy, and full VPS instance deployment.
 
 ![rocketdoo-welcome](../img/rkd-v3.png)
 
@@ -10,6 +10,69 @@ Rocketdoo is a Python-based framework designed to provide a fast and efficient d
 
 With Rocketdoo, you can deploy one or several environments for Odoo development in just a few simple steps.
 It allows you to create new modules or features for both the Enterprise and Community editions.
+
+## What's New in 3.5
+
+### 🖥️ A GUI that says where you are, in your language
+
+![The Rocketdoo GUI](../img/gui-dashboard-en.png)
+
+The interface was rebuilt around what changes while you work:
+
+- **A permanent top bar** with the active project and a pill counting running containers, so no
+  screen leaves you guessing which project you are acting on.
+- **Grouped sidebar navigation** — Project, Environment, Publish — plus a new **Projects** screen
+  that discovers every Rocketdoo project on the host and switches between them without restarting
+  the server.
+- **A light theme that meets WCAG AA contrast**, and with no saved choice the GUI follows your
+  operating system instead of always starting dark.
+- **Spanish and English**, switchable from the top bar. What the GUI only relays — Docker logs,
+  addon names, container names, raw `docker compose ps` status — is left untouched in both.
+
+>>> [The ten screens, with screenshots](gui.md)
+
+### ⚙️ CI for your project (`rkd ci`)
+
+`rkd ci init` writes a GitHub Actions workflow **into your project** that lints your addons and
+installs them against a real Odoo:
+
+~~~
+rkd ci init        # writes .github/workflows/rkd-ci.yml
+rkd ci prepare     # regenerates what a clean clone does not carry
+rkd ci modules     # the installable modules Odoo can reach
+~~~
+
+It never overwrites a workflow that differs from what it would write, and the expensive install job
+is limited to pull requests by default, because Actions minutes are a shared quota on private repos.
+
+>>> [What the generated workflow does, and what is outside it](command.md#continuous-integration-rkd-ci)
+
+### 📁 Nested addons Odoo can actually reach
+
+Odoo reads a static `addons_path`, so a module at `addons/oca/web_responsive` was invisible unless
+that subdirectory was listed. `rkd up`, `rkd restart`, `rkd build --rebuild`, `rkd ci prepare`, the GUI's Up and the per-module
+update now keep the path in sync with what is actually under `addons/`; `rkd info` warns without
+writing. Entries that are not
+Rocketdoo's own — Odoo's default, `enterprise`, Gitman's `external_addons`, your own paths — are
+kept exactly as they are, in order.
+
+### 📧 `rkd mail` configures the mail server, not just the transport
+
+**Since 3.3.** `rkd mail on` now also creates the `ir.mail_server` record **`Mailpit (rkd)`** in your database, so
+Odoo actually routes through Mailpit. `off` only archives it — it never deletes, so a mail server of
+your own is never at risk. Projects with more than one database need `--db NAME`.
+
+>>> [The record, the `--db` flag and a known limit](command.md#the-mail-server-record-in-odoo)
+
+### 🔑 The GUI asks for a session token
+
+Since 3.4, every `rkd gui` prints a URL carrying a session token, and the API rejects anything
+without it. The token is good for as long as that server runs, and restarting it issues a new one. **Browsing to `http://localhost:8070` on its own no longer works** — use the URL it
+prints, or `--open`.
+
+>>> [Why, and what it does not protect against](gui.md#the-session-token)
+
+---
 
 ## What's New in 3.2
 
@@ -35,7 +98,7 @@ an unsupported pairing — Odoo 19, for instance, requires PostgreSQL 13 or abov
 
 ### ✅ Test suite and a real CI gate
 
-Rocketdoo now has a `pytest` suite of over 650 tests, plus `ruff` for linting, running on every pull
+Rocketdoo now has a `pytest` suite of over 900 tests, plus `ruff` for linting, running on every pull
 request across Python 3.10 to 3.13, with Docker end-to-end tests, a package build check and a
 render-and-build pass over the golden paths. Nothing is `continue-on-error` any more: a red job means
 the change does not merge.
@@ -69,7 +132,8 @@ Version 3 is the most complete release of **ROCKETDOO** to date. It keeps everyt
 rkd gui
 ~~~~
 
-The GUI opens in your browser at `http://localhost:8070` and provides:
+The GUI opens in your browser at the URL `rkd gui` prints — since 3.4 that URL carries a session
+token — and provides:
 
 - **Dashboard** — project overview with container status, Odoo version, PostgreSQL version, and quick access links.
 - **Container controls** — start, stop, restart, build, pull, and remove containers without typing Docker commands.
