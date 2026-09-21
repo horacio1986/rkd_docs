@@ -39,7 +39,7 @@ rkd deploy init
 rkd deploy list-modules
 ~~~
 
-![list-modules](../img/deploy-list-modules.png)
+![rkd deploy list-modules](../img/term-deploy-list.svg)
 
 * Command to list the modules prepared for deployment
 
