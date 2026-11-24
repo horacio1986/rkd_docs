@@ -853,14 +853,24 @@
 </li>
 </ol>
 <p>Y lo más importante es instalar el framework <strong>ROCKETDOO</strong>:</p>
-<p><div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo pip install rocketdoo
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pipx install rocketdoo
 </span></code></pre></div>
-o
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo pipx install rocketdoo
-</span></code></pre></div></p>
 <blockquote>
-<p>Recomendamos usar <strong><em>pipx</em></strong> si quieres que se instale en tu maquina en modo global sin romper dependencias de Python.</p>
+<p><strong>Usá <code>pipx</code>, y sin <code>sudo</code>.</strong> <code>pipx</code> instala el comando para tu usuario, en un entorno aislado
+propio — correrlo como root deja la herramienta en un lugar que tu usuario no controla y anula la
+idea. <code>pip install rocketdoo</code> sobre el Python del sistema directamente se rechaza en las
+distribuciones actuales, por el motivo que se explica más abajo.</p>
 </blockquote>
+<ul>
+<li>Actualizar una instalación existente:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pipx upgrade rocketdoo
+</span></code></pre></div>
+<ul>
+<li>Ver qué versión tenés:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd --version
+</span></code></pre></div>
 <p><a href="https://pypi.org/project/rocketdoo/" target=" blank">Official Rocketdoo PyPi</a></p>
 <hr />
 <h2 id="porque-usar-pipx-en-lugar-de-pip">¿Porque usar PIPX en lugar de PIP?</h2>
