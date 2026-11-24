@@ -23,7 +23,7 @@ un `pack` que deja tus secretos en casa, y una GUI que dejó de congelarse.
 > base local cuando configurás el entorno y el deploy la vuelca, la transfiere, la restaura en el
 > servidor —filestore incluido— y neutraliza lo que no debe correr ahí.
 
-![La pantalla Instancias, con el selector de base de origen en cada entorno](../img/gui-instances-es.png)
+![La pantalla Instancias, con el selector de base de datos de origen en cada entorno](../img/gui-instances-es.png)
 
 ~~~
 rkd instance init             # "Database for stage:" → elegí una base local, o ninguna
@@ -112,8 +112,8 @@ pasar.
 
 > **Desde la 3.9.2.** `rkd pack` metía las credenciales del emisor en el ZIP que le pasaba a otro.
 
-El archivo ya no se lleva `.ssh/`, `.rkd/secrets/`, `.rkd/instance.yaml`, `.rkd/deploy.yaml` ni
-ningún `*.env`, y **ningún symlink entra** — un enlace apuntando a un archivo de secretos lo
+El archivo ya no se lleva `.ssh/`, `.rkd/secrets/`, `.rkd/instance.yaml`, `.rkd/deploy.yaml`,
+`traefik/certs/acme.json` ni ningún `*.env`, y **ningún symlink entra** — un enlace apuntando a un archivo de secretos lo
 exfiltraba. El panel nombra todo lo que dejó afuera, que es justamente la lista que el receptor tiene
 que reescribir. Desde la 3.10 el verificador además lee los primeros 64 KiB de cada entrada buscando
 cabeceras PEM, en vez de confiar en los nombres de archivo. Dos credenciales sí siguen viajando a

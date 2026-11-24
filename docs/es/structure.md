@@ -72,9 +72,16 @@ De todos modos, no te preocupes, ya que normalmente no será necesario modificar
 | `.rkd/traefik.yaml` | La configuración del proxy inverso local que escribe `rkd traefik on`. |
 | `.rkd/secrets/` | Credenciales generadas — **nunca compartas este directorio.** |
 
-`rkd scaffold` agrega `.rkd/` al `.gitignore`, y `rkd pack` deja el directorio entero afuera del ZIP
-que arma, así un entorno compartido nunca se lleva tus credenciales. `rkd info` imprime un panel
-**Secrets at risk** cuando falta esa cobertura.
+`rkd scaffold` agrega cinco de esas rutas al `.gitignore` —`.rkd/secrets/`, `.rkd/instance.yaml`,
+`.rkd/deploy.yaml`, `.rkd/deploy_backups/` y `.rkd/deploy.log`— y `rkd info` imprime un panel
+**Secrets at risk** cuando falta esa cobertura. Ojo que `.rkd/traefik.yaml` *no* está entre ellas: no
+guarda ninguna credencial, sólo la configuración del proxy local.
+
+> **Un pack no queda saneado al punto de poder publicarse.** `rkd pack` mantiene afuera del ZIP las
+> cuatro rutas ignoradas de arriba, pero `odoo_pg_pass` y `config/odoo.conf` viajan a propósito —sin
+> ellos el entorno compartido no arranca— y también viaja cualquier otra cosa bajo `.rkd/` que no
+> esté en esa lista, como `.rkd/traefik.yaml`. Mandale el archivo a un compañero; no lo publiques.
+> En [Qué nunca entra al ZIP](command.md#que-nunca-entra-al-zip) está la lista exacta.
 
 Otros dos directorios son parte del mismo layout generado: `instance/` guarda las plantillas Jinja
 que renderiza el deploy al VPS, y `deploy/` las que usa el deploy de módulos. Normalmente no se

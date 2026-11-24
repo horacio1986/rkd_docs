@@ -304,7 +304,7 @@ rkd launch
 
 A rocket climbs a field of stars on the terminal's alternate screen — like `vim` or `less`, so your
 scrollback is left alone — and the flight ends on one of six lines of the "Zen of Odoo" about
-customizing with Studio. The animation is skipped without a TTY, with `TERM` set to `dumb` or
+customizing with Studio. The six lines are in Spanish, whatever your locale. The animation is skipped without a TTY, with `TERM` set to `dumb` or
 `unknown`, or on a terminal smaller than 25×13, but **the message is printed anyway**, so
 `rkd launch | cat` still reads. It respects `NO_COLOR`.
 
@@ -447,8 +447,10 @@ rkd mail open
 
 `rkd mail on` reads the ports declared in the compose file, keeps them when they are free, and takes
 the next free one when they are not — counting ports declared by a sibling project that is currently
-switched off, not only ports in use right now. It prints which ones it took and writes them back into
-the compose file when you turn Mailpit off, so a browser bookmark keeps working.
+switched off, not only ports in use right now. It prints which ones it took and **writes them into
+the compose file as it enables Mailpit**; `rkd mail off` only comments the block out and leaves those
+numbers in place, so the project keeps the same ports next time and a browser bookmark keeps
+working.
 
 `rkd mail open` and `rkd mail status` read the real published port rather than assuming 8025, which
 is why the status panel is the place to look for the web UI address.
@@ -601,9 +603,10 @@ the VPS by hand — deliberately so, because the alternative is a flag that over
 production with a development dump. A database the target already serves and Rocketdoo did not seed
 is never overwritten: the deploy refuses and says so.
 
-Neutralization differs by target. Both regenerate the database UUID and disable the Mailpit mail
-server, which points at a host that does not exist on the VPS — leaving it would make every outgoing
-mail fail silently. **Staging only** also disables scheduled actions, mail servers and payment
+Neutralization differs by target. Both regenerate the database UUID, disable the Mailpit mail
+server — which points at a host that does not exist on the VPS, so leaving it would make every
+outgoing mail fail silently — and repoint `web.base.url` at the environment's domain, dropping
+`web.base.url.freeze` so the new value is the one Odoo uses. **Staging only** also disables scheduled actions, mail servers and payment
 providers; doing that to production would stop the crons of the instance you are launching.
 
 The admin password of a seeded database is not replaced — its users keep theirs — and the closing

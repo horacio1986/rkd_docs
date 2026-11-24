@@ -164,9 +164,10 @@ A card per environment configured in `.rkd/instance.yaml` (stage, prod) with hos
 version, deployment type and remote path, plus **Deploy** and a **Dry run** checkbox.
 
 > **New in 3.14.** Each card also carries a **Seed database** selector: `None — fresh database from
-> scratch (recommended)`, or one of your local databases to restore into that environment. Choosing
-> one asks you to type the environment name before it is saved, and the warnings the pre-flight
-> raises come back as notices on this screen. See
+> scratch (recommended)`, or one of your local databases to restore into that environment. Picking
+> one saves it straight away; the confirmation comes later, when you press **Deploy**, as a prompt
+> that makes you type the environment name. **Ticking Dry run skips that prompt**, since a dry run
+> restores nothing. The warnings the pre-flight raises come back as notices on this screen. See
 > [Seeding an environment with a local database](command.md#seeding-an-environment-with-a-local-database).
 
 ### Services
@@ -186,9 +187,10 @@ The optional local services, together:
 
 ![Deploy screen](../img/gui-deploy-en.png)
 
-Deploy modules to the targets configured in `.rkd/deploy.yaml`, with **Validate Modules**, **Deploy**
-and a **Dry run** checkbox — the GUI equivalent of `rkd deploy run`. The form that creates
-`deploy.yaml` picks the **SSH key from a list of the keys in `~/.ssh/`** (3.14.2) rather than asking
+Deploy modules to the targets configured in `.rkd/deploy.yaml`: one card per target, each with
+**Deploy** and **Dry run**, plus **Validate Modules** above — the GUI equivalent of
+`rkd deploy run`. With no `deploy.yaml` yet, the screen shows a **Create Deploy Config** form
+instead, which picks the **SSH key from a list of the keys in `~/.ssh/`** (3.14.2) rather than asking
 you to type a path.
 
 > **Fixed in 3.14.3.** Both buttons used to fail every time: `Deploy` called a method that did not

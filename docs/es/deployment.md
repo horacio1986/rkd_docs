@@ -88,11 +88,18 @@ rkd deploy validate
 
 * Permite validar nuestros modulos antes de un despliegue
 
-> **`rkd deploy run --dry-run` todavía no chequea nada.** Imprime
-> `Dry-run completed successfully` sin contactar al destino, así que tratalo como un lugar reservado y
-> no como un ensayo — el que de verdad inspecciona tus módulos es `rkd deploy validate`. El dry run de
+> **`rkd deploy run --dry-run` nunca contacta al destino.** Escanea `addons/`, lista los módulos y
+> rechaza un `--module` que no existe, y después imprime `Dry-run completed successfully` sin hablar
+> con el servidor. Tratalo como un lugar reservado y no como un ensayo — el que de verdad inspecciona
+> tus módulos es `rkd deploy validate`. El dry run de
 > [`rkd instance deploy`](command.md#el-pre-flight-y-un-dry-run-que-no-escribe-nada) es otra cosa por
 > completo: corre el pre-flight entero contra el servidor e informa bloqueantes reales.
+
+> **Con un destino por contraseña, el dry run igual te la pide y la guarda.** El deployer se
+> construye antes de llegar a la rama del dry run, así que un destino configurado con autenticación
+> por contraseña abre el `VPS Password:` y escribe `.rkd/secrets/vps_<destino>.env` (permisos 600):
+> una simulación que deja una credencial en disco. Si eso te importa, usá autenticación por clave, o
+> exportá la variable con la contraseña.
 
 > **Arreglado en la 3.14.3, si desplegás desde la GUI.** Los botones **Desplegar** y **Validar
 > módulos** fallaban en cada llamada — el primero por un método que no existía, tapado por un `except`

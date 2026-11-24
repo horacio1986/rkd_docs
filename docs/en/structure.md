@@ -72,9 +72,16 @@ However, do not worry, as you typically will not need to modify this file manual
 | `.rkd/traefik.yaml` | The local reverse proxy configuration written by `rkd traefik on`. |
 | `.rkd/secrets/` | Generated credentials — **never share this directory.** |
 
-`rkd scaffold` adds `.rkd/` to `.gitignore`, and `rkd pack` leaves the whole directory out of the ZIP
-it builds, so a shared environment never carries your credentials. `rkd info` prints a **Secrets at
-risk** panel when that coverage is missing.
+`rkd scaffold` adds five of those paths to `.gitignore` — `.rkd/secrets/`, `.rkd/instance.yaml`,
+`.rkd/deploy.yaml`, `.rkd/deploy_backups/` and `.rkd/deploy.log` — and `rkd info` prints a **Secrets
+at risk** panel when that coverage is missing. Note that `.rkd/traefik.yaml` is *not* among them: it
+holds no credential, only the local proxy settings.
+
+> **A pack is not sanitized to the point of being publishable.** `rkd pack` keeps the four ignored
+> paths above out of the ZIP, but `odoo_pg_pass` and `config/odoo.conf` travel on purpose — the
+> shared environment does not start without them — and so does anything else under `.rkd/` that is
+> not on that list, such as `.rkd/traefik.yaml`. Send the archive to a teammate; do not publish it.
+> [What never enters the ZIP](command.md#what-never-enters-the-zip) has the exact list.
 
 Two more directories belong to the same generated layout: `instance/` holds the Jinja templates the
 VPS deploy renders, and `deploy/` the ones the module deploy uses. You do not normally edit either.

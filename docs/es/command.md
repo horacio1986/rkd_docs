@@ -449,8 +449,9 @@ rkd mail open
 
 `rkd mail on` lee los puertos declarados en el compose, los conserva cuando están libres y toma el
 siguiente libre cuando no — contando también los puertos que declara un proyecto hermano que está
-apagado, no sólo los que están en uso ahora mismo. Imprime cuáles tomó y los escribe de vuelta en el
-compose al apagar Mailpit, así un favorito del navegador sigue sirviendo.
+apagado, no sólo los que están en uso ahora mismo. Imprime cuáles tomó y **los escribe en el compose
+al activar Mailpit**; `rkd mail off` sólo comenta el bloque y deja esos números donde están, así el
+proyecto conserva los mismos puertos la próxima vez y un favorito del navegador sigue sirviendo.
 
 `rkd mail open` y `rkd mail status` leen el puerto publicado real en vez de dar por sentado el 8025,
 que es justamente por lo que el panel de estado es el lugar donde mirar la dirección de la interfaz
@@ -604,9 +605,10 @@ base en el VPS a mano — deliberadamente, porque la alternativa es un flag que 
 cliente con un dump de desarrollo. Una base que el destino ya sirve y que Rocketdoo no sembró nunca se
 pisa: el deploy se niega y lo dice.
 
-La neutralización difiere según el destino. Los dos regeneran el UUID de la base y desactivan el
-servidor de correo de Mailpit, que apunta a un host que en el VPS no existe — dejarlo haría fallar
-todo el correo saliente en silencio. **Sólo staging** desactiva además las acciones programadas, los
+La neutralización difiere según el destino. Los dos regeneran el UUID de la base, desactivan el
+servidor de correo de Mailpit —que apunta a un host que en el VPS no existe, así que dejarlo haría
+fallar todo el correo saliente en silencio— y reapuntan `web.base.url` al dominio del entorno,
+borrando `web.base.url.freeze` para que el valor nuevo sea el que Odoo use. **Sólo staging** desactiva además las acciones programadas, los
 servidores de correo y los proveedores de pago; hacerle eso a producción apagaría los crons de la
 instancia que estás lanzando.
 

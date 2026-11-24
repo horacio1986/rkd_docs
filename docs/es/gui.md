@@ -168,10 +168,12 @@ Todo lo de los addons en una pantalla:
 Una tarjeta por entorno configurado en `.rkd/instance.yaml` (stage, prod) con host, dominio, versión
 de Odoo, tipo de despliegue y ruta remota, más **Desplegar** y la casilla **Simulación (dry run)**.
 
-> **Nuevo en la 3.14.** Cada tarjeta lleva además un selector **Base de origen**: `None — fresh
-> database from scratch (recommended)`, o alguna de tus bases locales para restaurar en ese entorno.
-> Elegir una te pide escribir el nombre del entorno antes de guardarla, y los avisos que levanta el
-> pre-flight vuelven como notificaciones en esta pantalla. Ver
+> **Nuevo en la 3.14.** Cada tarjeta lleva además un selector **Base de datos de origen**: `Ninguna —
+> base nueva de cero (recomendado)`, o alguna de tus bases locales para restaurar en ese entorno.
+> Elegir una la guarda en el acto; la confirmación llega después, al apretar **Desplegar**, como un
+> cartel que te hace escribir el nombre del entorno. **Tildar Simulación (dry run) saltea ese
+> cartel**, porque una simulación no restaura nada. Los avisos que levanta el pre-flight vuelven como
+> notificaciones en esta pantalla. Ver
 > [Sembrar un entorno con una base local](command.md#sembrar-un-entorno-con-una-base-local).
 
 ### Servicios
@@ -191,10 +193,11 @@ Los servicios locales opcionales, juntos:
 
 ![Pantalla Despliegue](../img/gui-deploy-es.png)
 
-Desplegá módulos a los targets configurados en `.rkd/deploy.yaml`, con **Validar módulos**,
-**Desplegar** y la casilla **Simulación (dry run)** — el equivalente en la GUI de `rkd deploy run`. El
-formulario que crea `deploy.yaml` elige la **clave SSH de una lista con las claves de `~/.ssh/`**
-(3.14.2), en vez de pedirte que tipees una ruta.
+Desplegá módulos a los targets configurados en `.rkd/deploy.yaml`: una tarjeta por destino, cada una
+con **Desplegar** y **Simulación (dry run)**, más **Validar módulos** arriba — el equivalente en la
+GUI de `rkd deploy run`. Cuando todavía no hay `deploy.yaml`, la pantalla muestra en cambio un
+formulario **Crear configuración de despliegue**, que elige la **clave SSH de una lista con las claves
+de `~/.ssh/`** (3.14.2) en vez de pedirte que tipees una ruta.
 
 > **Arreglado en la 3.14.3.** Los dos botones fallaban siempre: `Desplegar` llamaba a un método que no
 > existía y un `except` ancho convertía la falla en un `200` optimista, y `Validar módulos` mostraba
