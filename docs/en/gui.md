@@ -3,9 +3,12 @@
 **Rocketdoo** ships a web-based Graphical User Interface that lets you manage your entire Odoo
 development environment from a browser — no Docker commands required.
 
-> **Rebuilt in 3.5.** A permanent top bar that always names the active project, grouped sidebar
-> navigation, a new **Projects** screen, a light theme that meets WCAG AA contrast, and a
-> Spanish/English switch. Since 3.4 the API also requires a session token — see
+> **Rebuilt in 3.5, sharpened through 3.14.** A permanent top bar that always names the active
+> project, grouped sidebar navigation, a **Projects** screen, a light theme that meets WCAG AA
+> contrast, and a Spanish/English switch. Since then: a seed-database selector on **Instances**
+> (3.14), real Mailpit ports on **Services** (3.9.1), an SSH key selector and the deployer's own log
+> on **Deploy** (3.14.2 and 3.14.3), and an interface that no longer freezes while Docker works
+> (3.14.3). Since 3.4 the API also requires a session token — see
 > [The session token](#the-session-token), because it changes how you open the GUI.
 
 ## Starting the GUI
@@ -53,6 +56,10 @@ is closed for WebSockets. Three consequences worth knowing:
 - **Browsing to `http://localhost:8070` on its own no longer gets you a working GUI.** The page
   itself still loads — `/`, `/health` and the SPA are exempt — but every call for data is refused,
   so it shows *Session token required* instead of failing silently. Use the printed URL, or `--open`.
+  **Since 3.8 that notice is not a dead end**: it carries a field to paste the token into and a
+  **Use token** button, which is what you need when the VSCode port notification sends you to the
+  bare address. The browser tab remembers the last token that worked, for as long as the tab is
+  open.
 - **Restarting `rkd gui` invalidates the previous token.** Old tabs stop working; reopen the new URL.
 - The token travels as a query parameter, so it can end up in your browser history. The full threat
   model is in [SECURITY.md](https://github.com/HDM-soft/rocketdoo/blob/main/SECURITY.md).
@@ -122,6 +129,11 @@ version, edition, PostgreSQL version, restart policy, Odoo and VSCode debug port
 SSH/private repos and Gitman repos. Two buttons run the steps — **Run Scaffold** and **Initialize
 Project**.
 
+> **This form stops at Odoo 19.** The version list in the GUI is fixed and does not yet offer Odoo
+> 20, which the CLI has supported since 3.7. To create an Odoo 20 project, use the terminal — `rkd
+> init --profile odoo20-ce` — and then manage it from the GUI as usual. Everything else on this
+> screen behaves like the CLI wizard.
+
 ### Containers
 
 ![Containers screen](../img/gui-containers-en.png)
@@ -151,6 +163,13 @@ Everything about addons in one screen:
 A card per environment configured in `.rkd/instance.yaml` (stage, prod) with host, domain, Odoo
 version, deployment type and remote path, plus **Deploy** and a **Dry run** checkbox.
 
+> **New in 3.14.** Each card also carries a **Seed database** selector: `None — fresh database from
+> scratch (recommended)`, or one of your local databases to restore into that environment. Picking
+> one saves it straight away; the confirmation comes later, when you press **Deploy**, as a prompt
+> that makes you type the environment name. **Ticking Dry run skips that prompt**, since a dry run
+> restores nothing. The warnings the pre-flight raises come back as notices on this screen. See
+> [Seeding an environment with a local database](command.md#seeding-an-environment-with-a-local-database).
+
 ### Services
 
 ![Services screen](../img/gui-services-en.png)
@@ -158,7 +177,9 @@ version, deployment type and remote path, plus **Deploy** and a **Dry run** chec
 The optional local services, together:
 
 - **Mailpit** — the toggle enables or disables it, and the card reports the service state, the
-  container, the SMTP port and the web UI port, with a button to open it.
+  container, the SMTP port and the web UI port, with a button to open it. **Since 3.9.1 those are
+  the ports actually published**, not a hardcoded `1025`/`8025`, and the open link only appears when
+  there is something to open.
 - **Traefik** — the current mode and whether the override file exists, with a mode selector
   (local HTTP / production HTTPS), the domain and **Enable Traefik**.
 
@@ -166,8 +187,17 @@ The optional local services, together:
 
 ![Deploy screen](../img/gui-deploy-en.png)
 
-Deploy modules to the targets configured in `.rkd/deploy.yaml`, with **Validate Modules**, **Deploy**
-and a **Dry run** checkbox — the GUI equivalent of `rkd deploy run`.
+Deploy modules to the targets configured in `.rkd/deploy.yaml`: one card per target, each with
+**Deploy** and **Dry run**, plus **Validate Modules** above — the GUI equivalent of
+`rkd deploy run`. With no `deploy.yaml` yet, the screen shows a **Create Deploy Config** form
+instead, which picks the **SSH key from a list of the keys in `~/.ssh/`** (3.14.2) rather than asking
+you to type a path.
+
+> **Fixed in 3.14.3.** Both buttons used to fail every time: `Deploy` called a method that did not
+> exist and a wide `except` turned the failure into a cheerful `200`, and `Validate Modules` showed a
+> red *Validation errors* card with an empty list for every project, including ones with no errors.
+> Deploy now goes through the same entry point as the CLI — validation, backup, pre-flight check and
+> rollback — and the panel shows the deployer's own timeline below the verdict.
 
 ### Pack
 

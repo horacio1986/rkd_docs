@@ -24,7 +24,27 @@ Rocketdoo enumerará todas las claves SSH encontradas para que puedas selecciona
 
 ## ¿Mis claves SSH son seguras?
 
-En esta nueva version de Rocketdoo, ya no es necesario considerar ocultar las llaves privadas ssh; dado que
-rkd version 2, al no ser un repositorio como tal, no necesitamos preocuparnos por esto.
-Dado que puedes usar tus repositorios privados con normalidad, ya que no corren riesgos de estar expuestas en repositorio.
-Sin embargo en la version 1, esto estaba contemplada la proteccion de las mismas
+Rocketdoo nunca copia una clave privada dentro de tu proyecto. Lee los nombres de las claves de
+`~/.ssh/`, vos elegís una, y en la configuración queda guardado sólo ese nombre — la clave se queda
+donde estaba. Desde la 3.14.1 una clave configurada por nombre se resuelve contra `~/.ssh/`, que es
+donde miran todos los asistentes de Rocketdoo, así que un deploy ya no falla con "SSH key not found"
+por una clave que estuvo ahí todo el tiempo.
+
+> **El selector ofrece claves, y sólo claves (3.14.2).** Antes listaba todo lo que hubiera en
+> `~/.ssh/`, incluidos `config`, `known_hosts` y `authorized_keys`. Ahora los saltea, junto con los
+> archivos `.pub`, los `.ppk` (el formato de PuTTY, que `ssh -i` no lee) y los dotfiles — comparando
+> sin distinguir mayúsculas y sobre el nombre hasta el primer punto, así que `known_hosts.old` y
+> `config.bak` también quedan afuera. Cancelar el selector ya no escribe `~/.ssh/None` en tu
+> configuración.
+
+Hay tres lugares que conviene conocer:
+
+- **`rkd pack` nunca se lleva tus claves.** El directorio `.ssh/`, `.rkd/secrets/` y todo `*.env`
+  quedan afuera del ZIP, y ningún enlace simbólico puede entrar — un enlace apuntando a un archivo de
+  secretos lo sacaba del proyecto. El panel final nombra lo que excluyó, que es la lista que el
+  receptor reescribe con sus propias claves a través de `rkd unpack`.
+- **Un build de Docker que necesita un repositorio privado usa tu agente SSH**, por el
+  `--mount=type=ssh` de BuildKit. La clave nunca se escribe en una capa de la imagen. Desde la 3.12
+  los proyectos cuyos repos externos son todos HTTPS públicos construyen sin agente.
+- **Clonar Enterprise en un VPS reenvía el agente** en vez de copiar una clave al servidor, así que
+  ninguna credencial tuya queda en una máquina compartida.

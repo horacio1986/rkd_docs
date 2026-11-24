@@ -786,10 +786,31 @@ serás tú quien elija cuál de ellas utilizar.</p>
 <p>Rocketdoo enumerará todas las claves SSH encontradas para que puedas seleccionar la correspondiente según el número asignado.</p>
 <hr />
 <h2 id="mis-claves-ssh-son-seguras">¿Mis claves SSH son seguras?</h2>
-<p>En esta nueva version de Rocketdoo, ya no es necesario considerar ocultar las llaves privadas ssh; dado que
-rkd version 2, al no ser un repositorio como tal, no necesitamos preocuparnos por esto.
-Dado que puedes usar tus repositorios privados con normalidad, ya que no corren riesgos de estar expuestas en repositorio.
-Sin embargo en la version 1, esto estaba contemplada la proteccion de las mismas</p>
+<p>Rocketdoo nunca copia una clave privada dentro de tu proyecto. Lee los nombres de las claves de
+<code>~/.ssh/</code>, vos elegís una, y en la configuración queda guardado sólo ese nombre — la clave se queda
+donde estaba. Desde la 3.14.1 una clave configurada por nombre se resuelve contra <code>~/.ssh/</code>, que es
+donde miran todos los asistentes de Rocketdoo, así que un deploy ya no falla con "SSH key not found"
+por una clave que estuvo ahí todo el tiempo.</p>
+<blockquote>
+<p><strong>El selector ofrece claves, y sólo claves (3.14.2).</strong> Antes listaba todo lo que hubiera en
+<code>~/.ssh/</code>, incluidos <code>config</code>, <code>known_hosts</code> y <code>authorized_keys</code>. Ahora los saltea, junto con los
+archivos <code>.pub</code>, los <code>.ppk</code> (el formato de PuTTY, que <code>ssh -i</code> no lee) y los dotfiles — comparando
+sin distinguir mayúsculas y sobre el nombre hasta el primer punto, así que <code>known_hosts.old</code> y
+<code>config.bak</code> también quedan afuera. Cancelar el selector ya no escribe <code>~/.ssh/None</code> en tu
+configuración.</p>
+</blockquote>
+<p>Hay tres lugares que conviene conocer:</p>
+<ul>
+<li><strong><code>rkd pack</code> nunca se lleva tus claves.</strong> El directorio <code>.ssh/</code>, <code>.rkd/secrets/</code> y todo <code>*.env</code>
+  quedan afuera del ZIP, y ningún enlace simbólico puede entrar — un enlace apuntando a un archivo de
+  secretos lo sacaba del proyecto. El panel final nombra lo que excluyó, que es la lista que el
+  receptor reescribe con sus propias claves a través de <code>rkd unpack</code>.</li>
+<li><strong>Un build de Docker que necesita un repositorio privado usa tu agente SSH</strong>, por el
+  <code>--mount=type=ssh</code> de BuildKit. La clave nunca se escribe en una capa de la imagen. Desde la 3.12
+  los proyectos cuyos repos externos son todos HTTPS públicos construyen sin agente.</li>
+<li><strong>Clonar Enterprise en un VPS reenvía el agente</strong> en vez de copiar una clave al servidor, así que
+  ninguna credencial tuya queda en una máquina compartida.</li>
+</ul>
 
 
 

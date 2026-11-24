@@ -147,7 +147,7 @@ Or from the web with the **New issue** button.
 <what happens; paste the traceback or relevant output in a code block>
 
 ## Environment
-- rocketdoo: `rkd --version` → 3.2.0
+- rocketdoo: `rkd --version` → 3.14.3
 - Python: 3.12.3
 - OS: Ubuntu 24.04 (WSL2)
 - Docker: 27.x / Compose v2.x

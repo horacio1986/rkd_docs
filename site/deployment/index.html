@@ -921,6 +921,14 @@
 <p>It is no longer sufficient to test our modules only in a local environment and validate their correct behavior. We can now move this validation process closer to a production-like instance and, at the same time, ensure that the module is permanently deployed within the client’s system.</p>
 <p>In this section of the documentation, we will list these new commands and explain how to use them according to each use case.</p>
 <hr />
+<blockquote>
+<p><strong>Two different commands, two different jobs.</strong> <code>rkd deploy</code> — this page — ships <strong>modules</strong> to an
+Odoo that already exists, whether that is Odoo.sh or a server of your own. <a href="../command/#vps-instance-deployment-rkd-instance"><code>rkd
+instance</code></a> does the other half: it installs <strong>the
+whole Odoo instance</strong> on a VPS, from the Docker image or the native packages up to the database and
+the reverse proxy. If there is nothing running on the server yet, you want <code>rkd instance</code> first.</p>
+</blockquote>
+<hr />
 <h2 id="before-getting-started">Before Getting Started:</h2>
 <blockquote>
 <p>It is important to note that in our development environment, the directory intended for the modules we develop is<br />
@@ -942,7 +950,7 @@
 </ul>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rkd deploy list-modules
 </span></code></pre></div>
-<p><img alt="list-modules" src="../img/deploy-list-modules.png" /></p>
+<p><img alt="rkd deploy list-modules" src="../img/term-deploy-list.svg" /></p>
 <ul>
 <li>Command to list the modules prepared for deployment</li>
 </ul>
@@ -971,6 +979,24 @@
 <ul>
 <li>Validates the modules before deployment</li>
 </ul>
+<blockquote>
+<p><strong><code>rkd deploy run --dry-run</code> never contacts the target.</strong> It scans <code>addons/</code>, lists the modules
+and refuses a <code>--module</code> that does not exist, and then prints <code>Dry-run completed successfully</code>
+without talking to the server at all. Treat it as a placeholder rather than a rehearsal —
+<code>rkd deploy validate</code> is what actually inspects your modules. The dry run of
+<a href="../command/#the-pre-flight-and-a-dry-run-that-writes-nothing"><code>rkd instance deploy</code></a> is a different
+thing entirely: it runs the full pre-flight against the server and reports real blockers.</p>
+<p><strong>On a password target, the dry run still asks for the password and stores it.</strong> The deployer is
+built before the dry-run branch is reached, so a target configured with password authentication
+prompts <code>VPS Password:</code> and writes <code>.rkd/secrets/vps_&lt;target&gt;.env</code> (mode 600) — a dry run that
+leaves a credential on disk. Use key authentication, or export the password variable, if that
+matters to you.</p>
+<p><strong>Fixed in 3.14.3, if you deploy from the GUI.</strong> The <strong>Deploy</strong> and <strong>Validate Modules</strong> buttons
+failed on every call — the first through a method that did not exist, hidden behind a wide <code>except</code>
+that reported success anyway, the second showing an empty <em>Validation errors</em> card for every
+project. Both now go through the same entry point as the CLI. On 3.14.2 and earlier, deploy from the
+terminal.</p>
+</blockquote>
 <hr />
 <h2 id="deployment-to-odoo-sh">Deployment to Odoo SH</h2>
 <p>To get started, the developer must have developer access to the Odoo SH environment and repository permissions in order to execute a deployment on an Odoo SH instance. For this reason, when creating the development environment, it is also essential to select the option to manage private repositories, as this will list the SSH keys connected to the developer’s GitHub repository.</p>

@@ -1020,7 +1020,7 @@
 <p>Install <strong>Rocketdoo</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pipx install rocketdoo
 </span></code></pre></div>
-<p><img alt="rocketdoo-docs-img" src="../img/rkd-version2.1.0.png" /></p>
+<p><img alt="rkd --version" src="../img/term-version.svg" /></p>
 <h3 id="step-3">Step 3:</h3>
 <p>Install the requirements from the <strong><em>requirements.txt</em></strong> file if they were not installed by default:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo pip install -r requirements.txt
@@ -1030,7 +1030,7 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rocketdoo --version
 </span></code></pre></div>
 <blockquote>
-<p>VERSION "3.2.0"</p>
+<p>VERSION "3.14.3"</p>
 </blockquote>
 <h3 id="step-5">Step 5:</h3>
 <p>Now you can create a directory of your choice to get started. However, it is recommended that your directory reference
@@ -1041,7 +1041,7 @@ a development intended for Odoo, which makes the most sense, right?</p>
 </span></code></pre></div>
 This command will create all the necessary files and folders within your working directory to build your 
 Odoo development environment and debug code with VSCode.</p>
-<p><img alt="rocketdoo-img-5" src="../img/rkd-scaffold.png" /></p>
+<p><img alt="rkd scaffold" src="../img/term-scaffold.svg" /></p>
 <h3 id="step-7">Step 7:</h3>
 <p>Execute the command to start the <strong>Rocketdoo</strong> initialization wizard, which will guide you step by step through everything 
 necessary to configure your development environment. 
@@ -1053,15 +1053,16 @@ Follow the steps and answer each and every one of its questions.</p>
 <p><strong>Would rather not answer anything?</strong> From version 3.2 you can create the environment directly from
 a supported profile, and the wizard is skipped entirely:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd profiles list             # see the available combinations
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd init --profile odoo18-ce  # Odoo 18 Community on PostgreSQL 16
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd init --profile odoo19-ce  # Odoo 19 Community on PostgreSQL 16
 </span></code></pre></div>
 <p>See <a href="../command/#golden-paths-rkd-profiles">Golden Paths</a>.</p>
 </blockquote>
+<p><img alt="rkd init --profile odoo19-ce" src="../img/term-init-profile.svg" /></p>
 <h3 id="step-8">Step 8:</h3>
 <p>Once the wizard is complete, you can verify how your environment was built with the command:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd info
 </span></code></pre></div>
-<p><img alt="rocketdoo-img-5" src="../img/rkd-info.png" /></p>
+<p><img alt="rkd info" src="../img/term-info.svg" /></p>
 <h3 id="step-9">Step 9:</h3>
 <p>With the following command you can now deploy your development environment:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd up -d
@@ -1081,7 +1082,7 @@ without any issues.</p>
 <p>With the following command you can see the help: </p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd --help
 </span></code></pre></div>
-<h2 id="_1"><img alt="rocketdoo-img-5" src="../img/rkd-help.png" /></h2>
+<h2 id="_1"><img alt="rkd --help" src="../img/term-help.svg" /></h2>
 
 
 

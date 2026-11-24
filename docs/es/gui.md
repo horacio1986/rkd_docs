@@ -3,10 +3,13 @@
 **Rocketdoo** incluye una Interfaz Gráfica web que te permite gestionar todo tu entorno de
 desarrollo Odoo desde el navegador — sin escribir comandos Docker.
 
-> **Rediseñada en la 3.5.** Una barra superior fija que siempre dice en qué proyecto estás,
-> navegación lateral agrupada, una pantalla **Proyectos** nueva, un tema claro que cumple contraste
-> WCAG AA, y un selector español/inglés. Además, desde la 3.4 la API exige un token de sesión — mirá
-> [El token de sesión](#el-token-de-sesion), porque cambia la forma de abrir la GUI.
+> **Rediseñada en la 3.5, afilada hasta la 3.14.** Una barra superior fija que siempre dice en qué
+> proyecto estás, navegación lateral agrupada, una pantalla **Proyectos**, un tema claro que cumple
+> contraste WCAG AA, y un selector español/inglés. Desde entonces: un selector de base de origen en
+> **Instancias** (3.14), los puertos reales de Mailpit en **Servicios** (3.9.1), un selector de claves
+> SSH y la cronología del propio deployer en **Despliegue** (3.14.2 y 3.14.3), y una interfaz que ya
+> no se congela mientras Docker trabaja (3.14.3). Además, desde la 3.4 la API exige un token de
+> sesión — mirá [El token de sesión](#el-token-de-sesion), porque cambia la forma de abrir la GUI.
 
 ## Iniciar la GUI
 
@@ -53,7 +56,10 @@ conexión. Tres consecuencias que conviene saber:
 - **Entrar a `http://localhost:8070` a secas ya no te da una GUI funcionando.** La página en sí
   carga — `/`, `/health` y el SPA están exentos —, pero se rechaza todo pedido de datos, así que
   muestra *Se requiere un token de sesión* en vez de fallar en silencio. Usá la URL impresa, o
-  `--open`.
+  `--open`. **Desde la 3.8 ese aviso no es un callejón sin salida**: trae un campo para pegar el
+  token y un botón **Usar token**, que es lo que te hace falta cuando el aviso de puertos de VSCode
+  te manda a la dirección pelada. La pestaña del navegador recuerda el último token que funcionó,
+  mientras siga abierta.
 - **Reiniciar `rkd gui` invalida el token anterior.** Las pestañas viejas dejan de funcionar: abrí
   la URL nueva.
 - El token viaja como parámetro de la URL, así que puede quedar en el historial del navegador. El
@@ -126,6 +132,11 @@ proyecto, versión de Odoo, edición, versión de PostgreSQL, política de reini
 de depuración de VSCode, master password, repos privados por SSH y repos de Gitman. Dos botones
 ejecutan los pasos — **Ejecutar Scaffold (rkd scaffold)** e **Inicializar proyecto (rkd init)**.
 
+> **Este formulario llega hasta Odoo 19.** La lista de versiones de la GUI es fija y todavía no
+> ofrece Odoo 20, que la CLI soporta desde la 3.7. Para crear un proyecto Odoo 20 usá la terminal
+> —`rkd init --profile odoo20-ce`— y después administralo desde la GUI como siempre. Todo lo demás de
+> esta pantalla se comporta igual que el asistente de la CLI.
+
 ### Contenedores
 
 ![Pantalla Contenedores](../img/gui-containers-es.png)
@@ -157,6 +168,14 @@ Todo lo de los addons en una pantalla:
 Una tarjeta por entorno configurado en `.rkd/instance.yaml` (stage, prod) con host, dominio, versión
 de Odoo, tipo de despliegue y ruta remota, más **Desplegar** y la casilla **Simulación (dry run)**.
 
+> **Nuevo en la 3.14.** Cada tarjeta lleva además un selector **Base de datos de origen**: `Ninguna —
+> base nueva de cero (recomendado)`, o alguna de tus bases locales para restaurar en ese entorno.
+> Elegir una la guarda en el acto; la confirmación llega después, al apretar **Desplegar**, como un
+> cartel que te hace escribir el nombre del entorno. **Tildar Simulación (dry run) saltea ese
+> cartel**, porque una simulación no restaura nada. Los avisos que levanta el pre-flight vuelven como
+> notificaciones en esta pantalla. Ver
+> [Sembrar un entorno con una base local](command.md#sembrar-un-entorno-con-una-base-local).
+
 ### Servicios
 
 ![Pantalla Servicios](../img/gui-services-es.png)
@@ -164,7 +183,9 @@ de Odoo, tipo de despliegue y ruta remota, más **Desplegar** y la casilla **Sim
 Los servicios locales opcionales, juntos:
 
 - **Mailpit** — el interruptor lo activa o desactiva, y la tarjeta informa el estado del servicio, el
-  contenedor, el puerto SMTP y el de la interfaz web, con un botón para abrirla.
+  contenedor, el puerto SMTP y el de la interfaz web, con un botón para abrirla. **Desde la 3.9.1 esos
+  son los puertos realmente publicados**, no un `1025`/`8025` hardcodeado, y el link para abrir
+  aparece sólo cuando hay algo que abrir.
 - **Traefik** — el modo actual y si existe el archivo de override, con un selector de modo (local
   HTTP / producción HTTPS), el dominio y **Habilitar Traefik**.
 
@@ -172,8 +193,18 @@ Los servicios locales opcionales, juntos:
 
 ![Pantalla Despliegue](../img/gui-deploy-es.png)
 
-Desplegá módulos a los targets configurados en `.rkd/deploy.yaml`, con **Validar módulos**,
-**Desplegar** y la casilla **Simulación (dry run)** — el equivalente en la GUI de `rkd deploy run`.
+Desplegá módulos a los targets configurados en `.rkd/deploy.yaml`: una tarjeta por destino, cada una
+con **Desplegar** y **Simulación (dry run)**, más **Validar módulos** arriba — el equivalente en la
+GUI de `rkd deploy run`. Cuando todavía no hay `deploy.yaml`, la pantalla muestra en cambio un
+formulario **Crear configuración de despliegue**, que elige la **clave SSH de una lista con las claves
+de `~/.ssh/`** (3.14.2) en vez de pedirte que tipees una ruta.
+
+> **Arreglado en la 3.14.3.** Los dos botones fallaban siempre: `Desplegar` llamaba a un método que no
+> existía y un `except` ancho convertía la falla en un `200` optimista, y `Validar módulos` mostraba
+> una tarjeta roja de *Validation errors* con la lista vacía para todo proyecto, incluido uno sin un
+> solo error. Ahora el despliegue pasa por el mismo punto de entrada que la CLI —validación, backup,
+> chequeo previo y rollback— y el panel muestra la cronología del propio deployer debajo del
+> veredicto.
 
 ### Empaquetar
 
