@@ -483,6 +483,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rkd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /.rkd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-addons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested addons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#launchjson" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -777,6 +799,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#rkd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /.rkd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-addons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested addons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#launchjson" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -851,6 +895,69 @@ Remember that the original <code>addons</code> folder belongs to the Odoo core, 
 <p>This file contains all system configuration at the server level.<br />
 It manages the mapping of third-party and custom modules, master password configuration, log file paths, and more.</p>
 <p>However, do not worry, as you typically will not need to modify this file manually, since it is automatically configured during framework startup.</p>
+<hr />
+<h2 id="rkd">/.rkd</h2>
+<blockquote>
+<p><strong>Since version 3.</strong> Everything Rocketdoo needs to remember about <em>this</em> project, beyond the files
+Odoo and Docker read, lives in the hidden <code>.rkd/</code> directory.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.rkd/instance.yaml</code></td>
+<td>The stage and prod environments <code>rkd instance</code> deploys to: host, user, domain, Odoo and PostgreSQL versions, Enterprise and Gitman settings, resource profile, remote path, and the source database when the environment is seeded.</td>
+</tr>
+<tr>
+<td><code>.rkd/deploy.yaml</code></td>
+<td>The targets <code>rkd deploy</code> pushes modules to (<code>vps</code> or <code>odoo-sh</code>).</td>
+</tr>
+<tr>
+<td><code>.rkd/traefik.yaml</code></td>
+<td>The local reverse proxy configuration written by <code>rkd traefik on</code>.</td>
+</tr>
+<tr>
+<td><code>.rkd/secrets/</code></td>
+<td>Generated credentials — <strong>never share this directory.</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>rkd scaffold</code> adds five of those paths to <code>.gitignore</code> — <code>.rkd/secrets/</code>, <code>.rkd/instance.yaml</code>,
+<code>.rkd/deploy.yaml</code>, <code>.rkd/deploy_backups/</code> and <code>.rkd/deploy.log</code> — and <code>rkd info</code> prints a <strong>Secrets
+at risk</strong> panel when that coverage is missing. Note that <code>.rkd/traefik.yaml</code> is <em>not</em> among them: it
+holds no credential, only the local proxy settings.</p>
+<blockquote>
+<p><strong>A pack is not sanitized to the point of being publishable.</strong> <code>rkd pack</code> keeps the four ignored
+paths above out of the ZIP, but <code>odoo_pg_pass</code> and <code>config/odoo.conf</code> travel on purpose — the
+shared environment does not start without them — and so does anything else under <code>.rkd/</code> that is
+not on that list, such as <code>.rkd/traefik.yaml</code>. Send the archive to a teammate; do not publish it.
+<a href="../command/#what-never-enters-the-zip">What never enters the ZIP</a> has the exact list.</p>
+</blockquote>
+<p>Two more directories belong to the same generated layout: <code>instance/</code> holds the Jinja templates the
+VPS deploy renders, and <code>deploy/</code> the ones the module deploy uses. You do not normally edit either.</p>
+<hr />
+<h2 id="nested-addons">Nested addons</h2>
+<blockquote>
+<p><strong>Since 3.5.</strong> Odoo reads a static <code>addons_path</code>, so a module sitting at
+<code>addons/oca/web_responsive</code> was invisible unless that subdirectory was listed explicitly.</p>
+</blockquote>
+<p><code>rkd up</code>, <code>rkd restart</code>, <code>rkd build --rebuild</code> and <code>rkd ci prepare</code> now keep the path in step with
+what is actually under <code>addons/</code>, and <code>rkd info</code> warns about a stale path without writing to it.
+Entries that are not Rocketdoo's own — Odoo's default, <code>enterprise</code>, Gitman's <code>external_addons</code>, any
+path you added — are kept exactly as they are, in order.</p>
+<blockquote>
+<p><strong>If an earlier version broke your <code>addons_path</code>, 3.10.1 repairs it.</strong> <code>config/odoo.conf</code> is an INI
+file, where a value may continue on indented lines. Before 3.10.1 Rocketdoo rewrote only the first
+line and left the continuations orphaned, and Odoo silently dropped the whole entry — on one real
+instance a single <code>rkd up</code> took <code>extra-addons</code> out of the path and with it five of the project's
+own addons. Reading and writing now go through a parser that understands the full option, so
+rewriting the file repairs what an older version mangled.</p>
+</blockquote>
 <hr />
 <h2 id="launchjson">Launch.json</h2>
 <p>Within the hidden <em>.vscode/</em> directory, you will find the <strong><em>launch.json</em></strong> file, which allows you to configure code debugging options within the development container.

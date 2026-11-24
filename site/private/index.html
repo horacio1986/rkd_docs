@@ -786,10 +786,30 @@ you will choose which one to use.</p>
 <p>Rocketdoo will enumerate all SSH keys found so you can select the appropriate one based on the assigned number.</p>
 <hr />
 <h2 id="are-my-ssh-keys-secure">Are My SSH Keys Secure?</h2>
-<p>In this new version of Rocketdoo, there is no longer a need to consider hiding private SSH keys; since
-rkd version 2 is not a repository itself, we do not need to be concerned about this.
-Since you can use your private repositories normally, as they do not run the risk of being exposed in a repository.
-However, in version 1, their protection was considered.</p>
+<p>Rocketdoo never copies a private key into your project. It reads the names of the keys in <code>~/.ssh/</code>,
+you pick one, and only that name is stored in the configuration — the key itself stays where it was.
+Since 3.14.1 a key configured by name is resolved against <code>~/.ssh/</code>, which is where every Rocketdoo
+wizard looks, so a deploy no longer fails with "SSH key not found" over a key that was there all
+along.</p>
+<blockquote>
+<p><strong>The selector offers keys, and only keys (3.14.2).</strong> It used to list everything in <code>~/.ssh/</code>,
+including <code>config</code>, <code>known_hosts</code> and <code>authorized_keys</code>. It now skips those, along with <code>.pub</code>
+files, <code>.ppk</code> files (PuTTY's format, which <code>ssh -i</code> cannot read) and dotfiles — matching
+case-insensitively on the name up to the first dot, so <code>known_hosts.old</code> and <code>config.bak</code> are
+filtered out too. Cancelling the selector no longer writes <code>~/.ssh/None</code> into your configuration.</p>
+</blockquote>
+<p>Three places are worth knowing about:</p>
+<ul>
+<li><strong><code>rkd pack</code> never ships your keys.</strong> The <code>.ssh/</code> directory, <code>.rkd/secrets/</code> and every <code>*.env</code> are
+  left out of the ZIP, and no symbolic link may enter it — a link pointing at a secrets file used to
+  carry it out. The closing panel names what was excluded, which is the list the receiver rewrites
+  with their own keys through <code>rkd unpack</code>.</li>
+<li><strong>A Docker build that needs a private repository uses your SSH agent</strong>, through BuildKit's
+  <code>--mount=type=ssh</code>. The key is never written into an image layer. Since 3.12 projects whose
+  external repositories are all public HTTPS build without an agent at all.</li>
+<li><strong>Cloning Enterprise onto a VPS forwards the agent</strong> rather than copying a key to the server, so
+  no credential of yours is left behind on a machine you share.</li>
+</ul>
 
 
 

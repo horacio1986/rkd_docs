@@ -1020,7 +1020,7 @@
 <p>Instalar <strong>Rocketdoo</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pipx install rocketdoo
 </span></code></pre></div>
-<p><img alt="rocketdoo-docs-img" src="../../img/rkd-version2.1.0.png" /></p>
+<p><img alt="rkd --version" src="../../img/term-version.svg" /></p>
 <h3 id="paso-3">Paso 3:</h3>
 <p>Instala los requerimientos del archivo <strong><em>requirements.txt</em></strong> si es que no se instalaron por defecto:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo pip install -r requirements.txt
@@ -1030,7 +1030,7 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rocketdoo --version
 </span></code></pre></div>
 <blockquote>
-<p>VERSION ACTUAL "3.2.0"</p>
+<p>VERSION ACTUAL "3.14.3"</p>
 </blockquote>
 <h3 id="paso-5">Paso 5:</h3>
 <p>Ahora ya puedes crear un directorio a gusto para comenzar. Sin embargo es recomendable que tu directorio haga referencia a
@@ -1041,7 +1041,7 @@ un desarrollo destinado a Odoo, creo que es lo mas logico, no ? </p>
 </span></code></pre></div>
 Este comando creara dentro de tu directorio de trabajo todos los archivos y carpetas necesarias para poder construir tu 
 ambiente de desarrollo en Odoo y depurar codigo con VSCode.</p>
-<p><img alt="rocketdoo-img-5" src="../../img/rkd-scaffold.png" /></p>
+<p><img alt="rkd scaffold" src="../../img/term-scaffold.svg" /></p>
 <h3 id="paso-7">Paso 7:</h3>
 <p>Ejecuta el comando para dar inicio al asistente de <strong>Rocketdoo</strong>, el mismo te guiara paso a paso, sobre todo lo 
 necesario para configurar tu ambiente de desarrollo. 
@@ -1053,15 +1053,16 @@ Sigue los pasos y responde todas y cada una de sus preguntas.</p>
 <p><strong>¿Preferís no responder nada?</strong> Desde la versión 3.2 podés crear el entorno directamente desde un
 perfil soportado, y el asistente se saltea por completo:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd profiles list             # ver las combinaciones disponibles
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd init --profile odoo18-ce  # Odoo 18 Community sobre PostgreSQL 16
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd init --profile odoo19-ce  # Odoo 19 Community sobre PostgreSQL 16
 </span></code></pre></div>
 <p>Ver <a href="../command/#golden-paths-rkd-profiles">Golden Paths</a>.</p>
 </blockquote>
+<p><img alt="rkd init --profile odoo19-ce" src="../../img/term-init-profile.svg" /></p>
 <h3 id="paso-8">Paso 8:</h3>
 <p>Una vez finalizado el asistente podrias verificar como se construyo tu ambiente con el comando:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd info
 </span></code></pre></div>
-<p><img alt="rocketdoo-img-5" src="../../img/rkd-info.png" /></p>
+<p><img alt="rkd info" src="../../img/term-info.svg" /></p>
 <h3 id="paso-9">Paso 9:</h3>
 <p>Con el siguiente comando ya podras desplegar tu ambiente de desarrollo</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd up -d
@@ -1081,7 +1082,7 @@ sin mayores problemas.</p>
 <p>Con el siguiente comando podras ver la ayuda: </p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd --help
 </span></code></pre></div>
-<h2 id="_1"><img alt="rocketdoo-img-5" src="../../img/rkd-help.png" /></h2>
+<h2 id="_1"><img alt="rkd --help" src="../../img/term-help.svg" /></h2>
 
 
 

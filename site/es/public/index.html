@@ -770,7 +770,7 @@ que amplían funciones contables, muchos de ellos con dependencias entre sí.</p
 verificar sus dependencias, leer sus contenidos y revisar si contienen un archivo <code>requirements.txt</code>,<br />
 haciendo la tarea larga y propensa a errores.</p>
 <p>Una vez que se cargan los repositorios públicos deseados, <strong>ROCKETDOO</strong> se encarga de todo:<br />
-genera y configura un archivo <code>gitman.yml</code> que almacena toda la información proporcionada durante la configuración.</p>
+genera y configura un archivo <code>gitman.yaml</code> que almacena toda la información proporcionada durante la configuración.</p>
 <p>A continuación, una imagen de ejemplo de un archivo Gitman generado:</p>
 <p><img alt="rocketdoo-img-gitman" src="../../img/rocketdoo-docs-gitman.png" /></p>
 <p>En la imagen podemos observar tres paquetes de módulos diferentes,<br />
@@ -778,7 +778,7 @@ cada uno con su versión correspondiente de Odoo y un nombre descriptivo.</p>
 <p>Estos paquetes estarán disponibles dentro del contenedor de Odoo,<br />
 en la carpeta <strong>external_addons</strong>, ubicada en:<br />
 <code>/usr/lib/python3/dist-packages/odoo/external_addons</code>.</p>
-<p>El archivo <code>gitman.yml</code> se genera automáticamente al proporcionar la información de los repositorios durante el lanzamiento de Rocketdoo.</p>
+<p>El archivo <code>gitman.yaml</code> se genera automáticamente al proporcionar la información de los repositorios durante el lanzamiento de Rocketdoo.</p>
 <h3 id="resumen">Resumen</h3>
 <p>El uso de <em>Gitman</em> es especialmente útil cuando se trabaja con <strong>paquetes de módulos</strong>,<br />
 en lugar de módulos individuales. Para un solo módulo, basta con clonarlo dentro de la carpeta <strong>addons</strong>,<br />

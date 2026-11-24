@@ -927,6 +927,15 @@ esta validacion a un punto mas aproximado a una instancia de produccion y a su v
 en el sistema de nuestros clientes.</p>
 <p>Dentro de este apartado en la documentacion, listaremos estos nuevos comandos y como usuarlos segun el caso...</p>
 <hr />
+<blockquote>
+<p><strong>Dos comandos distintos, dos trabajos distintos.</strong> <code>rkd deploy</code> —esta página— lleva <strong>módulos</strong> a
+un Odoo que ya existe, sea Odoo.sh o un servidor propio. <a href="../command/#despliegue-de-instancias-en-vps-rkd-instance"><code>rkd
+instance</code></a> hace la otra mitad: instala <strong>la
+instancia Odoo entera</strong> en un VPS, desde la imagen Docker o los paquetes nativos hasta la base de
+datos y el proxy inverso. Si en el servidor todavía no corre nada, lo que querés primero es <code>rkd
+instance</code>.</p>
+</blockquote>
+<hr />
 <h2 id="antes-de-comenzar">Antes de comenzar:</h2>
 <blockquote>
 <p>Es importante destacar que en nuestro ambiente de desarrollo, el directorio destinado para los modulos que desarrollemos es 
@@ -949,7 +958,7 @@ framework por defecto buscara los modulos en dicho directorio.</p>
 </ul>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rkd deploy list-modules
 </span></code></pre></div>
-<p><img alt="list-modules" src="../../img/deploy-list-modules.png" /></p>
+<p><img alt="rkd deploy list-modules" src="../../img/term-deploy-list.svg" /></p>
 <ul>
 <li>Comando para listar los modulos preparados para lanzar el despliegue</li>
 </ul>
@@ -978,6 +987,24 @@ framework por defecto buscara los modulos en dicho directorio.</p>
 <ul>
 <li>Permite validar nuestros modulos antes de un despliegue</li>
 </ul>
+<blockquote>
+<p><strong><code>rkd deploy run --dry-run</code> nunca contacta al destino.</strong> Escanea <code>addons/</code>, lista los módulos y
+rechaza un <code>--module</code> que no existe, y después imprime <code>Dry-run completed successfully</code> sin hablar
+con el servidor. Tratalo como un lugar reservado y no como un ensayo — el que de verdad inspecciona
+tus módulos es <code>rkd deploy validate</code>. El dry run de
+<a href="../command/#el-pre-flight-y-un-dry-run-que-no-escribe-nada"><code>rkd instance deploy</code></a> es otra cosa por
+completo: corre el pre-flight entero contra el servidor e informa bloqueantes reales.</p>
+<p><strong>Con un destino por contraseña, el dry run igual te la pide y la guarda.</strong> El deployer se
+construye antes de llegar a la rama del dry run, así que un destino configurado con autenticación
+por contraseña abre el <code>VPS Password:</code> y escribe <code>.rkd/secrets/vps_&lt;destino&gt;.env</code> (permisos 600):
+una simulación que deja una credencial en disco. Si eso te importa, usá autenticación por clave, o
+exportá la variable con la contraseña.</p>
+<p><strong>Arreglado en la 3.14.3, si desplegás desde la GUI.</strong> Los botones <strong>Desplegar</strong> y <strong>Validar
+módulos</strong> fallaban en cada llamada — el primero por un método que no existía, tapado por un <code>except</code>
+ancho que informaba éxito igual, y el segundo mostrando una tarjeta vacía de <em>Validation errors</em>
+para todo proyecto. Los dos pasan ahora por el mismo punto de entrada que la CLI. En 3.14.2 y
+anteriores, desplegá desde la terminal.</p>
+</blockquote>
 <hr />
 <h2 id="despliegue-en-odoo-sh">Despliegue en Odoo SH</h2>
 <p>Para comenzar es necesario primero que nada el desarrollador, debe tener acceso como desarrollador en el ambiente Odoo SH y permisos con su repositorio

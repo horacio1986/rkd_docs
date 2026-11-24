@@ -33,14 +33,25 @@ And most importantly, install the **ROCKETDOO** framework:
 
 
 ~~~
-sudo pip install rocketdoo
-~~~
-or
-~~~
-sudo pipx install rocketdoo
+pipx install rocketdoo
 ~~~
 
-> We recommend using ***pipx*** if you want it installed globally on your machine without breaking Python dependencies.
+> **Use `pipx`, and without `sudo`.** `pipx` installs the command for your user, in its own isolated
+> environment — running it as root puts the tool in a place your user does not own and defeats the
+> point. `pip install rocketdoo` on the system Python is refused outright on modern distributions,
+> for the reason explained below.
+
+* Upgrade an existing installation:
+
+~~~
+pipx upgrade rocketdoo
+~~~
+
+* Check what you have:
+
+~~~
+rkd --version
+~~~
 
 <a href="https://pypi.org/project/rocketdoo/" target=" blank">Official Rocketdoo PyPi</a>
 

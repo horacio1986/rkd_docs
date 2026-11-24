@@ -1,6 +1,6 @@
 # ¡Bienvenido a RKD como ROCKETDOO!
 
-> **Versión 3.5** de ROCKETDOO — una Interfaz Gráfica rediseñada, en español y en inglés, CI que generás para tu propio proyecto, y addons anidados que Odoo por fin alcanza — además de los golden paths, la integración Mailpit, el reverse proxy Traefik y el despliegue completo de instancias en VPS.
+> **Versión 3.14** de ROCKETDOO — sembrá una instancia en el VPS con tu base de desarrollo, un pre-flight que frena un deploy antes de que rompa, Enterprise y repos de terceros que por fin llegan al servidor, HTTPS en el VPS y Odoo 20 — además de la GUI, los golden paths, Mailpit, Traefik y CI que generás para tu propio proyecto.
 
 ![rocketdoo-welcome](../img/rkd-v3.png)
 
@@ -10,6 +10,146 @@ Rocketdoo es un framework desarrollado en Python que tiene como objetivo proporc
 
 Con Rocketdoo podrás desplegar, en simples pasos, uno o varios entornos para desarrollar en Odoo, en todas sus ediciones y versiones.  
 Te permitirá crear nuevos módulos o funcionalidades tanto para la edición Enterprise como para la edición Community.
+
+## Novedades en la versión 3.14
+
+Entre la 3.5 y la 3.14.3 hay nueve entregas, y casi ninguna agregó un comando. Lo que hicieron fue
+convertir `rkd instance` en un despliegue que revisa el servidor **antes** de tocarlo — más Odoo 20,
+un `pack` que deja tus secretos en casa, y una GUI que dejó de congelarse.
+
+### 🌱 Sembrá una instancia en el VPS con tu base de desarrollo
+
+> **Nuevo en la 3.14.** Un entorno desplegado ya no tiene que arrancar con una base vacía. Elegís una
+> base local cuando configurás el entorno y el deploy la vuelca, la transfiere, la restaura en el
+> servidor —filestore incluido— y neutraliza lo que no debe correr ahí.
+
+![La pantalla Instancias, con el selector de base de datos de origen en cada entorno](../img/gui-instances-es.png)
+
+~~~
+rkd instance init             # "Database for stage:" → elegí una base local, o ninguna
+rkd instance deploy -e stage
+~~~
+
+Hay tres reglas que conviene entender antes de usarlo:
+
+- **Pasa una sola vez por entorno.** El deploy escribe una marca dentro de la base restaurada, así que
+  un redeploy nunca vuelve a restaurar. Sembrar de nuevo exige dropear la base en el VPS a mano —
+  deliberadamente, porque la alternativa es un flag que pisa la producción de un cliente con un dump
+  de desarrollo.
+- **Una base existente nunca se pisa.** Si el destino ya sirve un Odoo que Rocketdoo no sembró, el
+  deploy se niega y lo dice.
+- **La neutralización depende del destino.** Los dos regeneran el UUID de la base y desactivan el
+  servidor de correo de Mailpit, que apunta a un host que en el VPS no existe. **Sólo staging**
+  desactiva además las acciones programadas, los servidores de correo y los proveedores de pago —
+  hacerle eso a producción apagaría los crons de la instancia que estás lanzando.
+
+La contraseña del admin de una base sembrada no se reemplaza: sus usuarios conservan las suyas.
+
+>>> [Cómo se configura, y qué revisa el pre-flight](command.md#despliegue-de-instancias-en-vps-rkd-instance)
+
+### 🛡️ Un pre-flight que frena antes de romper, y un dry run que no escribe nada
+
+> **Desde la 3.11.** Los dos deployers arrancan por un pre-flight: una sola sesión SSH de sólo lectura
+> que junta hechos del servidor y los clasifica en **bloqueantes** y **avisos**. Un bloqueante corta el
+> deploy antes de escribir nada.
+
+El `--dry-run` antes imprimía "Deployment successful" sin tocar el VPS — y además escribía un archivo
+de secretos en local. Ahora corre ese mismo pre-flight, conecta sólo para leer, no escribe nada y sale
+con código distinto de cero cuando algo bloquea. Así que esto por fin significa lo que parece:
+
+~~~
+rkd instance deploy -e prod --dry-run && rkd instance deploy -e prod
+~~~
+
+Revisa la conexión, Docker, `sudo`, la ruta remota, el espacio en disco, la memoria, tu clave SSH y el
+agente, el archivo de gitman y sus repos, el directorio de Enterprise, la versión de PostgreSQL, los
+identificadores de la base, Traefik y la URL pública.
+
+### 🏢 Enterprise y los repos de terceros por fin llegan al servidor
+
+> **Desde la 3.11, completado en la 3.13.** Elegir Enterprise en el wizard declaraba el directorio en
+> todos lados y no lo ponía en ninguno: Odoo arrancaba sin los addons. Los repos de gitman se clonaban
+> en el VPS y nunca entraban al `addons_path`.
+
+Ahora Enterprise viaja de las dos formas — `rsync` manda tu `enterprise/` local, o `clone` trae
+`odoo/enterprise` en el servidor con el agente SSH reenviado, sin dejar credenciales ahí. Desde la
+3.13 el camino nativo instala los repos de gitman exactamente donde los pone el camino Docker y arma
+el mismo orden canónico: `enterprise, extra-addons, directorios anidados, gitman`.
+
+**Docker o nativo es una decisión sobre el empaquetado, no sobre lo que obtenés.**
+
+### 🌐 HTTPS en el VPS: `rkd instance traefik`
+
+> **Nuevo en la 3.12.** El contenedor de Odoo sólo expone su puerto; alguien tiene que contestar en
+> 80/443 y conseguir el certificado.
+
+~~~
+rkd instance traefik -e prod
+~~~
+
+Instala Traefik en el servidor de ese entorno, una vez por host, con la misma configuración que `rkd
+traefik` renderiza en local. Se puede volver a correr sin miedo —los archivos que retocaste y los
+certificados ya emitidos quedan— y el deploy nunca lo corre por vos, porque los puertos 80 y 443 son
+del host y no de un proyecto.
+
+### 🐘 Odoo 20
+
+> **Desde la 3.7.** `odoo20-ce` y `odoo20-ee` entran a los golden paths, y `odoo20-ce` lo construye CI
+> en cada release.
+
+La imagen no necesita ningún cambio en el Dockerfile, pero **PostgreSQL sí**: Odoo 20 pide **16 o
+superior**, contra 13 de Odoo 19 y 12 desde la 15 en adelante. Un proyecto en PostgreSQL 14 no puede
+pasar a Odoo 20 sin migrar la base antes, y la matriz ahora rechaza esa combinación en vez de dejarla
+pasar.
+
+> **Crealo desde la terminal.** El formulario de Configuración de la GUI todavía llega hasta Odoo 19,
+> así que usá `rkd init --profile odoo20-ce` y después administrá el proyecto desde la GUI como
+> siempre.
+
+>>> [La matriz de compatibilidad completa](command.md#golden-paths-rkd-profiles)
+
+### 🔐 Un pack que deja tus secretos en casa
+
+> **Desde la 3.9.2.** `rkd pack` metía las credenciales del emisor en el ZIP que le pasaba a otro.
+
+El archivo ya no se lleva `.ssh/`, `.rkd/secrets/`, `.rkd/instance.yaml`, `.rkd/deploy.yaml`,
+`traefik/certs/acme.json` ni ningún `*.env`, y **ningún symlink entra** — un enlace apuntando a un archivo de secretos lo
+exfiltraba. El panel nombra todo lo que dejó afuera, que es justamente la lista que el receptor tiene
+que reescribir. Desde la 3.10 el verificador además lee los primeros 64 KiB de cada entrada buscando
+cabeceras PEM, en vez de confiar en los nombres de archivo. Dos credenciales sí siguen viajando a
+propósito —`odoo_pg_pass` y `config/odoo.conf`— porque sin ellas el entorno compartido no arranca.
+
+### 🪪 La copia restaurada recibe su propia identidad Compose
+
+> **Desde la 3.9.** Dos copias compartiendo un mismo nombre de proyecto Compose hacían que Compose
+> tratara los contenedores del original como propios — y el restore de la copia corría `DROP DATABASE`
+> sobre los datos del original.
+
+`rkd unpack` ahora detecta el choque, por `docker compose ls` **y** por las etiquetas de los volúmenes
+(un proyecto bajado sin `-v` no figura en el primero pero sus volúmenes siguen ahí), y reescribe la
+identidad entera de la copia: nombre de proyecto, imagen, cada `container_name`, volúmenes y
+`db_host`. Es todo o nada, y si Docker no responde no se renombra nada: nunca adivina.
+
+### 📧 Mailpit elige un puerto libre
+
+> **Desde la 3.9.1.** Dos proyectos Rocketdoo con `rkd mail on` ya no chocan.
+
+`mail on` conserva los puertos declarados en el compose cuando están libres y toma el siguiente libre
+cuando no, contando también los puertos que declara un proyecto hermano apagado. Imprime cuál tomó y
+lo escribe de vuelta, así un favorito del navegador sigue sirviendo. **El `1025` interno nunca
+cambia**: Odoo siempre le habla a `mailpit:1025`.
+
+### ⚡ Una GUI que dejó de congelarse
+
+> **Desde la 3.14.3.** Treinta y cinco handlers de la GUI estaban declarados `async` sin un solo
+> `await`, así que FastAPI los corría en el event loop y cualquier trabajo bloqueante congelaba la
+> interfaz entera, WebSockets de logs incluidos. Un build de Docker podía tenerla cinco minutos quieta.
+
+Ahora corren en el threadpool. Otras dos cosas que la GUI ganó en el camino: ya no necesita internet
+para dibujarse (Vue viene incluido, antes un CDN bloqueado dejaba la página en blanco), y la pantalla
+del token tiene un campo para pegar, para cuando llegás a `http://localhost:8070` sin el query string.
+
+---
 
 ## Novedades en la versión 3.5
 
@@ -83,8 +223,9 @@ La versión 3.2 no agrega un subsistema nuevo: hace predecibles los que ya exist
 ### 🧭 Golden Paths (`rkd profiles`)
 
 Un *golden path* es una combinación soportada, con nombre propio, de versión de Odoo, edición y
-versión de PostgreSQL. Rocketdoo trae diez — Odoo 15 a 19, Community y Enterprise — y ahora son la
-fuente de verdad tanto del asistente como de la configuración no interactiva:
+versión de PostgreSQL. En ese momento Rocketdoo traía diez —Odoo 15 a 19, Community y Enterprise;
+hoy son doce— y pasaron a ser la fuente de verdad tanto del asistente como de la configuración no
+interactiva:
 
 ~~~~
 rkd profiles list              # la matriz completa
@@ -92,7 +233,7 @@ rkd profiles show odoo18-ce    # detalle de un perfil
 rkd init --profile odoo18-ce   # crear el entorno sin responder preguntas
 ~~~~
 
-Tres de ellos (`odoo15-ce`, `odoo18-ce`, `odoo19-ee`) los construye el CI en cada PR de release; el
+Tres de ellos (`odoo15-ce`, `odoo18-ce`, `odoo19-ee`) los construía el CI en cada PR de release; el
 resto es best effort. La compatibilidad Odoo↔PostgreSQL ahora se valida, así que el asistente ya no
 puede armar una combinación no soportada — Odoo 19, por ejemplo, requiere PostgreSQL 13 o superior.
 

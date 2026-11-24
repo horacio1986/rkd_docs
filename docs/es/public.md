@@ -26,7 +26,7 @@ verificar sus dependencias, leer sus contenidos y revisar si contienen un archiv
 haciendo la tarea larga y propensa a errores.
 
 Una vez que se cargan los repositorios públicos deseados, **ROCKETDOO** se encarga de todo:  
-genera y configura un archivo `gitman.yml` que almacena toda la información proporcionada durante la configuración.
+genera y configura un archivo `gitman.yaml` que almacena toda la información proporcionada durante la configuración.
 
 A continuación, una imagen de ejemplo de un archivo Gitman generado:
 
@@ -39,7 +39,7 @@ Estos paquetes estarán disponibles dentro del contenedor de Odoo,
 en la carpeta **external_addons**, ubicada en:  
 `/usr/lib/python3/dist-packages/odoo/external_addons`.
 
-El archivo `gitman.yml` se genera automáticamente al proporcionar la información de los repositorios durante el lanzamiento de Rocketdoo.
+El archivo `gitman.yaml` se genera automáticamente al proporcionar la información de los repositorios durante el lanzamiento de Rocketdoo.
 
 ### Resumen
 

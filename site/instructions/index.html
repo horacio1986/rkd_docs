@@ -853,14 +853,24 @@
 </li>
 </ol>
 <p>And most importantly, install the <strong>ROCKETDOO</strong> framework:</p>
-<p><div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo pip install rocketdoo
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pipx install rocketdoo
 </span></code></pre></div>
-or
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo pipx install rocketdoo
-</span></code></pre></div></p>
 <blockquote>
-<p>We recommend using <strong><em>pipx</em></strong> if you want it installed globally on your machine without breaking Python dependencies.</p>
+<p><strong>Use <code>pipx</code>, and without <code>sudo</code>.</strong> <code>pipx</code> installs the command for your user, in its own isolated
+environment — running it as root puts the tool in a place your user does not own and defeats the
+point. <code>pip install rocketdoo</code> on the system Python is refused outright on modern distributions,
+for the reason explained below.</p>
 </blockquote>
+<ul>
+<li>Upgrade an existing installation:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pipx upgrade rocketdoo
+</span></code></pre></div>
+<ul>
+<li>Check what you have:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd --version
+</span></code></pre></div>
 <p><a href="https://pypi.org/project/rocketdoo/" target=" blank">Official Rocketdoo PyPi</a></p>
 <hr />
 <h2 id="why-use-pipx-instead-of-pip">Why Use PIPX Instead of PIP?</h2>
