@@ -927,9 +927,17 @@ Odoo and Docker read, lives in the hidden <code>.rkd/</code> directory.</p>
 </tr>
 </tbody>
 </table>
-<p><code>rkd scaffold</code> adds <code>.rkd/</code> to <code>.gitignore</code>, and <code>rkd pack</code> leaves the whole directory out of the ZIP
-it builds, so a shared environment never carries your credentials. <code>rkd info</code> prints a <strong>Secrets at
-risk</strong> panel when that coverage is missing.</p>
+<p><code>rkd scaffold</code> adds five of those paths to <code>.gitignore</code> — <code>.rkd/secrets/</code>, <code>.rkd/instance.yaml</code>,
+<code>.rkd/deploy.yaml</code>, <code>.rkd/deploy_backups/</code> and <code>.rkd/deploy.log</code> — and <code>rkd info</code> prints a <strong>Secrets
+at risk</strong> panel when that coverage is missing. Note that <code>.rkd/traefik.yaml</code> is <em>not</em> among them: it
+holds no credential, only the local proxy settings.</p>
+<blockquote>
+<p><strong>A pack is not sanitized to the point of being publishable.</strong> <code>rkd pack</code> keeps the four ignored
+paths above out of the ZIP, but <code>odoo_pg_pass</code> and <code>config/odoo.conf</code> travel on purpose — the
+shared environment does not start without them — and so does anything else under <code>.rkd/</code> that is
+not on that list, such as <code>.rkd/traefik.yaml</code>. Send the archive to a teammate; do not publish it.
+<a href="../command/#what-never-enters-the-zip">What never enters the ZIP</a> has the exact list.</p>
+</blockquote>
 <p>Two more directories belong to the same generated layout: <code>instance/</code> holds the Jinja templates the
 VPS deploy renders, and <code>deploy/</code> the ones the module deploy uses. You do not normally edit either.</p>
 <hr />

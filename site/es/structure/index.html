@@ -927,9 +927,17 @@ los archivos que leen Odoo y Docker, vive en el directorio oculto <code>.rkd/</c
 </tr>
 </tbody>
 </table>
-<p><code>rkd scaffold</code> agrega <code>.rkd/</code> al <code>.gitignore</code>, y <code>rkd pack</code> deja el directorio entero afuera del ZIP
-que arma, así un entorno compartido nunca se lleva tus credenciales. <code>rkd info</code> imprime un panel
-<strong>Secrets at risk</strong> cuando falta esa cobertura.</p>
+<p><code>rkd scaffold</code> agrega cinco de esas rutas al <code>.gitignore</code> —<code>.rkd/secrets/</code>, <code>.rkd/instance.yaml</code>,
+<code>.rkd/deploy.yaml</code>, <code>.rkd/deploy_backups/</code> y <code>.rkd/deploy.log</code>— y <code>rkd info</code> imprime un panel
+<strong>Secrets at risk</strong> cuando falta esa cobertura. Ojo que <code>.rkd/traefik.yaml</code> <em>no</em> está entre ellas: no
+guarda ninguna credencial, sólo la configuración del proxy local.</p>
+<blockquote>
+<p><strong>Un pack no queda saneado al punto de poder publicarse.</strong> <code>rkd pack</code> mantiene afuera del ZIP las
+cuatro rutas ignoradas de arriba, pero <code>odoo_pg_pass</code> y <code>config/odoo.conf</code> viajan a propósito —sin
+ellos el entorno compartido no arranca— y también viaja cualquier otra cosa bajo <code>.rkd/</code> que no
+esté en esa lista, como <code>.rkd/traefik.yaml</code>. Mandale el archivo a un compañero; no lo publiques.
+En <a href="../command/#que-nunca-entra-al-zip">Qué nunca entra al ZIP</a> está la lista exacta.</p>
+</blockquote>
 <p>Otros dos directorios son parte del mismo layout generado: <code>instance/</code> guarda las plantillas Jinja
 que renderiza el deploy al VPS, y <code>deploy/</code> las que usa el deploy de módulos. Normalmente no se
 editan.</p>

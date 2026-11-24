@@ -1293,9 +1293,10 @@ buttons; logs stream live over a WebSocket.</p>
 version, deployment type and remote path, plus <strong>Deploy</strong> and a <strong>Dry run</strong> checkbox.</p>
 <blockquote>
 <p><strong>New in 3.14.</strong> Each card also carries a <strong>Seed database</strong> selector: <code>None — fresh database from
-scratch (recommended)</code>, or one of your local databases to restore into that environment. Choosing
-one asks you to type the environment name before it is saved, and the warnings the pre-flight
-raises come back as notices on this screen. See
+scratch (recommended)</code>, or one of your local databases to restore into that environment. Picking
+one saves it straight away; the confirmation comes later, when you press <strong>Deploy</strong>, as a prompt
+that makes you type the environment name. <strong>Ticking Dry run skips that prompt</strong>, since a dry run
+restores nothing. The warnings the pre-flight raises come back as notices on this screen. See
 <a href="../command/#seeding-an-environment-with-a-local-database">Seeding an environment with a local database</a>.</p>
 </blockquote>
 <h3 id="services">Services</h3>
@@ -1311,9 +1312,10 @@ raises come back as notices on this screen. See
 </ul>
 <h3 id="deploy">Deploy</h3>
 <p><img alt="Deploy screen" src="../img/gui-deploy-en.png" /></p>
-<p>Deploy modules to the targets configured in <code>.rkd/deploy.yaml</code>, with <strong>Validate Modules</strong>, <strong>Deploy</strong>
-and a <strong>Dry run</strong> checkbox — the GUI equivalent of <code>rkd deploy run</code>. The form that creates
-<code>deploy.yaml</code> picks the <strong>SSH key from a list of the keys in <code>~/.ssh/</code></strong> (3.14.2) rather than asking
+<p>Deploy modules to the targets configured in <code>.rkd/deploy.yaml</code>: one card per target, each with
+<strong>Deploy</strong> and <strong>Dry run</strong>, plus <strong>Validate Modules</strong> above — the GUI equivalent of
+<code>rkd deploy run</code>. With no <code>deploy.yaml</code> yet, the screen shows a <strong>Create Deploy Config</strong> form
+instead, which picks the <strong>SSH key from a list of the keys in <code>~/.ssh/</code></strong> (3.14.2) rather than asking
 you to type a path.</p>
 <blockquote>
 <p><strong>Fixed in 3.14.3.</strong> Both buttons used to fail every time: <code>Deploy</code> called a method that did not

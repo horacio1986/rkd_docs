@@ -1644,7 +1644,7 @@ It is a hint.</p>
 </span></code></pre></div>
 <p>A rocket climbs a field of stars on the terminal's alternate screen — like <code>vim</code> or <code>less</code>, so your
 scrollback is left alone — and the flight ends on one of six lines of the "Zen of Odoo" about
-customizing with Studio. The animation is skipped without a TTY, with <code>TERM</code> set to <code>dumb</code> or
+customizing with Studio. The six lines are in Spanish, whatever your locale. The animation is skipped without a TTY, with <code>TERM</code> set to <code>dumb</code> or
 <code>unknown</code>, or on a terminal smaller than 25×13, but <strong>the message is printed anyway</strong>, so
 <code>rkd launch | cat</code> still reads. It respects <code>NO_COLOR</code>.</p>
 <hr />
@@ -1793,8 +1793,10 @@ with Mailpit enabled no longer collide.</p>
 </blockquote>
 <p><code>rkd mail on</code> reads the ports declared in the compose file, keeps them when they are free, and takes
 the next free one when they are not — counting ports declared by a sibling project that is currently
-switched off, not only ports in use right now. It prints which ones it took and writes them back into
-the compose file when you turn Mailpit off, so a browser bookmark keeps working.</p>
+switched off, not only ports in use right now. It prints which ones it took and <strong>writes them into
+the compose file as it enables Mailpit</strong>; <code>rkd mail off</code> only comments the block out and leaves those
+numbers in place, so the project keeps the same ports next time and a browser bookmark keeps
+working.</p>
 <p><code>rkd mail open</code> and <code>rkd mail status</code> read the real published port rather than assuming 8025, which
 is why the status panel is the place to look for the web UI address.</p>
 <p><strong>The internal port never changes.</strong> Inside the Docker network Odoo always talks to <code>mailpit:1025</code>;
@@ -1926,9 +1928,10 @@ database and a redeploy never restores again. To seed a second time you have to 
 the VPS by hand — deliberately so, because the alternative is a flag that overwrites a client's
 production with a development dump. A database the target already serves and Rocketdoo did not seed
 is never overwritten: the deploy refuses and says so.</p>
-<p>Neutralization differs by target. Both regenerate the database UUID and disable the Mailpit mail
-server, which points at a host that does not exist on the VPS — leaving it would make every outgoing
-mail fail silently. <strong>Staging only</strong> also disables scheduled actions, mail servers and payment
+<p>Neutralization differs by target. Both regenerate the database UUID, disable the Mailpit mail
+server — which points at a host that does not exist on the VPS, so leaving it would make every
+outgoing mail fail silently — and repoint <code>web.base.url</code> at the environment's domain, dropping
+<code>web.base.url.freeze</code> so the new value is the one Odoo uses. <strong>Staging only</strong> also disables scheduled actions, mail servers and payment
 providers; doing that to production would stop the crons of the instance you are launching.</p>
 <p>The admin password of a seeded database is not replaced — its users keep theirs — and the closing
 panel says so instead of promising a new one.</p>

@@ -1297,10 +1297,12 @@ columna de Acciones.</p>
 <p>Una tarjeta por entorno configurado en <code>.rkd/instance.yaml</code> (stage, prod) con host, dominio, versión
 de Odoo, tipo de despliegue y ruta remota, más <strong>Desplegar</strong> y la casilla <strong>Simulación (dry run)</strong>.</p>
 <blockquote>
-<p><strong>Nuevo en la 3.14.</strong> Cada tarjeta lleva además un selector <strong>Base de origen</strong>: <code>None — fresh
-database from scratch (recommended)</code>, o alguna de tus bases locales para restaurar en ese entorno.
-Elegir una te pide escribir el nombre del entorno antes de guardarla, y los avisos que levanta el
-pre-flight vuelven como notificaciones en esta pantalla. Ver
+<p><strong>Nuevo en la 3.14.</strong> Cada tarjeta lleva además un selector <strong>Base de datos de origen</strong>: <code>Ninguna —
+base nueva de cero (recomendado)</code>, o alguna de tus bases locales para restaurar en ese entorno.
+Elegir una la guarda en el acto; la confirmación llega después, al apretar <strong>Desplegar</strong>, como un
+cartel que te hace escribir el nombre del entorno. <strong>Tildar Simulación (dry run) saltea ese
+cartel</strong>, porque una simulación no restaura nada. Los avisos que levanta el pre-flight vuelven como
+notificaciones en esta pantalla. Ver
 <a href="../command/#sembrar-un-entorno-con-una-base-local">Sembrar un entorno con una base local</a>.</p>
 </blockquote>
 <h3 id="servicios">Servicios</h3>
@@ -1316,10 +1318,11 @@ pre-flight vuelven como notificaciones en esta pantalla. Ver
 </ul>
 <h3 id="despliegue">Despliegue</h3>
 <p><img alt="Pantalla Despliegue" src="../../img/gui-deploy-es.png" /></p>
-<p>Desplegá módulos a los targets configurados en <code>.rkd/deploy.yaml</code>, con <strong>Validar módulos</strong>,
-<strong>Desplegar</strong> y la casilla <strong>Simulación (dry run)</strong> — el equivalente en la GUI de <code>rkd deploy run</code>. El
-formulario que crea <code>deploy.yaml</code> elige la <strong>clave SSH de una lista con las claves de <code>~/.ssh/</code></strong>
-(3.14.2), en vez de pedirte que tipees una ruta.</p>
+<p>Desplegá módulos a los targets configurados en <code>.rkd/deploy.yaml</code>: una tarjeta por destino, cada una
+con <strong>Desplegar</strong> y <strong>Simulación (dry run)</strong>, más <strong>Validar módulos</strong> arriba — el equivalente en la
+GUI de <code>rkd deploy run</code>. Cuando todavía no hay <code>deploy.yaml</code>, la pantalla muestra en cambio un
+formulario <strong>Crear configuración de despliegue</strong>, que elige la <strong>clave SSH de una lista con las claves
+de <code>~/.ssh/</code></strong> (3.14.2) en vez de pedirte que tipees una ruta.</p>
 <blockquote>
 <p><strong>Arreglado en la 3.14.3.</strong> Los dos botones fallaban siempre: <code>Desplegar</code> llamaba a un método que no
 existía y un <code>except</code> ancho convertía la falla en un <code>200</code> optimista, y <code>Validar módulos</code> mostraba

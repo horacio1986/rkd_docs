@@ -980,11 +980,17 @@ the reverse proxy. If there is nothing running on the server yet, you want <code
 <li>Validates the modules before deployment</li>
 </ul>
 <blockquote>
-<p><strong><code>rkd deploy run --dry-run</code> does not check anything yet.</strong> It prints
-<code>Dry-run completed successfully</code> without contacting the target, so treat it as a placeholder rather
-than a rehearsal — <code>rkd deploy validate</code> is what actually inspects your modules. The dry run of
+<p><strong><code>rkd deploy run --dry-run</code> never contacts the target.</strong> It scans <code>addons/</code>, lists the modules
+and refuses a <code>--module</code> that does not exist, and then prints <code>Dry-run completed successfully</code>
+without talking to the server at all. Treat it as a placeholder rather than a rehearsal —
+<code>rkd deploy validate</code> is what actually inspects your modules. The dry run of
 <a href="../command/#the-pre-flight-and-a-dry-run-that-writes-nothing"><code>rkd instance deploy</code></a> is a different
 thing entirely: it runs the full pre-flight against the server and reports real blockers.</p>
+<p><strong>On a password target, the dry run still asks for the password and stores it.</strong> The deployer is
+built before the dry-run branch is reached, so a target configured with password authentication
+prompts <code>VPS Password:</code> and writes <code>.rkd/secrets/vps_&lt;target&gt;.env</code> (mode 600) — a dry run that
+leaves a credential on disk. Use key authentication, or export the password variable, if that
+matters to you.</p>
 <p><strong>Fixed in 3.14.3, if you deploy from the GUI.</strong> The <strong>Deploy</strong> and <strong>Validate Modules</strong> buttons
 failed on every call — the first through a method that did not exist, hidden behind a wide <code>except</code>
 that reported success anyway, the second showing an empty <em>Validation errors</em> card for every

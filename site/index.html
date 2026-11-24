@@ -1492,8 +1492,8 @@ it through.</p>
 <p><strong>Since 3.9.2.</strong> <code>rkd pack</code> used to put the sender's own credentials in the ZIP it handed to
 someone else.</p>
 </blockquote>
-<p>The archive no longer carries <code>.ssh/</code>, <code>.rkd/secrets/</code>, <code>.rkd/instance.yaml</code>, <code>.rkd/deploy.yaml</code>
-or any <code>*.env</code>, and <strong>no symlink enters it</strong> — a link pointing at a secrets file used to exfiltrate
+<p>The archive no longer carries <code>.ssh/</code>, <code>.rkd/secrets/</code>, <code>.rkd/instance.yaml</code>, <code>.rkd/deploy.yaml</code>,
+<code>traefik/certs/acme.json</code> or any <code>*.env</code>, and <strong>no symlink enters it</strong> — a link pointing at a secrets file used to exfiltrate
 it. The panel names everything it left out, which is exactly the list the receiver has to rewrite.
 Since 3.10 the verifier also reads the first 64 KiB of each entry looking for PEM headers, rather
 than trusting filenames. Two credentials still travel on purpose — <code>odoo_pg_pass</code> and

@@ -988,11 +988,17 @@ framework por defecto buscara los modulos en dicho directorio.</p>
 <li>Permite validar nuestros modulos antes de un despliegue</li>
 </ul>
 <blockquote>
-<p><strong><code>rkd deploy run --dry-run</code> todavía no chequea nada.</strong> Imprime
-<code>Dry-run completed successfully</code> sin contactar al destino, así que tratalo como un lugar reservado y
-no como un ensayo — el que de verdad inspecciona tus módulos es <code>rkd deploy validate</code>. El dry run de
+<p><strong><code>rkd deploy run --dry-run</code> nunca contacta al destino.</strong> Escanea <code>addons/</code>, lista los módulos y
+rechaza un <code>--module</code> que no existe, y después imprime <code>Dry-run completed successfully</code> sin hablar
+con el servidor. Tratalo como un lugar reservado y no como un ensayo — el que de verdad inspecciona
+tus módulos es <code>rkd deploy validate</code>. El dry run de
 <a href="../command/#el-pre-flight-y-un-dry-run-que-no-escribe-nada"><code>rkd instance deploy</code></a> es otra cosa por
 completo: corre el pre-flight entero contra el servidor e informa bloqueantes reales.</p>
+<p><strong>Con un destino por contraseña, el dry run igual te la pide y la guarda.</strong> El deployer se
+construye antes de llegar a la rama del dry run, así que un destino configurado con autenticación
+por contraseña abre el <code>VPS Password:</code> y escribe <code>.rkd/secrets/vps_&lt;destino&gt;.env</code> (permisos 600):
+una simulación que deja una credencial en disco. Si eso te importa, usá autenticación por clave, o
+exportá la variable con la contraseña.</p>
 <p><strong>Arreglado en la 3.14.3, si desplegás desde la GUI.</strong> Los botones <strong>Desplegar</strong> y <strong>Validar
 módulos</strong> fallaban en cada llamada — el primero por un método que no existía, tapado por un <code>except</code>
 ancho que informaba éxito igual, y el segundo mostrando una tarjeta vacía de <em>Validation errors</em>
