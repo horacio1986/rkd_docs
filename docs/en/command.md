@@ -65,9 +65,10 @@ rkd info
 
 ## Golden Paths (`rkd profiles`)
 
-> **New in 3.2.** A *golden path* is a named, supported combination of Odoo version, edition and
-> PostgreSQL version. Rocketdoo ships ten of them, and they are the source of truth for both the
-> `rkd init` wizard and `rkd init --profile`.
+> **New in 3.2, extended in 3.7.** A *golden path* is a named, supported combination of Odoo
+> version, edition and PostgreSQL version. Rocketdoo ships twelve of them — Odoo 15 to **20**,
+> Community and Enterprise — and they are the source of truth for both the `rkd init` wizard and
+> `rkd init --profile`.
 
 * List the whole matrix:
 
@@ -75,15 +76,15 @@ rkd info
 rkd profiles list
 ~~~
 
-![Golden paths matrix: ten profiles, Odoo 15 to 19, Community and Enterprise, with their PostgreSQL version and support level](../img/term-profiles-list.svg)
+![Golden paths matrix: twelve profiles, Odoo 15 to 20, Community and Enterprise, with their PostgreSQL version and support level](../img/term-profiles-list.svg)
 
 * Show the details of a single profile:
 
 ~~~
-rkd profiles show odoo18-ce
+rkd profiles show odoo19-ce
 ~~~
 
-![rkd profiles show odoo18-ce](../img/term-profiles-show.svg)
+![rkd profiles show odoo19-ce](../img/term-profiles-show.svg)
 
 * Create that environment end to end, without the wizard:
 
@@ -101,8 +102,9 @@ rkd up -d
 | **golden** | CI renders **and builds** this combination on every release PR. These are the ones to choose. |
 | **best effort** | Within Odoo's stated requirements and offered by the wizard, but not built by CI. Reports are welcome, but there is no guarantee. |
 
-The golden combinations today are `odoo15-ce`, `odoo18-ce` and `odoo19-ee`: between them they cover
-the three different base images the `odoo:` images use, and both editions.
+The golden combinations today are `odoo15-ce`, `odoo18-ce`, `odoo19-ee` and `odoo20-ce`: between
+them they cover the three different base images the `odoo:` images use, both editions, and the
+current release.
 
 ### Compatibility matrix
 
@@ -116,10 +118,17 @@ own installation documentation.
 | 17.0 | ubuntu-jammy | 3.10 | 22.0.2 | 12 | 15 |
 | 18.0 | ubuntu-noble | 3.12 | 24.0 | 12 | 16 |
 | 19.0 | ubuntu-noble | 3.12 | 24.0 | **13** | 16 |
+| 20.0 | ubuntu-noble | 3.12 | 24.0 | **16** | 17 |
 
-Odoo 19 raised the PostgreSQL minimum from 12 to 13. Rocketdoo now validates the pairing when the
-profile is loaded: a `db_version` below the minimum for that Odoo version is an error, not a warning,
-so the wizard can no longer produce an environment that will not start.
+Odoo 19 raised the PostgreSQL minimum from 12 to 13, and **Odoo 20 raised it again to 16** — the
+biggest jump in the series. Rocketdoo validates the pairing when the profile is loaded: a
+`db_version` below the minimum for that Odoo version is an error, not a warning, so the wizard can no
+longer produce an environment that will not start.
+
+> **Moving an existing project to Odoo 20.** Because the image shares its base with 18 and 19, the
+> generated `Dockerfile` needs no change — but a project sitting on PostgreSQL 14 or 15 cannot simply
+> switch versions. Migrate the database to 16 or newer first; the matrix now refuses the pairing
+> instead of letting it through and failing at startup.
 
 > **Odoo 19 and AI:** Odoo 19's AI features need the `pgvector` extension, which ships for
 > PostgreSQL 15 and above. `rkd profiles show odoo19-*` warns you when the profile uses a lower version.
@@ -200,14 +209,66 @@ rkd logs <container_name> -f
 * Package your entire environment to share with other developers:
 
 ~~~
-rkd pack
+rkd pack                   # full environment + database backup + filestore
+rkd pack --no-db           # environment files only
+rkd pack -o /tmp/my.zip    # choose the output path
+rkd pack --db-name demo    # pick the database, when the project has several
+rkd pack --yes             # no prompt: continue without a backup if the DB container is down
 ~~~
 
 * Unpackage a shared `.zip` project into your directory:
 
 ~~~
-rkd unpack
+rkd unpack                 # full setup: ports, SSH, database restore
+rkd unpack --build         # rebuild the Docker image first (recommended on a first run)
+rkd unpack --no-restore    # skip the database restore
+rkd unpack --ssh-key NAME  # use this key from ~/.ssh/ instead of asking
+rkd unpack --no-ssh        # the project has no private repositories
+rkd unpack --yes           # accept the suggested fixes for port conflicts
 ~~~
+
+### What never enters the ZIP
+
+> **Since 3.9.2.** `rkd pack` used to hand the sender's own credentials to whoever received the file.
+
+The archive leaves out `.ssh/`, `.rkd/secrets/`, `.rkd/instance.yaml`, `.rkd/deploy.yaml`,
+`traefik/certs/acme.json` and every `*.env` (except `*.env.example`), and **no symbolic link enters
+it** — a link pointing at a secrets file used to carry that file out of the project. Hard links are
+caught by inode. It also drops `.rkd/deploy_backups`, which holds the sender's own backup history and
+is of no use to anybody else. The closing panel names everything that was left out, which is exactly
+the list the receiver has to rewrite on their side.
+
+> **Two credentials do travel, on purpose.** `odoo_pg_pass` and `config/odoo.conf` are packed,
+> because without them the shared environment does not start: Compose mounts the first as a Docker
+> secret and the Dockerfile copies the second at build time. They are the local credentials of the
+> environment being handed over, which is the point of the ZIP — so treat a Rocketdoo archive as
+> something you send to a teammate, not something you publish.
+
+Since 3.10 the verifier reads the first 64 KiB of each entry looking for PEM headers instead of
+trusting filenames, and separates the two cases: a **red** warning when a file Rocketdoo declares
+secret slipped in, and a calmer **amber** one when something merely reads like a private key — an
+Enterprise project typically carries about five of those, from Odoo's own localizations.
+
+The ZIP also no longer packs itself, nor the backups left by previous packs (3.8.1).
+
+### A restored copy gets its own Compose identity
+
+> **Since 3.9.** When the Compose project name in the archive is already used by another directory on
+> your host, `rkd unpack` renames the copy instead of colliding with the original.
+
+Two copies sharing one project name meant Compose treated the original's containers as belonging to
+the copy — recreating and destroying them — and the restore ran `DROP DATABASE` against the
+original's data. The rename is all-or-nothing and covers `name:`, `image:`, every `container_name`
+(including the commented Mailpit one), volume definitions and references, and `db_host` in
+`config/odoo.conf`.
+
+Detection asks `docker compose ls` **and** looks at volume labels, because a project brought down
+with `rkd down` (no `-v`) is absent from the first while its volumes are still on disk. If Docker
+does not answer, nothing is renamed: Rocketdoo never guesses. The CLI asks — `Rename this copy to
+<suggested>?` — `--yes` accepts, and the GUI accepts automatically.
+
+The copy also takes its own ports when the original holds them, and the message distinguishes "this
+port is in use" from "this port belongs to the other copy, which is switched off".
 
 ---
 
@@ -231,6 +292,21 @@ rkd del -i --dry-run
 ~~~
 gitman update
 ~~~
+
+### One command that is not in `--help`
+
+> **New in 3.10.** The epilogue of `rkd --help` ends with a line about a rocket still on the pad.
+> It is a hint.
+
+~~~
+rkd launch
+~~~
+
+A rocket climbs a field of stars on the terminal's alternate screen — like `vim` or `less`, so your
+scrollback is left alone — and the flight ends on one of six lines of the "Zen of Odoo" about
+customizing with Studio. The animation is skipped without a TTY, with `TERM` set to `dumb` or
+`unknown`, or on a terminal smaller than 25×13, but **the message is printed anyway**, so
+`rkd launch | cat` still reads. It respects `NO_COLOR`.
 
 ---
 
@@ -364,7 +440,21 @@ rkd mail status
 rkd mail open
 ~~~
 
-> Mailpit web UI is available at `http://localhost:8025` when active.
+### Mailpit picks a free host port
+
+> **Since 3.9.1.** The host ports are no longer fixed at 1025 and 8025, so two Rocketdoo projects
+> with Mailpit enabled no longer collide.
+
+`rkd mail on` reads the ports declared in the compose file, keeps them when they are free, and takes
+the next free one when they are not — counting ports declared by a sibling project that is currently
+switched off, not only ports in use right now. It prints which ones it took and writes them back into
+the compose file when you turn Mailpit off, so a browser bookmark keeps working.
+
+`rkd mail open` and `rkd mail status` read the real published port rather than assuming 8025, which
+is why the status panel is the place to look for the web UI address.
+
+**The internal port never changes.** Inside the Docker network Odoo always talks to `mailpit:1025`;
+only the host side moves.
 
 ### The mail server record in Odoo
 
@@ -413,8 +503,11 @@ rkd traefik on
 
 ~~~
 rkd traefik on --domain myproject.local --mode local
-rkd traefik on --domain myproject.com --mode production
+rkd traefik on --domain myproject.com --mode production --email ops@example.com
 ~~~
+
+> **`--email` was added in 3.11.** With `--domain`, `--mode`, `--traefik-dir` and `--email` the
+> wizard runs unattended, which is what a script or a CI job needs.
 
 * Disable Traefik for this project (restores direct port access):
 
@@ -438,6 +531,14 @@ rkd traefik guide
 > - **local** — HTTP only, custom domain via `/etc/hosts`.
 > - **production** — HTTPS with automatic Let's Encrypt certificate.
 
+> **`off` only removes the override.** Your `docker-compose.yaml` is never touched, so reconfiguring
+> means `rkd traefik off` and then `on` again. When `.rkd/instance.yaml` exists, `rkd traefik status`
+> also points at [`rkd instance traefik`](#installing-traefik-on-the-vps), which is the remote
+> counterpart of this command.
+
+This command configures the proxy **on your machine**. To install Traefik on the server an
+environment deploys to, see [Installing Traefik on the VPS](#installing-traefik-on-the-vps).
+
 ---
 
 ## 🚀 VPS Instance Deployment (`rkd instance`)
@@ -447,16 +548,86 @@ The `instance` command deploys a complete Odoo instance to a VPS. It supports tw
 - **docker** — transfers Dockerfile + compose files and builds on the VPS.
 - **native** — installs Odoo via official apt packages on the server.
 
+> **Since 3.13, the choice is about packaging, not about what you get.** Both paths install the
+> Gitman repositories in the same place and build the same canonical `addons_path` —
+> `enterprise, extra-addons, nested directories, gitman`. Until 3.13 the native path put Enterprise
+> last and ignored nested directories.
+
 * Configure stage/production environments interactively (saves to `.rkd/instance.yaml`):
 
 ~~~
 rkd instance init
 ~~~
 
-* Overwrite an existing configuration:
+> **The wizard adds, it no longer replaces (3.11).** Each environment is offered separately —
+> `Reconfigure stage?`, `Configure a prod environment?` — and whatever you do not touch is kept
+> exactly as it was. Reconfiguring `stage` used to delete `prod`. The deployment type is asked once
+> and applies to new environments; an existing one keeps its own. A summary at the end reports each
+> environment as `added`, `kept`, `updated` or `removed`.
+
+* Start over, dropping whatever you do not configure again:
 
 ~~~
 rkd instance init --force
+~~~
+
+### What the wizard asks
+
+Per environment: deployment type, VPS host, SSH port and user, authentication (an SSH key chosen
+from `~/.ssh/`, or the name of an environment variable holding a password), Odoo version, and — for
+Docker — image tag, domain, Let's Encrypt email, PostgreSQL version, database user and name. Then the
+master password, the **source database** (see below), whether to use Enterprise and how it should
+reach the server, whether to use Gitman, the resource profile (`small` for a VPS under 2 GB RAM,
+`medium` for 4–8 GB, `large` for 16+) and the remote path.
+
+> **Enterprise reaches the server two ways (3.11).** `rsync` transfers your local `enterprise/`
+> directory; `clone` fetches `odoo/enterprise` on the VPS through a **forwarded SSH agent**, so no
+> credential is left on the server. Before 3.11 choosing Enterprise declared the directory in the
+> Dockerfile, the compose file and both `addons_path` entries — and put it nowhere, so Odoo started
+> without the add-ons.
+
+> **Rocketdoo refuses to write here if this is not a Rocketdoo project** (no `Dockerfile` and
+> `docker-compose.yaml` side by side), because the wizard stores credentials under `.rkd/`.
+
+### Seeding an environment with a local database
+
+> **New in 3.14.** By default a deployed environment starts from a fresh database. The wizard also
+> offers `Restore local database '<name>' (with its filestore)` for each database it finds, and the
+> deploy then dumps it, transfers it, restores it on the server and neutralizes it.
+
+It happens **once per environment**: the deploy writes a `rkd.seeded_from` mark inside the restored
+database and a redeploy never restores again. To seed a second time you have to drop the database on
+the VPS by hand — deliberately so, because the alternative is a flag that overwrites a client's
+production with a development dump. A database the target already serves and Rocketdoo did not seed
+is never overwritten: the deploy refuses and says so.
+
+Neutralization differs by target. Both regenerate the database UUID and disable the Mailpit mail
+server, which points at a host that does not exist on the VPS — leaving it would make every outgoing
+mail fail silently. **Staging only** also disables scheduled actions, mail servers and payment
+providers; doing that to production would stop the crons of the instance you are launching.
+
+The admin password of a seeded database is not replaced — its users keep theirs — and the closing
+panel says so instead of promising a new one.
+
+### The pre-flight, and a dry run that writes nothing
+
+> **Since 3.11.** Both deployers open with a pre-flight: a single read-only SSH session that collects
+> facts about the server and sorts them into **blockers** and **warnings**. A blocker stops the
+> deploy before anything is written.
+
+The checks: `vps connection`, `docker`, `sudo`, `remote path`, `disk space`, `memory`,
+`ssh key file`, `ssh agent`, `ssh agent socket`, `gitman file`, `gitman repositories`,
+`gitman dependency script`, `enterprise directory`, `enterprise repository`, `postgresql version`,
+`database identifiers`, `native host`, `seed database`, `traefik` and `public url`. Seeding adds two
+blockers of its own — the source database must still exist, and a dump from a PostgreSQL newer than
+the server's will not restore — and raises the disk space floor by twice the size being seeded.
+
+`--dry-run` used to print "Deployment successful" without touching the VPS, while still writing a
+secrets file locally. It now runs that same pre-flight, connects only to read, **writes nothing**,
+and exits non-zero when something blocks — so this chain finally means what it looks like:
+
+~~~
+rkd instance deploy --env prod --dry-run && rkd instance deploy --env prod
 ~~~
 
 * Deploy to the staging environment:
@@ -477,11 +648,14 @@ rkd instance deploy --env prod
 rkd instance deploy --env prod --yes
 ~~~
 
-* Preview generated files without deploying (dry run):
+* Run the pre-flight without deploying (dry run):
 
 ~~~
 rkd instance deploy --env prod --dry-run
 ~~~
+
+> **Confirmations.** `Deploy <env> to <host>?` defaults to no, `prod` adds a warning, and an
+> environment configured to be seeded asks again — on `prod` you have to type `prod` literally.
 
 * Show status of all configured deployment targets:
 
@@ -490,6 +664,33 @@ rkd instance status
 ~~~
 
 ![rkd instance status](../img/term-instance-status.svg)
+
+### Installing Traefik on the VPS
+
+> **New in 3.12.** The Odoo container only exposes its port. Something has to answer on 80 and 443
+> and obtain the certificate, and that is Traefik.
+
+~~~
+rkd instance traefik --env prod
+rkd instance traefik --env stage --traefik-dir /opt/traefik --email ops@example.com
+~~~
+
+It installs Traefik on that environment's server — once per host — with the same configuration `rkd
+traefik` renders locally, reading `host`, `user` and the Let's Encrypt address from
+`.rkd/instance.yaml`. Running it again is safe: files you tuned and certificates already issued are
+kept, and an installation of your own is respected and reported rather than replaced. It exits with
+an error when ports 80/443 are held by something else, or when nothing ends up serving that Odoo.
+
+Native environments are refused: they have no reverse proxy in front today.
+
+**The deploy never runs it for you.** Ports 80 and 443 belong to the host, not to one project, so
+installing a proxy there is a decision you make once, explicitly.
+
+> **The closing panel no longer claims a URL it did not test (3.12).** After deploying, Rocketdoo
+> probes the domain from the VPS over HTTP and HTTPS and distinguishes four outcomes: Odoo answers,
+> Traefik answers but cannot reach Odoo, the certificate was not issued, or nothing answers. When
+> nothing answers it names `rkd instance traefik --env <env>` as the fix. A native deploy promises
+> `http://<host>:8069` and says plainly that there is no reverse proxy yet.
 
 ---
 
@@ -504,9 +705,18 @@ rkd gui
 ~~~
 
 > **Since 3.4, read the URL it prints.** Every run generates a session token and the GUI does not
-> load without it: `http://127.0.0.1:8070/?token=<token>`. Browsing to `http://localhost:8070` on
-> its own gets you nothing, and restarting `rkd gui` invalidates the previous token. See
-> [Graphical Interface (GUI)](gui.md#the-session-token).
+> load without it: `http://127.0.0.1:8070/?token=<token>`. Restarting `rkd gui` issues a new one.
+> See [Graphical Interface (GUI)](gui.md#the-session-token).
+
+> **Since 3.8, reaching it without the token is not a dead end.** `http://localhost:8070` on its own
+> — which is where the VSCode port notification sends you — now shows a card with a field to paste
+> the token into, and the browser tab remembers the last one that worked.
+
+> **Since 3.8, an occupied port fails honestly.** `rkd gui` used to print the full panel with a
+> freshly minted token and the bind error underneath; copying that newer URL got you a 401, because
+> only the server that is actually listening knows its own token. It now checks the bind before
+> printing anything, explains that the URL which works is the one the other session printed, offers
+> a free port, and exits with an error.
 
 * Start the GUI on a custom port:
 

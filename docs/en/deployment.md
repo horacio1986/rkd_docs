@@ -10,6 +10,14 @@ In this section of the documentation, we will list these new commands and explai
 
 ---
 
+> **Two different commands, two different jobs.** `rkd deploy` — this page — ships **modules** to an
+> Odoo that already exists, whether that is Odoo.sh or a server of your own. [`rkd
+> instance`](command.md#vps-instance-deployment-rkd-instance) does the other half: it installs **the
+> whole Odoo instance** on a VPS, from the Docker image or the native packages up to the database and
+> the reverse proxy. If there is nothing running on the server yet, you want `rkd instance` first.
+
+---
+
 ## Before Getting Started:
 
 > It is important to note that in our development environment, the directory intended for the modules we develop is  
@@ -72,6 +80,18 @@ rkd deploy validate
 ~~~
 
 * Validates the modules before deployment
+
+> **`rkd deploy run --dry-run` does not check anything yet.** It prints
+> `Dry-run completed successfully` without contacting the target, so treat it as a placeholder rather
+> than a rehearsal — `rkd deploy validate` is what actually inspects your modules. The dry run of
+> [`rkd instance deploy`](command.md#the-pre-flight-and-a-dry-run-that-writes-nothing) is a different
+> thing entirely: it runs the full pre-flight against the server and reports real blockers.
+
+> **Fixed in 3.14.3, if you deploy from the GUI.** The **Deploy** and **Validate Modules** buttons
+> failed on every call — the first through a method that did not exist, hidden behind a wide `except`
+> that reported success anyway, the second showing an empty *Validation errors* card for every
+> project. Both now go through the same entry point as the CLI. On 3.14.2 and earlier, deploy from the
+> terminal.
 
 ---
 

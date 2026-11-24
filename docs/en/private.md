@@ -24,7 +24,26 @@ Rocketdoo will enumerate all SSH keys found so you can select the appropriate on
 
 ## Are My SSH Keys Secure?
 
-In this new version of Rocketdoo, there is no longer a need to consider hiding private SSH keys; since
-rkd version 2 is not a repository itself, we do not need to be concerned about this.
-Since you can use your private repositories normally, as they do not run the risk of being exposed in a repository.
-However, in version 1, their protection was considered.
+Rocketdoo never copies a private key into your project. It reads the names of the keys in `~/.ssh/`,
+you pick one, and only that name is stored in the configuration — the key itself stays where it was.
+Since 3.14.1 a key configured by name is resolved against `~/.ssh/`, which is where every Rocketdoo
+wizard looks, so a deploy no longer fails with "SSH key not found" over a key that was there all
+along.
+
+> **The selector offers keys, and only keys (3.14.2).** It used to list everything in `~/.ssh/`,
+> including `config`, `known_hosts` and `authorized_keys`. It now skips those, along with `.pub`
+> files, `.ppk` files (PuTTY's format, which `ssh -i` cannot read) and dotfiles — matching
+> case-insensitively on the name up to the first dot, so `known_hosts.old` and `config.bak` are
+> filtered out too. Cancelling the selector no longer writes `~/.ssh/None` into your configuration.
+
+Three places are worth knowing about:
+
+- **`rkd pack` never ships your keys.** The `.ssh/` directory, `.rkd/secrets/` and every `*.env` are
+  left out of the ZIP, and no symbolic link may enter it — a link pointing at a secrets file used to
+  carry it out. The closing panel names what was excluded, which is the list the receiver rewrites
+  with their own keys through `rkd unpack`.
+- **A Docker build that needs a private repository uses your SSH agent**, through BuildKit's
+  `--mount=type=ssh`. The key is never written into an image layer. Since 3.12 projects whose
+  external repositories are all public HTTPS build without an agent at all.
+- **Cloning Enterprise onto a VPS forwards the agent** rather than copying a key to the server, so
+  no credential of yours is left behind on a machine you share.

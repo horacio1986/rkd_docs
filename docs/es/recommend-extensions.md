@@ -17,7 +17,7 @@ Más adelante en la documentación también compartiremos comandos útiles para 
 
 - **Auto Close Tag** – Jun Han  
 - **GitLens** – GitKraken  
-- **Odoo IDE** – Trinh Anh Ngoc *(altamente recomendable, especialmente para Odoo 16)*  
+- **Odoo IDE** – Trinh Anh Ngoc *(altamente recomendable)*  
 - **Odoo Shortcuts** – mvintg  
 - **Odoo Snippets** – Droggol  
 - **Prettier - Code Formatter** – Prettier  

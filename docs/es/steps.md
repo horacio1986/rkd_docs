@@ -13,7 +13,7 @@ pipx install rocketdoo
 ~~~~
 
 
-![rocketdoo-docs-img](../img/rkd-version2.1.0.png)
+![rkd --version](../img/term-version.svg)
 
 
 ### Paso 3:
@@ -33,7 +33,7 @@ rocketdoo --version
 ~~~~
 
 
-> VERSION ACTUAL "3.5.0"
+> VERSION ACTUAL "3.14.3"
 
 ### Paso 5:
 
@@ -53,7 +53,7 @@ ambiente de desarrollo en Odoo y depurar codigo con VSCode.
 
 
 
-![rocketdoo-img-5](../img/rkd-scaffold.png)
+![rkd scaffold](../img/term-scaffold.svg)
 
 ### Paso 7:
 
@@ -72,10 +72,12 @@ rkd init
 >
 > ~~~
 > rkd profiles list             # ver las combinaciones disponibles
-> rkd init --profile odoo18-ce  # Odoo 18 Community sobre PostgreSQL 16
+> rkd init --profile odoo19-ce  # Odoo 19 Community sobre PostgreSQL 16
 > ~~~
 >
 > Ver [Golden Paths](command.md#golden-paths-rkd-profiles).
+
+![rkd init --profile odoo19-ce](../img/term-init-profile.svg)
 
 
 ### Paso 8:
@@ -86,7 +88,7 @@ Una vez finalizado el asistente podrias verificar como se construyo tu ambiente 
 rkd info
 ~~~~
 
-![rocketdoo-img-5](../img/rkd-info.png)
+![rkd info](../img/term-info.svg)
 
 ### Paso 9:
 
@@ -120,6 +122,6 @@ Con el siguiente comando podras ver la ayuda:
 rkd --help
 ~~~~
 
-![rocketdoo-img-5](../img/rkd-help.png)
+![rkd --help](../img/term-help.svg)
 ---
 

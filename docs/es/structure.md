@@ -60,6 +60,48 @@ De todos modos, no te preocupes, ya que normalmente no será necesario modificar
 
 ---
 
+## /.rkd
+
+> **Desde la versión 3.** Todo lo que Rocketdoo necesita recordar sobre *este* proyecto, más allá de
+> los archivos que leen Odoo y Docker, vive en el directorio oculto `.rkd/`.
+
+| Archivo | Qué guarda |
+|---|---|
+| `.rkd/instance.yaml` | Los entornos stage y prod a los que despliega `rkd instance`: host, usuario, dominio, versiones de Odoo y PostgreSQL, configuración de Enterprise y gitman, perfil de recursos, ruta remota, y la base de origen cuando el entorno se siembra. |
+| `.rkd/deploy.yaml` | Los destinos a los que `rkd deploy` empuja módulos (`vps` u `odoo-sh`). |
+| `.rkd/traefik.yaml` | La configuración del proxy inverso local que escribe `rkd traefik on`. |
+| `.rkd/secrets/` | Credenciales generadas — **nunca compartas este directorio.** |
+
+`rkd scaffold` agrega `.rkd/` al `.gitignore`, y `rkd pack` deja el directorio entero afuera del ZIP
+que arma, así un entorno compartido nunca se lleva tus credenciales. `rkd info` imprime un panel
+**Secrets at risk** cuando falta esa cobertura.
+
+Otros dos directorios son parte del mismo layout generado: `instance/` guarda las plantillas Jinja
+que renderiza el deploy al VPS, y `deploy/` las que usa el deploy de módulos. Normalmente no se
+editan.
+
+---
+
+## Addons anidados
+
+> **Desde la 3.5.** Odoo lee un `addons_path` estático, así que un módulo parado en
+> `addons/oca/web_responsive` era invisible salvo que ese subdirectorio estuviera listado
+> explícitamente.
+
+`rkd up`, `rkd restart`, `rkd build --rebuild` y `rkd ci prepare` ahora mantienen el path al día con
+lo que realmente hay bajo `addons/`, y `rkd info` avisa cuando el path quedó viejo, sin escribirlo.
+Las entradas que no son de Rocketdoo —la de Odoo por defecto, `enterprise`, el `external_addons` de
+gitman, cualquier ruta que hayas agregado— se conservan tal cual, en orden.
+
+> **Si una versión anterior te rompió el `addons_path`, la 3.10.1 lo repara.** `config/odoo.conf` es
+> un archivo INI, donde un valor puede seguir en líneas indentadas. Antes de la 3.10.1 Rocketdoo
+> reescribía sólo la primera línea y dejaba las continuaciones huérfanas, y Odoo descartaba la entrada
+> entera sin decir nada — en una instancia real un solo `rkd up` sacó `extra-addons` del path y con él
+> cinco addons propios del proyecto. La lectura y la escritura ahora pasan por un parser que entiende
+> la opción completa, así que reescribir el archivo repara lo que una versión vieja arruinó.
+
+---
+
 ## Launch.json
 
 Dentro del directorio oculta ***.vscode/*** se encuentra el archivo ***launch.json***, el mismo permite configurar las opciones de depuracion de codigo

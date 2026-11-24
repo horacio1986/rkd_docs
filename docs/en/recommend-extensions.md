@@ -16,7 +16,7 @@ Later in the documentation, we’ll also provide useful commands to go deeper in
 
 - **Auto Close Tag** – Jun Han  
 - **GitLens** – GitKraken  
-- **Odoo IDE** – Trinh Anh Ngoc *(highly recommended, especially for Odoo 16)*  
+- **Odoo IDE** – Trinh Anh Ngoc *(highly recommended)*  
 - **Odoo Shortcuts** – mvintg  
 - **Odoo Snippets** – Droggol  
 - **Prettier - Code Formatter** – Prettier  
