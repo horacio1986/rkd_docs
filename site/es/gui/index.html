@@ -1297,6 +1297,10 @@ columna de Acciones.</p>
 <p>Una tarjeta por entorno configurado en <code>.rkd/instance.yaml</code> (stage, prod) con host, dominio, versión
 de Odoo, tipo de despliegue y ruta remota, más <strong>Desplegar</strong> y la casilla <strong>Simulación (dry run)</strong>.</p>
 <blockquote>
+<p><strong>Los parámetros de rendimiento no están en esta pantalla.</strong> Los workers y los límites de memoria
+y de tiempo viven bajo <code>resources</code> en <code>.rkd/instance.yaml</code>; se configuran con <code>rkd instance init</code> o
+editando el archivo. Desde la 3.15, guardar un entorno acá conserva el bloque <code>resources</code> existente
+en vez de borrarlo. Ver <a href="../command/#afinar-odoo-por-entorno">Afinar Odoo por entorno</a>.</p>
 <p><strong>Nuevo en la 3.14.</strong> Cada tarjeta lleva además un selector <strong>Base de datos de origen</strong>: <code>Ninguna —
 base nueva de cero (recomendado)</code>, o alguna de tus bases locales para restaurar en ese entorno.
 Elegir una la guarda en el acto; la confirmación llega después, al apretar <strong>Desplegar</strong>, como un

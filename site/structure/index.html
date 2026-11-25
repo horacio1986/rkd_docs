@@ -911,7 +911,7 @@ Odoo and Docker read, lives in the hidden <code>.rkd/</code> directory.</p>
 <tbody>
 <tr>
 <td><code>.rkd/instance.yaml</code></td>
-<td>The stage and prod environments <code>rkd instance</code> deploys to: host, user, domain, Odoo and PostgreSQL versions, Enterprise and Gitman settings, resource profile, remote path, and the source database when the environment is seeded.</td>
+<td>The stage and prod environments <code>rkd instance</code> deploys to: host, user, domain, Odoo and PostgreSQL versions, Enterprise and Gitman settings, the PostgreSQL resource profile, Odoo's own <a href="../command/#tuning-odoo-per-environment">performance settings</a> under <code>resources</code> (3.15), the remote path, and the source database when the environment is seeded.</td>
 </tr>
 <tr>
 <td><code>.rkd/deploy.yaml</code></td>
