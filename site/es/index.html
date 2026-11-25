@@ -324,6 +324,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#novedades-en-la-version-315" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Novedades en la versión 3.15
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Novedades en la versión 3.15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#los-parametros-de-rendimiento-de-odoo-por-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Los parámetros de rendimiento de Odoo, por entorno
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#novedades-en-la-version-314" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1041,6 +1069,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#novedades-en-la-version-315" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Novedades en la versión 3.15
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Novedades en la versión 3.15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#los-parametros-de-rendimiento-de-odoo-por-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⚙️ Los parámetros de rendimiento de Odoo, por entorno
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#novedades-en-la-version-314" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1391,13 +1447,45 @@
 
 <h1 id="bienvenido-a-rkd-como-rocketdoo">¡Bienvenido a RKD como ROCKETDOO!</h1>
 <blockquote>
-<p><strong>Versión 3.14</strong> de ROCKETDOO — sembrá una instancia en el VPS con tu base de desarrollo, un pre-flight que frena un deploy antes de que rompa, Enterprise y repos de terceros que por fin llegan al servidor, HTTPS en el VPS y Odoo 20 — además de la GUI, los golden paths, Mailpit, Traefik y CI que generás para tu propio proyecto.</p>
+<p><strong>Versión 3.15</strong> de ROCKETDOO — los parámetros de rendimiento de Odoo configurables por entorno, además de sembrar una instancia en el VPS con tu base de desarrollo, un pre-flight que frena un deploy antes de que rompa, Enterprise y repos de terceros que llegan al servidor, HTTPS en el VPS y Odoo 20.</p>
 </blockquote>
 <p><img alt="rocketdoo-welcome" src="../img/rkd-v3.png" /></p>
 <p><strong>Rocketdoo es una plataforma de desarrollo y entrega para equipos Odoo que estandariza, automatiza y abstrae el ciclo de vida de los entornos Odoo, desde el desarrollo local hasta el despliegue.</strong></p>
 <p>Rocketdoo es un framework desarrollado en Python que tiene como objetivo proporcionar un entorno de desarrollo rápido y eficiente.</p>
 <p>Con Rocketdoo podrás desplegar, en simples pasos, uno o varios entornos para desarrollar en Odoo, en todas sus ediciones y versiones.<br />
 Te permitirá crear nuevos módulos o funcionalidades tanto para la edición Enterprise como para la edición Community.</p>
+<h2 id="novedades-en-la-version-315">Novedades en la versión 3.15</h2>
+<h3 id="los-parametros-de-rendimiento-de-odoo-por-entorno">⚙️ Los parámetros de rendimiento de Odoo, por entorno</h3>
+<blockquote>
+<p><strong>Nuevo en la 3.15.</strong> Workers, hilos de cron y límites de memoria y de tiempo dejaron de quedar
+fijados por el nombre del entorno: un bloque <code>resources</code> en <code>.rkd/instance.yaml</code> los define por
+entorno, y <code>rkd instance init</code> los pregunta.</p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>environments:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  prod:
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    resources:
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      limit_time_cpu: 600     # segundos; el default de 60 de Odoo parte al medio una importación grande
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>      limit_time_real: 1200
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>      workers: 4
+</span></code></pre></div>
+<p>Todos los campos son opcionales y uno ausente conserva el default que implica el nombre del entorno,
+así que un <code>instance.yaml</code> sin el bloque se despliega exactamente igual que siempre.</p>
+<p>El caso para el que existe: un proyecto cuyo <code>odoo.conf</code> sube los límites de tiempo para
+importaciones grandes y reportes pesados. Desplegarlo escribía 60/120 encima de esos valores,
+cortando las dos operaciones a la mitad — y editar el archivo en el servidor no era solución, porque
+el deploy siguiente lo reescribe sin ninguna guarda, así que el ajuste a mano se perdía en silencio.</p>
+<p>El chequeo <code>memory</code> del pre-flight ahora suma <strong>los valores efectivos de ese entorno</strong> en vez de las
+constantes de Rocketdoo, así que un número que no entra en el VPS bloquea el deploy antes de escribir
+nada, y lo nombra. El dimensionamiento sigue sin leerse del servidor: la RAM física no es la RAM
+disponible.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a href="command/#afinar-odoo-por-entorno">Los siete valores, los defaults por entorno y lo que heredan los deploys nativos</a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<hr />
 <h2 id="novedades-en-la-version-314">Novedades en la versión 3.14</h2>
 <p>Entre la 3.5 y la 3.14.3 hay nueve entregas, y casi ninguna agregó un comando. Lo que hicieron fue
 convertir <code>rkd instance</code> en un despliegue que revisa el servidor <strong>antes</strong> de tocarlo — más Odoo 20,
@@ -1409,8 +1497,8 @@ base local cuando configurás el entorno y el deploy la vuelca, la transfiere, l
 servidor —filestore incluido— y neutraliza lo que no debe correr ahí.</p>
 </blockquote>
 <p><img alt="La pantalla Instancias, con el selector de base de datos de origen en cada entorno" src="../img/gui-instances-es.png" /></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>rkd instance init             # &quot;Database for stage:&quot; → elegí una base local, o ninguna
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>rkd instance deploy -e stage
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rkd instance init             # &quot;Database for stage:&quot; → elegí una base local, o ninguna
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>rkd instance deploy -e stage
 </span></code></pre></div>
 <p>Hay tres reglas que conviene entender antes de usarlo:</p>
 <ul>
@@ -1442,7 +1530,7 @@ deploy antes de escribir nada.</p>
 <p>El <code>--dry-run</code> antes imprimía "Deployment successful" sin tocar el VPS — y además escribía un archivo
 de secretos en local. Ahora corre ese mismo pre-flight, conecta sólo para leer, no escribe nada y sale
 con código distinto de cero cuando algo bloquea. Así que esto por fin significa lo que parece:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rkd instance deploy -e prod --dry-run &amp;&amp; rkd instance deploy -e prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rkd instance deploy -e prod --dry-run &amp;&amp; rkd instance deploy -e prod
 </span></code></pre></div>
 <p>Revisa la conexión, Docker, <code>sudo</code>, la ruta remota, el espacio en disco, la memoria, tu clave SSH y el
 agente, el archivo de gitman y sus repos, el directorio de Enterprise, la versión de PostgreSQL, los
@@ -1463,7 +1551,7 @@ el mismo orden canónico: <code>enterprise, extra-addons, directorios anidados, 
 <p><strong>Nuevo en la 3.12.</strong> El contenedor de Odoo sólo expone su puerto; alguien tiene que contestar en
 80/443 y conseguir el certificado.</p>
 </blockquote>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>rkd instance traefik -e prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rkd instance traefik -e prod
 </span></code></pre></div>
 <p>Instala Traefik en el servidor de ese entorno, una vez por host, con la misma configuración que <code>rkd
 traefik</code> renderiza en local. Se puede volver a correr sin miedo —los archivos que retocaste y los
@@ -1552,9 +1640,9 @@ del token tiene un campo para pegar, para cuando llegás a <code>http://localhos
 <h3 id="ci-para-tu-proyecto-rkd-ci">⚙️ CI para tu proyecto (<code>rkd ci</code>)</h3>
 <p><code>rkd ci init</code> escribe un workflow de GitHub Actions <strong>dentro de tu proyecto</strong> que lintea tus addons
 y los instala contra un Odoo real:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>rkd ci init        # escribe .github/workflows/rkd-ci.yml
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>rkd ci prepare     # regenera lo que un clon limpio no trae
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>rkd ci modules     # los módulos instalables que Odoo alcanza
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd ci init        # escribe .github/workflows/rkd-ci.yml
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rkd ci prepare     # regenera lo que un clon limpio no trae
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>rkd ci modules     # los módulos instalables que Odoo alcanza
 </span></code></pre></div>
 <p>Nunca pisa un workflow que difiera de lo que escribiría, y el job caro —el de instalación— está
 limitado a los pull requests por defecto, porque en repos privados los minutos de Actions son una
@@ -1603,9 +1691,9 @@ que imprime, o <code>--open</code>.</p>
 versión de PostgreSQL. En ese momento Rocketdoo traía diez —Odoo 15 a 19, Community y Enterprise;
 hoy son doce— y pasaron a ser la fuente de verdad tanto del asistente como de la configuración no
 interactiva:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>rkd profiles list              # la matriz completa
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>rkd profiles show odoo18-ce    # detalle de un perfil
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>rkd init --profile odoo18-ce   # crear el entorno sin responder preguntas
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd profiles list              # la matriz completa
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rkd profiles show odoo18-ce    # detalle de un perfil
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>rkd init --profile odoo18-ce   # crear el entorno sin responder preguntas
 </span></code></pre></div>
 <p>Tres de ellos (<code>odoo15-ce</code>, <code>odoo18-ce</code>, <code>odoo19-ee</code>) los construía el CI en cada PR de release; el
 resto es best effort. La compatibilidad Odoo↔PostgreSQL ahora se valida, así que el asistente ya no
@@ -1648,7 +1736,7 @@ paquete y una pasada de render y build sobre los golden paths. Ya no queda ning�
 <p>La versión 3 es la entrega más completa de <strong>ROCKETDOO</strong> hasta la fecha. Conserva todo lo de la versión 2 y agrega cuatro grandes capacidades nuevas:</p>
 <h3 id="interfaz-grafica-gui">🖥️ Interfaz Gráfica (GUI)</h3>
 <p><strong>Rocketdoo v3</strong> incluye su propia GUI web, que se lanza directamente desde la terminal con un solo comando:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>rkd gui
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd gui
 </span></code></pre></div>
 <p>La GUI se abre en tu navegador en la URL que imprime <code>rkd gui</code> — desde la 3.4 esa URL lleva un
 token de sesión — y ofrece:</p>
@@ -1674,24 +1762,24 @@ token de sesión — y ofrece:</p>
 </blockquote>
 <h3 id="testing-de-email-con-mailpit-rkd-mail">📧 Testing de Email con Mailpit (<code>rkd mail</code>)</h3>
 <p>El nuevo comando <code>mail</code> integra <a href="https://github.com/axllent/mailpit">Mailpit</a> — un servidor SMTP local con interfaz web que captura todos los emails salientes de Odoo en lugar de enviarlos.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>rkd mail on       # Activar Mailpit y configurar SMTP en Odoo
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>rkd mail off      # Desactivar Mailpit y restaurar los valores por defecto
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>rkd mail status   # Ver el estado actual
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>rkd mail open     # Abrir la interfaz web de Mailpit en el navegador
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd mail on       # Activar Mailpit y configurar SMTP en Odoo
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>rkd mail off      # Desactivar Mailpit y restaurar los valores por defecto
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>rkd mail status   # Ver el estado actual
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>rkd mail open     # Abrir la interfaz web de Mailpit en el navegador
 </span></code></pre></div>
 <h3 id="reverse-proxy-traefik-rkd-traefik">🌐 Reverse Proxy Traefik (<code>rkd traefik</code>)</h3>
 <p>El comando <code>traefik</code> facilita exponer tu instancia local de Odoo con un dominio personalizado, tanto para desarrollo local como para producción con HTTPS y Let's Encrypt.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>rkd traefik on      # Configuración interactiva: dominio, modo (local/producción)
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>rkd traefik off     # Quitar la integración Traefik del proyecto
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>rkd traefik status  # Ver la configuración actual de Traefik
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>rkd traefik guide   # Guía paso a paso para configurar dominios locales
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd traefik on      # Configuración interactiva: dominio, modo (local/producción)
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>rkd traefik off     # Quitar la integración Traefik del proyecto
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>rkd traefik status  # Ver la configuración actual de Traefik
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>rkd traefik guide   # Guía paso a paso para configurar dominios locales
 </span></code></pre></div>
 <h3 id="despliegue-completo-en-vps-rkd-instance">🚀 Despliegue Completo en VPS (<code>rkd instance</code>)</h3>
 <p>El comando <code>instance</code> permite desplegar una instancia completa de Odoo en un VPS, ya sea como contenedor Docker o instalación nativa, mediante un asistente interactivo.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>rkd instance init                # Configurar entornos stage/prod de forma interactiva
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>rkd instance deploy --env stage  # Desplegar en staging
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>rkd instance deploy --env prod   # Desplegar en producción
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>rkd instance status              # Ver los destinos de despliegue configurados
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>rkd instance init                # Configurar entornos stage/prod de forma interactiva
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>rkd instance deploy --env stage  # Desplegar en staging
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>rkd instance deploy --env prod   # Desplegar en producción
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>rkd instance status              # Ver los destinos de despliegue configurados
 </span></code></pre></div>
 <hr />
 <h2 id="desde-la-version-2-todo-disponible">Desde la Versión 2 — Todo Disponible</h2>

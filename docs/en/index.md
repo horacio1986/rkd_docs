@@ -1,6 +1,6 @@
 # Welcome to RKD as ROCKETDOO!
 
-> **Version 3.14** of ROCKETDOO — seed a VPS instance with your development database, a pre-flight that stops a deploy before it breaks, Enterprise and third-party repos that finally reach the server, HTTPS on the VPS, and Odoo 20 — on top of the GUI, the golden paths, Mailpit, Traefik and CI you can generate for your own project.
+> **Version 3.15** of ROCKETDOO — Odoo's performance settings configurable per environment, on top of seeding a VPS instance with your development database, a pre-flight that stops a deploy before it breaks, Enterprise and third-party repos that reach the server, HTTPS on the VPS, and Odoo 20.
 
 ![rocketdoo-welcome](../img/rkd-v3.png)
 
@@ -10,6 +10,39 @@ Rocketdoo is a Python-based framework designed to provide a fast and efficient d
 
 With Rocketdoo, you can deploy one or several environments for Odoo development in just a few simple steps.
 It allows you to create new modules or features for both the Enterprise and Community editions.
+
+## What's New in 3.15
+
+### ⚙️ Odoo's performance settings, per environment
+
+> **New in 3.15.** Workers, cron threads, memory and time limits are no longer fixed by the
+> environment's name: a `resources` block in `.rkd/instance.yaml` sets them per environment, and
+> `rkd instance init` asks for them.
+
+~~~
+environments:
+  prod:
+    resources:
+      limit_time_cpu: 600     # seconds; Odoo's default of 60 halves a large import
+      limit_time_real: 1200
+      workers: 4
+~~~
+
+Every field is optional and an absent one keeps the default the environment name implies, so an
+`instance.yaml` without the block deploys exactly as it used to.
+
+The case it exists for: a project whose `odoo.conf` raises the time limits for large imports and
+heavy reports. Deploying it wrote 60/120 over those values, cutting both operations in half — and
+editing the file on the server was no fix, because the next deploy rewrites it with no guard, so a
+hand-tuned value was silently lost.
+
+The `memory` pre-flight check now adds up **this environment's effective values** instead of
+Rocketdoo's own constants, so a figure that does not fit the VPS blocks the deploy before anything is
+written, and names it. Sizing is still never read from the server: physical RAM is not available RAM.
+
+>>> [The seven values, the defaults per environment, and what native deploys inherit](command.md#tuning-odoo-per-environment)
+
+---
 
 ## What's New in 3.14
 

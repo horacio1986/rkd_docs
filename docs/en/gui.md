@@ -163,6 +163,11 @@ Everything about addons in one screen:
 A card per environment configured in `.rkd/instance.yaml` (stage, prod) with host, domain, Odoo
 version, deployment type and remote path, plus **Deploy** and a **Dry run** checkbox.
 
+> **Performance settings are not on this screen.** Workers and the memory and time limits live
+> under `resources` in `.rkd/instance.yaml`; set them with `rkd instance init` or by editing the
+> file. Since 3.15, saving an environment here carries an existing `resources` block over instead of
+> wiping it. See [Tuning Odoo per environment](command.md#tuning-odoo-per-environment).
+
 > **New in 3.14.** Each card also carries a **Seed database** selector: `None — fresh database from
 > scratch (recommended)`, or one of your local databases to restore into that environment. Picking
 > one saves it straight away; the confirmation comes later, when you press **Deploy**, as a prompt

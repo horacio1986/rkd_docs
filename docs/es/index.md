@@ -1,6 +1,6 @@
 # ¡Bienvenido a RKD como ROCKETDOO!
 
-> **Versión 3.14** de ROCKETDOO — sembrá una instancia en el VPS con tu base de desarrollo, un pre-flight que frena un deploy antes de que rompa, Enterprise y repos de terceros que por fin llegan al servidor, HTTPS en el VPS y Odoo 20 — además de la GUI, los golden paths, Mailpit, Traefik y CI que generás para tu propio proyecto.
+> **Versión 3.15** de ROCKETDOO — los parámetros de rendimiento de Odoo configurables por entorno, además de sembrar una instancia en el VPS con tu base de desarrollo, un pre-flight que frena un deploy antes de que rompa, Enterprise y repos de terceros que llegan al servidor, HTTPS en el VPS y Odoo 20.
 
 ![rocketdoo-welcome](../img/rkd-v3.png)
 
@@ -10,6 +10,40 @@ Rocketdoo es un framework desarrollado en Python que tiene como objetivo proporc
 
 Con Rocketdoo podrás desplegar, en simples pasos, uno o varios entornos para desarrollar en Odoo, en todas sus ediciones y versiones.  
 Te permitirá crear nuevos módulos o funcionalidades tanto para la edición Enterprise como para la edición Community.
+
+## Novedades en la versión 3.15
+
+### ⚙️ Los parámetros de rendimiento de Odoo, por entorno
+
+> **Nuevo en la 3.15.** Workers, hilos de cron y límites de memoria y de tiempo dejaron de quedar
+> fijados por el nombre del entorno: un bloque `resources` en `.rkd/instance.yaml` los define por
+> entorno, y `rkd instance init` los pregunta.
+
+~~~
+environments:
+  prod:
+    resources:
+      limit_time_cpu: 600     # segundos; el default de 60 de Odoo parte al medio una importación grande
+      limit_time_real: 1200
+      workers: 4
+~~~
+
+Todos los campos son opcionales y uno ausente conserva el default que implica el nombre del entorno,
+así que un `instance.yaml` sin el bloque se despliega exactamente igual que siempre.
+
+El caso para el que existe: un proyecto cuyo `odoo.conf` sube los límites de tiempo para
+importaciones grandes y reportes pesados. Desplegarlo escribía 60/120 encima de esos valores,
+cortando las dos operaciones a la mitad — y editar el archivo en el servidor no era solución, porque
+el deploy siguiente lo reescribe sin ninguna guarda, así que el ajuste a mano se perdía en silencio.
+
+El chequeo `memory` del pre-flight ahora suma **los valores efectivos de ese entorno** en vez de las
+constantes de Rocketdoo, así que un número que no entra en el VPS bloquea el deploy antes de escribir
+nada, y lo nombra. El dimensionamiento sigue sin leerse del servidor: la RAM física no es la RAM
+disponible.
+
+>>> [Los siete valores, los defaults por entorno y lo que heredan los deploys nativos](command.md#afinar-odoo-por-entorno)
+
+---
 
 ## Novedades en la versión 3.14
 

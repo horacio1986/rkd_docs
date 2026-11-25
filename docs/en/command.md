@@ -579,8 +579,9 @@ Per environment: deployment type, VPS host, SSH port and user, authentication (a
 from `~/.ssh/`, or the name of an environment variable holding a password), Odoo version, and — for
 Docker — image tag, domain, Let's Encrypt email, PostgreSQL version, database user and name. Then the
 master password, the **source database** (see below), whether to use Enterprise and how it should
-reach the server, whether to use Gitman, the resource profile (`small` for a VPS under 2 GB RAM,
-`medium` for 4–8 GB, `large` for 16+) and the remote path.
+reach the server, whether to use Gitman, the PostgreSQL resource profile (`small` for a VPS under
+2 GB RAM, `medium` for 4–8 GB, `large` for 16+), **Odoo's own performance settings** (see below) and
+the remote path.
 
 > **Enterprise reaches the server two ways (3.11).** `rsync` transfers your local `enterprise/`
 > directory; `clone` fetches `odoo/enterprise` on the VPS through a **forwarded SSH agent**, so no
@@ -611,6 +612,81 @@ providers; doing that to production would stop the crons of the instance you are
 
 The admin password of a seeded database is not replaced — its users keep theirs — and the closing
 panel says so instead of promising a new one.
+
+### Tuning Odoo per environment
+
+> **New in 3.15.** The performance block of the deployed `odoo.conf` — workers, cron threads, memory
+> and time limits — is configurable per environment instead of being fixed by the environment's name.
+
+The wizard asks one question, defaulting to no:
+
+~~~
+Performance: 2 workers, 1024 MiB soft limit, 120s request limit.
+Tune Odoo's performance settings for this server? [y/n] (n)
+~~~
+
+Saying yes walks through the seven values with the effective ones as defaults, so answering through
+changes nothing. They are stored under `resources` in that environment's entry of
+`.rkd/instance.yaml`:
+
+~~~
+environments:
+  prod:
+    resources:
+      workers: 4
+      max_cron_threads: 2
+      limit_memory_soft: 2147483648    # bytes, per worker
+      limit_memory_hard: 2684354560    # bytes, per worker
+      limit_time_cpu: 600              # seconds
+      limit_time_real: 1200            # seconds
+      limit_request: 8192
+~~~
+
+**Every field is optional, and an absent one keeps the default the environment name implies**, which
+is what Rocketdoo emitted before this existed — so an `instance.yaml` without a `resources` block
+deploys exactly as it used to.
+
+| | `stage` | `prod` |
+|---|---|---|
+| `workers` | 1 | 2 |
+| `max_cron_threads` | 1 | 1 |
+| `limit_memory_soft` | 768 MiB | 1 GiB |
+| `limit_memory_hard` | 1 GiB | 1.5 GiB |
+| `limit_time_cpu` | 60 s | 60 s |
+| `limit_time_real` | 120 s | 120 s |
+| `limit_request` | 8192 | 8192 |
+
+The case this exists for: a project whose `odoo.conf` raises `limit_time_cpu` and `limit_time_real`
+to 600/1200 for large imports and heavy reports. Deploying it used to write 60/120 over those
+values, cutting both operations in half — and editing the file on the server was no fix, because the
+next deploy rewrites it, on both paths and with no guard, so a hand-tuned value is silently lost.
+
+Two mistakes are refused rather than deployed: a negative number, and a `limit_memory_hard` below
+`limit_memory_soft` — Odoo kills the worker instead of recycling it.
+
+> **Memory limits are per worker, not per server.** Rocketdoo's `memory` pre-flight check adds up
+> `workers + max_cron_threads + 2` processes at the soft limit, plus PostgreSQL's share, and since
+> 3.15 it uses **this environment's effective values** rather than Rocketdoo's own constants — so a
+> `resources` block that does not fit the VPS blocks the deploy before anything is written, naming
+> the figures. Its hint now points at `workers` and `limit_memory_soft`, which is the knob that
+> exists.
+
+> **Not in the GUI.** The Instances screen has no performance fields: configure them with
+> `rkd instance init` or by editing `.rkd/instance.yaml`. Since 3.15 saving an environment from the
+> GUI carries an existing `resources` block over instead of wiping it.
+
+> **Sizing is not read from the server, on purpose.** Physical RAM is not available RAM — a VPS may
+> be running PostgreSQL and something else beside it — so Rocketdoo does not guess a number for you;
+> it checks the one you chose against what it measured.
+
+> **`resources` and the PostgreSQL resource profile are different knobs.** `small`/`medium`/`large`
+> sizes **PostgreSQL** (shared buffers and connections); `resources` tunes **Odoo**.
+
+> **One behaviour change for native deploys (3.15).** The Docker template pinned
+> `limit_request = 8192` while the native `odoo.conf` declared none of the three time limits and fell
+> back to Odoo's own defaults. Both paths now write the same answer, so an existing native
+> environment moves from `limit_request` 65536 to 8192 — the worker recycles more often, which is the
+> more conservative of the two. The other two limits do not move.
 
 ### The pre-flight, and a dry run that writes nothing
 

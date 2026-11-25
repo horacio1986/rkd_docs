@@ -32,7 +32,7 @@ Verify the installed version to ensure it is version 3; the old version will sti
 rocketdoo --version
 ~~~~
 
-> VERSION "3.14.3"
+> VERSION "3.15.0"
 
 ### Step 5:
 

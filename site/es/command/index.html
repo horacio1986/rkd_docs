@@ -831,6 +831,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#afinar-odoo-por-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Afinar Odoo por entorno
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#el-pre-flight-y-un-dry-run-que-no-escribe-nada" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1266,6 +1277,17 @@
     <span class="md-ellipsis">
       
         Sembrar un entorno con una base local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#afinar-odoo-por-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Afinar Odoo por entorno
       
     </span>
   </a>
@@ -1908,8 +1930,9 @@ entorno como <code>added</code>, <code>kept</code>, <code>updated</code> o <code
 elegida de <code>~/.ssh/</code>, o el nombre de una variable de entorno con la contraseña), versión de Odoo y —en
 Docker— tag de la imagen, dominio, mail para Let's Encrypt, versión de PostgreSQL, usuario y nombre de
 la base. Después la master password, la <strong>base de origen</strong> (ver abajo), si usa Enterprise y cómo debe
-llegar al servidor, si usa gitman, el perfil de recursos (<code>small</code> para un VPS de menos de 2 GB de RAM,
-<code>medium</code> para 4–8 GB, <code>large</code> para 16+) y la ruta remota.</p>
+llegar al servidor, si usa gitman, el perfil de recursos de PostgreSQL (<code>small</code> para un VPS de menos
+de 2 GB de RAM, <code>medium</code> para 4–8 GB, <code>large</code> para 16+), <strong>los parámetros de rendimiento de Odoo</strong>
+(ver abajo) y la ruta remota.</p>
 <blockquote>
 <p><strong>Enterprise llega al servidor de dos formas (3.11).</strong> <code>rsync</code> transfiere tu directorio
 <code>enterprise/</code> local; <code>clone</code> trae <code>odoo/enterprise</code> en el VPS con el <strong>agente SSH reenviado</strong>, así
@@ -1938,6 +1961,107 @@ servidores de correo y los proveedores de pago; hacerle eso a producción apagar
 instancia que estás lanzando.</p>
 <p>La contraseña del admin de una base sembrada no se reemplaza —sus usuarios conservan las suyas— y el
 panel final lo dice, en vez de prometer una contraseña nueva.</p>
+<h3 id="afinar-odoo-por-entorno">Afinar Odoo por entorno</h3>
+<blockquote>
+<p><strong>Nuevo en la 3.15.</strong> El bloque de rendimiento del <code>odoo.conf</code> que se despliega —workers, hilos de
+cron, límites de memoria y de tiempo— se configura por entorno, en vez de quedar fijado por el
+nombre del entorno.</p>
+</blockquote>
+<p>El asistente hace una sola pregunta, que viene en no por defecto:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>Performance: 2 workers, 1024 MiB soft limit, 120s request limit.
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>Tune Odoo&#39;s performance settings for this server? [y/n] (n)
+</span></code></pre></div>
+<p>Decir que sí recorre los siete valores con los efectivos como default, así que contestar de corrido
+no cambia nada. Quedan guardados bajo <code>resources</code>, en la entrada de ese entorno en
+<code>.rkd/instance.yaml</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>environments:
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>  prod:
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>    resources:
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>      workers: 4
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>      max_cron_threads: 2
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>      limit_memory_soft: 2147483648    # bytes, por worker
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>      limit_memory_hard: 2684354560    # bytes, por worker
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>      limit_time_cpu: 600              # segundos
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>      limit_time_real: 1200            # segundos
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a>      limit_request: 8192
+</span></code></pre></div>
+<p><strong>Todos los campos son opcionales, y uno ausente conserva el default que implica el nombre del
+entorno</strong>, que es lo que Rocketdoo emitía antes de que esto existiera — así que un <code>instance.yaml</code>
+sin bloque <code>resources</code> se despliega exactamente igual que siempre.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>stage</code></th>
+<th><code>prod</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workers</code></td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>max_cron_threads</code></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>limit_memory_soft</code></td>
+<td>768 MiB</td>
+<td>1 GiB</td>
+</tr>
+<tr>
+<td><code>limit_memory_hard</code></td>
+<td>1 GiB</td>
+<td>1.5 GiB</td>
+</tr>
+<tr>
+<td><code>limit_time_cpu</code></td>
+<td>60 s</td>
+<td>60 s</td>
+</tr>
+<tr>
+<td><code>limit_time_real</code></td>
+<td>120 s</td>
+<td>120 s</td>
+</tr>
+<tr>
+<td><code>limit_request</code></td>
+<td>8192</td>
+<td>8192</td>
+</tr>
+</tbody>
+</table>
+<p>El caso para el que existe: un proyecto cuyo <code>odoo.conf</code> sube <code>limit_time_cpu</code> y <code>limit_time_real</code> a
+600/1200 para importaciones grandes y reportes pesados. Desplegarlo escribía 60/120 encima de esos
+valores, cortando las dos operaciones a la mitad — y editar el archivo en el servidor no era
+solución, porque el deploy siguiente lo reescribe, en los dos caminos y sin ninguna guarda, así que
+un ajuste a mano se pierde en silencio.</p>
+<p>Hay dos errores que se rechazan en vez de desplegarse: un número negativo, y un <code>limit_memory_hard</code>
+por debajo de <code>limit_memory_soft</code> — Odoo mata el worker en lugar de reciclarlo.</p>
+<blockquote>
+<p><strong>Los límites de memoria son por worker, no por servidor.</strong> El chequeo <code>memory</code> del pre-flight suma
+<code>workers + max_cron_threads + 2</code> procesos al límite blando, más la parte de PostgreSQL, y desde la
+3.15 usa <strong>los valores efectivos de ese entorno</strong> en vez de las constantes de Rocketdoo — así que un
+<code>resources</code> que no entra en el VPS bloquea el deploy antes de escribir nada, y lo nombra con esos
+números. Su sugerencia ahora apunta a <code>workers</code> y <code>limit_memory_soft</code>, que es la perilla que existe.</p>
+<p><strong>No está en la GUI.</strong> La pantalla Instancias no tiene campos de rendimiento: se configuran con
+<code>rkd instance init</code> o editando <code>.rkd/instance.yaml</code>. Desde la 3.15, guardar un entorno desde la GUI
+conserva el bloque <code>resources</code> existente en vez de borrarlo.</p>
+<p><strong>El dimensionamiento no se lee del servidor, a propósito.</strong> La RAM física no es la RAM disponible
+—un VPS puede tener PostgreSQL y otra cosa al lado—, así que Rocketdoo no adivina un número por vos;
+chequea el que elegiste contra lo que midió.</p>
+<p><strong><code>resources</code> y el perfil de recursos de PostgreSQL son perillas distintas.</strong>
+<code>small</code>/<code>medium</code>/<code>large</code> dimensiona <strong>PostgreSQL</strong> (shared buffers y conexiones); <code>resources</code> afina
+<strong>Odoo</strong>.</p>
+<p><strong>Un cambio de comportamiento para los deploys nativos (3.15).</strong> El template de Docker fijaba
+<code>limit_request = 8192</code> mientras que el <code>odoo.conf</code> nativo no declaraba ninguno de los tres límites
+de tiempo y caía en los defaults de Odoo. Ahora los dos caminos escriben la misma respuesta, así
+que un entorno nativo existente pasa de <code>limit_request</code> 65536 a 8192 — el worker se recicla más
+seguido, que es la más conservadora de las dos. Los otros dos límites no se mueven.</p>
+</blockquote>
 <h3 id="el-pre-flight-y-un-dry-run-que-no-escribe-nada">El pre-flight, y un dry run que no escribe nada</h3>
 <blockquote>
 <p><strong>Desde la 3.11.</strong> Los dos deployers arrancan por un pre-flight: una sola sesión SSH de sólo lectura
@@ -1955,27 +2079,27 @@ sembrar.</p>
 de secretos en local. Ahora corre ese mismo pre-flight, conecta sólo para leer, <strong>no escribe nada</strong> y
 sale con código distinto de cero cuando algo bloquea — así que esta cadena por fin significa lo que
 parece:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>rkd instance deploy --env prod --dry-run &amp;&amp; rkd instance deploy --env prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>rkd instance deploy --env prod --dry-run &amp;&amp; rkd instance deploy --env prod
 </span></code></pre></div>
 <ul>
 <li>Desplegar en el entorno staging:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>rkd instance deploy --env stage
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>rkd instance deploy --env stage
 </span></code></pre></div>
 <ul>
 <li>Desplegar en producción (con confirmación):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>rkd instance deploy --env prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>rkd instance deploy --env prod
 </span></code></pre></div>
 <ul>
 <li>Desplegar en producción omitiendo la confirmación:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>rkd instance deploy --env prod --yes
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>rkd instance deploy --env prod --yes
 </span></code></pre></div>
 <ul>
 <li>Correr el pre-flight sin desplegar (dry run):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>rkd instance deploy --env prod --dry-run
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>rkd instance deploy --env prod --dry-run
 </span></code></pre></div>
 <blockquote>
 <p><strong>Confirmaciones.</strong> <code>Deploy &lt;env&gt; to &lt;host&gt;?</code> viene en no por defecto, <code>prod</code> agrega un aviso, y un
@@ -1984,7 +2108,7 @@ entorno configurado para sembrarse pregunta otra vez — en <code>prod</code> ha
 <ul>
 <li>Ver el estado de todos los destinos de despliegue configurados:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>rkd instance status
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>rkd instance status
 </span></code></pre></div>
 <p><img alt="rkd instance status" src="../../img/term-instance-status.svg" /></p>
 <h3 id="instalar-traefik-en-el-vps">Instalar Traefik en el VPS</h3>
@@ -1992,8 +2116,8 @@ entorno configurado para sembrarse pregunta otra vez — en <code>prod</code> ha
 <p><strong>Nuevo en la 3.12.</strong> El contenedor de Odoo sólo expone su puerto. Alguien tiene que contestar en el
 80 y el 443 y conseguir el certificado, y ese alguien es Traefik.</p>
 </blockquote>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>rkd instance traefik --env prod
-</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>rkd instance traefik --env stage --traefik-dir /opt/traefik --email ops@example.com
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>rkd instance traefik --env prod
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>rkd instance traefik --env stage --traefik-dir /opt/traefik --email ops@example.com
 </span></code></pre></div>
 <p>Instala Traefik en el servidor de ese entorno —una vez por host— con la misma configuración que <code>rkd
 traefik</code> renderiza en local, leyendo <code>host</code>, <code>user</code> y la dirección de Let's Encrypt de
@@ -2017,7 +2141,7 @@ nada, nombra <code>rkd instance traefik --env &lt;env&gt;</code> como el arreglo
 <ul>
 <li>Iniciar la GUI en el puerto predeterminado (8070):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>rkd gui
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>rkd gui
 </span></code></pre></div>
 <blockquote>
 <p><strong>Desde la 3.4, leé la URL que imprime.</strong> Cada ejecución genera un token de sesión y la GUI no
@@ -2035,17 +2159,17 @@ libre y sale con error.</p>
 <ul>
 <li>Iniciar la GUI en un puerto personalizado:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>rkd gui --port 9090
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>rkd gui --port 9090
 </span></code></pre></div>
 <ul>
 <li>Iniciar la GUI y abrir el navegador automáticamente:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>rkd gui --open
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>rkd gui --open
 </span></code></pre></div>
 <ul>
 <li>Iniciar la GUI para un proyecto en un directorio específico:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>rkd gui --cwd /ruta/al/proyecto
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>rkd gui --cwd /ruta/al/proyecto
 </span></code></pre></div>
 <blockquote>
 <p>La GUI está disponible en <code>http://localhost:8070</code> por defecto — <strong>en la URL con el token que
