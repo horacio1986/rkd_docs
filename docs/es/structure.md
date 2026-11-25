@@ -67,7 +67,7 @@ De todos modos, no te preocupes, ya que normalmente no será necesario modificar
 
 | Archivo | Qué guarda |
 |---|---|
-| `.rkd/instance.yaml` | Los entornos stage y prod a los que despliega `rkd instance`: host, usuario, dominio, versiones de Odoo y PostgreSQL, configuración de Enterprise y gitman, perfil de recursos, ruta remota, y la base de origen cuando el entorno se siembra. |
+| `.rkd/instance.yaml` | Los entornos stage y prod a los que despliega `rkd instance`: host, usuario, dominio, versiones de Odoo y PostgreSQL, configuración de Enterprise y gitman, el perfil de recursos de PostgreSQL, los [parámetros de rendimiento](command.md#afinar-odoo-por-entorno) de Odoo bajo `resources` (3.15), la ruta remota, y la base de origen cuando el entorno se siembra. |
 | `.rkd/deploy.yaml` | Los destinos a los que `rkd deploy` empuja módulos (`vps` u `odoo-sh`). |
 | `.rkd/traefik.yaml` | La configuración del proxy inverso local que escribe `rkd traefik on`. |
 | `.rkd/secrets/` | Credenciales generadas — **nunca compartas este directorio.** |

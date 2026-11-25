@@ -831,6 +831,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tuning-odoo-per-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning Odoo per environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#the-pre-flight-and-a-dry-run-that-writes-nothing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1266,6 +1277,17 @@
     <span class="md-ellipsis">
       
         Seeding an environment with a local database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuning-odoo-per-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuning Odoo per environment
       
     </span>
   </a>
@@ -1906,8 +1928,9 @@ environment as <code>added</code>, <code>kept</code>, <code>updated</code> or <c
 from <code>~/.ssh/</code>, or the name of an environment variable holding a password), Odoo version, and — for
 Docker — image tag, domain, Let's Encrypt email, PostgreSQL version, database user and name. Then the
 master password, the <strong>source database</strong> (see below), whether to use Enterprise and how it should
-reach the server, whether to use Gitman, the resource profile (<code>small</code> for a VPS under 2 GB RAM,
-<code>medium</code> for 4–8 GB, <code>large</code> for 16+) and the remote path.</p>
+reach the server, whether to use Gitman, the PostgreSQL resource profile (<code>small</code> for a VPS under
+2 GB RAM, <code>medium</code> for 4–8 GB, <code>large</code> for 16+), <strong>Odoo's own performance settings</strong> (see below) and
+the remote path.</p>
 <blockquote>
 <p><strong>Enterprise reaches the server two ways (3.11).</strong> <code>rsync</code> transfers your local <code>enterprise/</code>
 directory; <code>clone</code> fetches <code>odoo/enterprise</code> on the VPS through a <strong>forwarded SSH agent</strong>, so no
@@ -1935,6 +1958,105 @@ outgoing mail fail silently — and repoint <code>web.base.url</code> at the env
 providers; doing that to production would stop the crons of the instance you are launching.</p>
 <p>The admin password of a seeded database is not replaced — its users keep theirs — and the closing
 panel says so instead of promising a new one.</p>
+<h3 id="tuning-odoo-per-environment">Tuning Odoo per environment</h3>
+<blockquote>
+<p><strong>New in 3.15.</strong> The performance block of the deployed <code>odoo.conf</code> — workers, cron threads, memory
+and time limits — is configurable per environment instead of being fixed by the environment's name.</p>
+</blockquote>
+<p>The wizard asks one question, defaulting to no:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>Performance: 2 workers, 1024 MiB soft limit, 120s request limit.
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>Tune Odoo&#39;s performance settings for this server? [y/n] (n)
+</span></code></pre></div>
+<p>Saying yes walks through the seven values with the effective ones as defaults, so answering through
+changes nothing. They are stored under <code>resources</code> in that environment's entry of
+<code>.rkd/instance.yaml</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>environments:
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>  prod:
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>    resources:
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>      workers: 4
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>      max_cron_threads: 2
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>      limit_memory_soft: 2147483648    # bytes, per worker
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>      limit_memory_hard: 2684354560    # bytes, per worker
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>      limit_time_cpu: 600              # seconds
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>      limit_time_real: 1200            # seconds
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a>      limit_request: 8192
+</span></code></pre></div>
+<p><strong>Every field is optional, and an absent one keeps the default the environment name implies</strong>, which
+is what Rocketdoo emitted before this existed — so an <code>instance.yaml</code> without a <code>resources</code> block
+deploys exactly as it used to.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>stage</code></th>
+<th><code>prod</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>workers</code></td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>max_cron_threads</code></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>limit_memory_soft</code></td>
+<td>768 MiB</td>
+<td>1 GiB</td>
+</tr>
+<tr>
+<td><code>limit_memory_hard</code></td>
+<td>1 GiB</td>
+<td>1.5 GiB</td>
+</tr>
+<tr>
+<td><code>limit_time_cpu</code></td>
+<td>60 s</td>
+<td>60 s</td>
+</tr>
+<tr>
+<td><code>limit_time_real</code></td>
+<td>120 s</td>
+<td>120 s</td>
+</tr>
+<tr>
+<td><code>limit_request</code></td>
+<td>8192</td>
+<td>8192</td>
+</tr>
+</tbody>
+</table>
+<p>The case this exists for: a project whose <code>odoo.conf</code> raises <code>limit_time_cpu</code> and <code>limit_time_real</code>
+to 600/1200 for large imports and heavy reports. Deploying it used to write 60/120 over those
+values, cutting both operations in half — and editing the file on the server was no fix, because the
+next deploy rewrites it, on both paths and with no guard, so a hand-tuned value is silently lost.</p>
+<p>Two mistakes are refused rather than deployed: a negative number, and a <code>limit_memory_hard</code> below
+<code>limit_memory_soft</code> — Odoo kills the worker instead of recycling it.</p>
+<blockquote>
+<p><strong>Memory limits are per worker, not per server.</strong> Rocketdoo's <code>memory</code> pre-flight check adds up
+<code>workers + max_cron_threads + 2</code> processes at the soft limit, plus PostgreSQL's share, and since
+3.15 it uses <strong>this environment's effective values</strong> rather than Rocketdoo's own constants — so a
+<code>resources</code> block that does not fit the VPS blocks the deploy before anything is written, naming
+the figures. Its hint now points at <code>workers</code> and <code>limit_memory_soft</code>, which is the knob that
+exists.</p>
+<p><strong>Not in the GUI.</strong> The Instances screen has no performance fields: configure them with
+<code>rkd instance init</code> or by editing <code>.rkd/instance.yaml</code>. Since 3.15 saving an environment from the
+GUI carries an existing <code>resources</code> block over instead of wiping it.</p>
+<p><strong>Sizing is not read from the server, on purpose.</strong> Physical RAM is not available RAM — a VPS may
+be running PostgreSQL and something else beside it — so Rocketdoo does not guess a number for you;
+it checks the one you chose against what it measured.</p>
+<p><strong><code>resources</code> and the PostgreSQL resource profile are different knobs.</strong> <code>small</code>/<code>medium</code>/<code>large</code>
+sizes <strong>PostgreSQL</strong> (shared buffers and connections); <code>resources</code> tunes <strong>Odoo</strong>.</p>
+<p><strong>One behaviour change for native deploys (3.15).</strong> The Docker template pinned
+<code>limit_request = 8192</code> while the native <code>odoo.conf</code> declared none of the three time limits and fell
+back to Odoo's own defaults. Both paths now write the same answer, so an existing native
+environment moves from <code>limit_request</code> 65536 to 8192 — the worker recycles more often, which is the
+more conservative of the two. The other two limits do not move.</p>
+</blockquote>
 <h3 id="the-pre-flight-and-a-dry-run-that-writes-nothing">The pre-flight, and a dry run that writes nothing</h3>
 <blockquote>
 <p><strong>Since 3.11.</strong> Both deployers open with a pre-flight: a single read-only SSH session that collects
@@ -1950,27 +2072,27 @@ the server's will not restore — and raises the disk space floor by twice the s
 <p><code>--dry-run</code> used to print "Deployment successful" without touching the VPS, while still writing a
 secrets file locally. It now runs that same pre-flight, connects only to read, <strong>writes nothing</strong>,
 and exits non-zero when something blocks — so this chain finally means what it looks like:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>rkd instance deploy --env prod --dry-run &amp;&amp; rkd instance deploy --env prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>rkd instance deploy --env prod --dry-run &amp;&amp; rkd instance deploy --env prod
 </span></code></pre></div>
 <ul>
 <li>Deploy to the staging environment:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>rkd instance deploy --env stage
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>rkd instance deploy --env stage
 </span></code></pre></div>
 <ul>
 <li>Deploy to production (with confirmation prompt):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>rkd instance deploy --env prod
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>rkd instance deploy --env prod
 </span></code></pre></div>
 <ul>
 <li>Deploy to production skipping the confirmation:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>rkd instance deploy --env prod --yes
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>rkd instance deploy --env prod --yes
 </span></code></pre></div>
 <ul>
 <li>Run the pre-flight without deploying (dry run):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>rkd instance deploy --env prod --dry-run
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>rkd instance deploy --env prod --dry-run
 </span></code></pre></div>
 <blockquote>
 <p><strong>Confirmations.</strong> <code>Deploy &lt;env&gt; to &lt;host&gt;?</code> defaults to no, <code>prod</code> adds a warning, and an
@@ -1979,7 +2101,7 @@ environment configured to be seeded asks again — on <code>prod</code> you have
 <ul>
 <li>Show status of all configured deployment targets:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>rkd instance status
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>rkd instance status
 </span></code></pre></div>
 <p><img alt="rkd instance status" src="../img/term-instance-status.svg" /></p>
 <h3 id="installing-traefik-on-the-vps">Installing Traefik on the VPS</h3>
@@ -1987,8 +2109,8 @@ environment configured to be seeded asks again — on <code>prod</code> you have
 <p><strong>New in 3.12.</strong> The Odoo container only exposes its port. Something has to answer on 80 and 443
 and obtain the certificate, and that is Traefik.</p>
 </blockquote>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>rkd instance traefik --env prod
-</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>rkd instance traefik --env stage --traefik-dir /opt/traefik --email ops@example.com
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>rkd instance traefik --env prod
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>rkd instance traefik --env stage --traefik-dir /opt/traefik --email ops@example.com
 </span></code></pre></div>
 <p>It installs Traefik on that environment's server — once per host — with the same configuration <code>rkd
 traefik</code> renders locally, reading <code>host</code>, <code>user</code> and the Let's Encrypt address from
@@ -2011,7 +2133,7 @@ nothing answers it names <code>rkd instance traefik --env &lt;env&gt;</code> as 
 <ul>
 <li>Start the GUI on the default port (8070):</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>rkd gui
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>rkd gui
 </span></code></pre></div>
 <blockquote>
 <p><strong>Since 3.4, read the URL it prints.</strong> Every run generates a session token and the GUI does not
@@ -2029,17 +2151,17 @@ a free port, and exits with an error.</p>
 <ul>
 <li>Start the GUI on a custom port:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>rkd gui --port 9090
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>rkd gui --port 9090
 </span></code></pre></div>
 <ul>
 <li>Start the GUI and open the browser automatically:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>rkd gui --open
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>rkd gui --open
 </span></code></pre></div>
 <ul>
 <li>Start the GUI for a project in a specific directory:</li>
 </ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>rkd gui --cwd /path/to/project
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>rkd gui --cwd /path/to/project
 </span></code></pre></div>
 <blockquote>
 <p>The GUI is available at <code>http://localhost:8070</code> by default — <strong>on the tokenised URL it prints</strong>.

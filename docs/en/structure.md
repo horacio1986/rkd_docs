@@ -67,7 +67,7 @@ However, do not worry, as you typically will not need to modify this file manual
 
 | File | What it holds |
 |---|---|
-| `.rkd/instance.yaml` | The stage and prod environments `rkd instance` deploys to: host, user, domain, Odoo and PostgreSQL versions, Enterprise and Gitman settings, resource profile, remote path, and the source database when the environment is seeded. |
+| `.rkd/instance.yaml` | The stage and prod environments `rkd instance` deploys to: host, user, domain, Odoo and PostgreSQL versions, Enterprise and Gitman settings, the PostgreSQL resource profile, Odoo's own [performance settings](command.md#tuning-odoo-per-environment) under `resources` (3.15), the remote path, and the source database when the environment is seeded. |
 | `.rkd/deploy.yaml` | The targets `rkd deploy` pushes modules to (`vps` or `odoo-sh`). |
 | `.rkd/traefik.yaml` | The local reverse proxy configuration written by `rkd traefik on`. |
 | `.rkd/secrets/` | Generated credentials — **never share this directory.** |

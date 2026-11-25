@@ -1292,6 +1292,10 @@ buttons; logs stream live over a WebSocket.</p>
 <p>A card per environment configured in <code>.rkd/instance.yaml</code> (stage, prod) with host, domain, Odoo
 version, deployment type and remote path, plus <strong>Deploy</strong> and a <strong>Dry run</strong> checkbox.</p>
 <blockquote>
+<p><strong>Performance settings are not on this screen.</strong> Workers and the memory and time limits live
+under <code>resources</code> in <code>.rkd/instance.yaml</code>; set them with <code>rkd instance init</code> or by editing the
+file. Since 3.15, saving an environment here carries an existing <code>resources</code> block over instead of
+wiping it. See <a href="../command/#tuning-odoo-per-environment">Tuning Odoo per environment</a>.</p>
 <p><strong>New in 3.14.</strong> Each card also carries a <strong>Seed database</strong> selector: <code>None — fresh database from
 scratch (recommended)</code>, or one of your local databases to restore into that environment. Picking
 one saves it straight away; the confirmation comes later, when you press <strong>Deploy</strong>, as a prompt
