@@ -147,7 +147,7 @@ O desde la web con el botón **New issue**.
 <qué pasa; pegar el traceback o la salida relevante en un bloque de código>
 
 ## Entorno
-- rocketdoo: `rkd --version` → 3.14.3
+- rocketdoo: `rkd --version` → 3.15.0
 - Python: 3.12.3
 - SO: Ubuntu 24.04 (WSL2)
 - Docker: 27.x / Compose v2.x

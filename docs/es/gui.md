@@ -168,6 +168,11 @@ Todo lo de los addons en una pantalla:
 Una tarjeta por entorno configurado en `.rkd/instance.yaml` (stage, prod) con host, dominio, versión
 de Odoo, tipo de despliegue y ruta remota, más **Desplegar** y la casilla **Simulación (dry run)**.
 
+> **Los parámetros de rendimiento no están en esta pantalla.** Los workers y los límites de memoria
+> y de tiempo viven bajo `resources` en `.rkd/instance.yaml`; se configuran con `rkd instance init` o
+> editando el archivo. Desde la 3.15, guardar un entorno acá conserva el bloque `resources` existente
+> en vez de borrarlo. Ver [Afinar Odoo por entorno](command.md#afinar-odoo-por-entorno).
+
 > **Nuevo en la 3.14.** Cada tarjeta lleva además un selector **Base de datos de origen**: `Ninguna —
 > base nueva de cero (recomendado)`, o alguna de tus bases locales para restaurar en ese entorno.
 > Elegir una la guarda en el acto; la confirmación llega después, al apretar **Desplegar**, como un
